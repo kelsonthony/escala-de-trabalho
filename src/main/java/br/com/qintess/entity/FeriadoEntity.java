@@ -3,31 +3,31 @@ package br.com.qintess.entity;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.UUID;
-
 
 public class FeriadoEntity {
 
-  private UUID id;
+  private int id;
   private String nome;
   private LocalDate data;
   private String diaDaSemana;
+  private int valorDia;
 
-  public FeriadoEntity(UUID id, String nome, LocalDate data, String diaDaSemana) {
+  public FeriadoEntity(int id, String nome, LocalDate data, String diaDaSemana, int valorDia) {
     this.id = id;
     this.nome = nome;
     this.data = data;
     this.diaDaSemana = diaDaSemana;
+    this.valorDia = valorDia;
   }
 
   public FeriadoEntity() {
   }
 
-  public UUID getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(UUID id) {
+  public void setId(int id) {
     this.id = id;
   }
 
@@ -55,6 +55,14 @@ public class FeriadoEntity {
     this.diaDaSemana = diaDaSemana;
   }
 
+  public int getValorDia() {
+    return valorDia;
+  }
+
+  public void setValorDia(int valorDia) {
+    this.valorDia = valorDia;
+  }
+
   @Override
   public String toString() {
     return "FeriadoEntity{" +
@@ -62,6 +70,7 @@ public class FeriadoEntity {
       ", nome='" + nome + '\'' +
       ", data=" + data +
       ", diaDaSemana='" + diaDaSemana + '\'' +
+      ", valorDia=" + valorDia +
       '}';
   }
 
@@ -70,11 +79,11 @@ public class FeriadoEntity {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     FeriadoEntity that = (FeriadoEntity) o;
-    return Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(data, that.data) && Objects.equals(diaDaSemana, that.diaDaSemana);
+    return valorDia == that.valorDia && Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(data, that.data) && Objects.equals(diaDaSemana, that.diaDaSemana);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, nome, data, diaDaSemana);
+    return Objects.hash(id, nome, data, diaDaSemana, valorDia);
   }
 }
