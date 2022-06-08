@@ -31,7 +31,7 @@ Sistema de escala de trabalho automática 1.0
 * Utilizamos a notação IDEF1X (Integration Definition for Information Modeling).
 
 - TB_FUNCIONARIO
-- TB_PERFIL_FUNCIONARIO
+- TB_CARGO_FUNCIONARIO
 - TB_FERIADO
 - TB_ESCALA_TRABALHO
 - TB_HORA_EXTRA
@@ -44,34 +44,34 @@ Sistema de escala de trabalho automática 1.0
 - TB_MES
 - TB_DIA_MES
 
-
-
 ### Campos das Tabelas:
 
-- TB_FUNCIONARIO ((pk)matricula,id, nome, senha, email, (fk)perfil_funcionario, (fk)cargo_funcionario)
-
-
-- TB_PERFIL_FUNCIONARIO ((pk)id, nome, sigla, horas_extras_permitidas)
+- TB_FUNCIONARIO ((pk)matricula,id, nome, localidade, codigo, senha, email, (fk)perfil_funcionario, (fk)cargo_funcionario)
+- TB_CARGO_FUNCIONARIO ((pk)id, nome, sigla, permissao_acesso, horas_extras_permitidas)
 - TB_FERIADO ((pk)id , nome,tipo, data,dia_semana)
 - TB_GRUPO_FUNCIONARIOS ((pk)id, nome)
 - TB_HORA_EXTRA((pk)id, mes, ano, total_horas, (fk)funcionario)
-
-
 - TB_ESCALA_TRABALHO ((pk)id, data, (fk)funcionario)
-
-
 - TB_TURNO ((pk) id, nome, sigla, hora_inicio,hora_termino,total_horas)
-
-
 - TB_TURNO_ALTERNADOS ((pk) id, quant_dias_consecutivos_trabalho, quant_dias_folga,trabalha_no_feriado)
-
-
 - TB_TURNO_FIXO (pk)(id,trabalha_no_feriado,fk_dias_turno)
 - TB_DIAS_TURNO_FIXO ((pk)id,segunda,terca,quarta,quinta,sexta,sabado,domingo)
-
-
 - TB_ESCALA_TRABALHO (id,data,fk_funcionario)
 
+### Padrões e Regras dos campos das tabelas
+
+- TB_FUNCIONARIO
+. localidade : Aceita apenas os valores fixos(P,R) -- ( P = Localidade Presencial), ( R = Localidade Remota )
+. codigo: Padrão formado pelo valor do campo (sigla) da tabela (TB_CARGO) seguido de no máximo 3 números inteiros não negativos e pelo valor do campo localidade.
+
+- TB_CARGO_FUNCIONARIO
+. sigla : Tamanho máximo do campo (10), aceitando apenas letras de A-Z.
+
+- TB_FERIADO
+. tipo : Aceita apenas os valores fixos(Federal, Estadual e Municipal).
+
+- TB_TURNO
+. sigla: Padão formado por no máximo duas letras de A-Z seguido de no máximo de 3 números inteiros não negativos.
 
 ### Ferramentas utilizadas:
 
@@ -82,6 +82,12 @@ Sistema de escala de trabalho automática 1.0
 - Spring Boot
 - Spring Web MVC
 - Spring Security
+
+
+
+
+
+
 
 
 
