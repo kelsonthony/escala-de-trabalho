@@ -1,4 +1,4 @@
-# Escala de Trabalho Automatizado
+# Escala de Trabalho Automatizada
 
 Sistema de escala de trabalho automática 1.0
 
@@ -27,7 +27,7 @@ Sistema de escala de trabalho automática 1.0
 
 ### MER (Modelo de Entidade e Relacionamento) Físico:
 
-* Modelamos até a 3º Forma Normal para um banco de dados Oracle.
+* Modelamos até a 3º Forma Normal para um banco de dados Oracle 21c.
 * Utilizamos a notação IDEF1X (Integration Definition for Information Modeling).
 
 - TB_FUNCIONARIO
@@ -75,7 +75,7 @@ Sistema de escala de trabalho automática 1.0
 
 ### Ferramentas utilizadas:
 
-- Oracle Database
+- Oracle Database 21c
 - Erwin 7.3
 - Java 1.8
 - Spring Framework
