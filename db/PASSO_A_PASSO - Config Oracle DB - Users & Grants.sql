@@ -13,10 +13,20 @@ Versão: 1.0
 -- Passo 1 : Alternar do CDB CDB$ROOT para o PDB XEPDB1
 ALTER SESSION SET container = xepdb1;
 
--- Passo 2 : Criar Tablespace para armazenar Tabelas do Usuario
+-- Passo 2 : Criar Tablespaces para armazenar Tabelas e Índices.
+-- Criaremos duas tablespaces para o nosso projeto, uma para dados 
+-- e outra para índices, utilizando o prefixo TSD para a tablespace 
+-- de dados e TSI para a tablespace de índices.
+
+-- Tablespace de dados
 CREATE TABLESPACE 
-TS_ESCALA
-DATAFILE 'TS_ESCALA_DATA.dbf' SIZE 1M ONLINE;
+TSD_ESCALA
+DATAFILE 'TSD_ESCALA_DATA.dbf' SIZE 1M ONLINE;
+
+-- Tablespace de índices
+CREATE TABLESPACE 
+TSI_ESCALA
+DATAFILE 'TSI_ESCALA_DATA.dbf' SIZE 1M ONLINE;
 
 -- Passo 3 : Criar usuario USR_ESCALA
 CREATE USER USR_ESCALA IDENTIFIED BY Q1ntess;
@@ -35,7 +45,7 @@ CREATE TABLE TB_TESTE
 (
 CODIGO NUMBER(8),
 NOME VARCHAR2(50)
-)TABLESPACE TS_ESCALA ;
+)TABLESPACE TSD_ESCALA ;
 
 -- Passo 6 : Para trabalhar com a tabela criada devemos ajustar os 
 -- Privilegios / Permissões do usuário USR_ESCALA, para isso, 
@@ -50,9 +60,10 @@ DEFAULT_TABLESPACE
 USERS 
 */
 
--- Passo 7 : Conceder privilegios nas tablespaces USERS e TS_ESCALA
+-- Passo 7 : Conceder privilegios nas tablespaces relacionadas
 ALTER USER USR_ESCALA QUOTA UNLIMITED ON USERS;
-ALTER USER USR_ESCALA QUOTA UNLIMITED ON TS_ESCALA;
+ALTER USER USR_ESCALA QUOTA UNLIMITED ON TSD_ESCALA;
+ALTER USER USR_ESCALA QUOTA UNLIMITED ON TSI_ESCALA;
 
 -- Passo 8 : Conceder outros privilegios para criar view, procedure e sequence
 GRANT CREATE view, CREATE procedure, CREATE sequence TO USR_ESCALA;
@@ -79,14 +90,14 @@ FROM
 WHERE 
     account_status = 'OPEN';
 
--- Passo 11 : Verificar Objetos da TABLESPACE TS_ESCALA
+-- Passo 11 : Verificar Objetos da TABLESPACE TSD_ESCALA
 SELECT
     OWNER,
     TABLE_NAME,
     TABLESPACE_NAME
 FROM
     ALL_TABLES
-Where TABLESPACE_NAME = 'TS_ESCALA';
+Where TABLESPACE_NAME = 'TSD_ESCALA';
 
 -- Passo 12 : Por fim, para termos o ambiente limpo, no SQL Plus, devemos apagar a TB_TESTE
 DROP TABLE TB_TESTE;
