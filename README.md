@@ -73,18 +73,25 @@ Sistema de escala de trabalho automática 1.0
 - TB_TURNO
 . sigla: Padão formado por no máximo duas letras de A-Z seguido de no máximo de 3 números inteiros não negativos.
 
-### Ferramentas utilizadas:
+### Ferramentas e tecnologias utilizadas:
 
-- Oracle Database 21c
-- Erwin 7.3
 - Java 1.8
+- Oracle Database 21c
 - Spring Framework
 - Spring Boot
-- Spring Web MVC
+- Spring MVC
+- Spring Data JPA
 - Spring Security
+- Maven
+- Flyway
+- Thymeleaf
+- HTML5
+- Bootstrap
 
+### - Maven
 
-
+Comando Maven para instalar a Library do Oracle em nosso projeto:
+C:> mvn install:install-file -Dfile=C:\Oracle\app\product\21c\dbhomeXE\jdbc\lib\ojdbc8.jar -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=21.3 -Dpackaging=jar
 
 
 
