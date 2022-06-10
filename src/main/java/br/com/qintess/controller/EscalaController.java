@@ -26,4 +26,8 @@ public class EscalaController {
         return "login";
     }
 
+    @GetMapping("/contato-suporte")
+    public String contatoSuporte() {
+        return "contato-suporte";
+    }
 }
