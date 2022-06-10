@@ -92,8 +92,15 @@ Sistema de escala de trabalho automática 1.0
 
 Comando Maven para instalar a Library do Oracle em nosso projeto:
 C:> mvn install:install-file -Dfile=C:\Oracle\app\product\21c\dbhomeXE\jdbc\lib\ojdbc8.jar -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=21.3 -Dpackaging=jar
+#### DICA: Alterar o caminho da propriedade -Dfile que aponta para ojdbc8.jar conforme o caminha de sus instalação.
 
+### - Flyway
 
+No arquivo application.properties (src/main/resources/application.properties) acrescentamos as seguintes diretivas para evitar conflitos entre o Flyway e Hibernate:
+
+spring.jpa.hibernate.ddl-auto=none
+
+spring.jpa.show-sql=false
 
 
 
