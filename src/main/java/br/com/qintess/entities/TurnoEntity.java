@@ -16,8 +16,8 @@ public class TurnoEntity {
   private String nome;
   private String sigla;
   private boolean trabalhaNoFeriado;
-  private String horaIncial;
-  private String horaFinal;
+  private String horaInicio;
+  private String horaTermino;
   private String totalHoras;
 
 
