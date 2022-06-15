@@ -30,7 +30,7 @@ public class Cargo {
     @Column(nullable = false, length = 10)
     private String permissaoAcesso;
 
-    @Range(min = 0, max = 10)
+    @Range(min = 0, max = 999)
     @Column(nullable = true, length = 999)
     private int horasExtrasPermitidas;
 
