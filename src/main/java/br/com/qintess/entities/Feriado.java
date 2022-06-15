@@ -1,8 +1,11 @@
 package br.com.qintess.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -20,7 +23,7 @@ public class Feriado {
 
     @NotBlank
     @Column(nullable = false)
-    private Date data;
+    private LocalDate data;
 
     @NotBlank
     @Size(min = 2, max = 8)
@@ -48,11 +51,11 @@ public class Feriado {
         this.nome = nome;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
