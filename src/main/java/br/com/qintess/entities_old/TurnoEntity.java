@@ -1,4 +1,4 @@
-package br.com.qintess.entities;
+package br.com.qintess.entities_old;
 
 
 import javax.persistence.Entity;

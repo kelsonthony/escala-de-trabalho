@@ -1,4 +1,4 @@
-package br.com.qintess.domain;
+package br.com.qintess.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

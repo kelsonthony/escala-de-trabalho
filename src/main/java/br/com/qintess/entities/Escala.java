@@ -1,4 +1,4 @@
-package br.com.qintess.domain;
+package br.com.qintess.entities;
 
 import org.hibernate.validator.constraints.Range;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "TB_ESCALA_TRABALHO")
-public class EscalaTrabalho {
+public class Escala {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

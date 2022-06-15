@@ -1,4 +1,4 @@
-package br.com.qintess.domain;
+package br.com.qintess.entities;
 
 import org.hibernate.validator.constraints.Range;
 

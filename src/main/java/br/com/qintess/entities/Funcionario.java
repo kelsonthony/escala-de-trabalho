@@ -1,4 +1,4 @@
-package br.com.qintess.domain;
+package br.com.qintess.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -57,7 +57,7 @@ public class Funcionario {
     private Turno turno;
 
     @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
-    private List<EscalaTrabalho> escalas;
+    private List<Escala> escala;
 
     public long getId() {
         return id;
@@ -139,11 +139,11 @@ public class Funcionario {
         this.turno = turno;
     }
 
-    public List<EscalaTrabalho> getEscalas() {
-        return escalas;
+    public List<Escala> getEscala() {
+        return escala;
     }
 
-    public void setEscalas(List<EscalaTrabalho> escalas) {
-        this.escalas = escalas;
+    public void setEscala(List<Escala> escala) {
+        this.escala = escala;
     }
 }

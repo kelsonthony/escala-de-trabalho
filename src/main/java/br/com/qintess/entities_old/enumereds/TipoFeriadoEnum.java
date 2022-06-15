@@ -1,4 +1,4 @@
-package br.com.qintess.entities.enumereds;
+package br.com.qintess.entities_old.enumereds;
 
 public enum TipoFeriadoEnum {
 

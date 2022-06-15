@@ -1,4 +1,4 @@
-package br.com.qintess.entities;
+package br.com.qintess.entities_old;
 
 
 import java.time.LocalTime;
