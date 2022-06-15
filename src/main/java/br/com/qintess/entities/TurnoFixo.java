@@ -1,6 +1,6 @@
 package br.com.qintess.entities;
 
-import br.com.qintess.entities_old.enumereds.TipoFeriadoEnum;
+import br.com.qintess.entities.enumereds.TipoFeriadoEnum;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
