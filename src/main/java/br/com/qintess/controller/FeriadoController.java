@@ -1,6 +1,7 @@
 package br.com.qintess.controller;
 
 
+import br.com.qintess.entities.Cargo;
 import br.com.qintess.entities.Feriado;
 import br.com.qintess.services.interfaces.IFeriadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,37 @@ public class FeriadoController {
 
   }
 
+  @PostMapping("/salvar")
+  public String salvar(@Valid @ModelAttribute("feriado") Feriado feriado, BindingResult result, RedirectAttributes attr) {
+    if(result.hasErrors()) {
+      return "/feriado/add";
+    }
+
+    feriadoService.salvar(feriado);
+    attr.addFlashAttribute("mensagem", "Feriado criado com sucesso.");
+    return "redirect:/feriados/listar";
+  }
+
+  @GetMapping("/{id}/atualizar")
+  public ModelAndView atualizar(@PathVariable("id") long id, ModelMap model) {
+    Feriado feriado = feriadoService.listarPorId(id);
+    model.addAttribute("feriado", feriado);
+    return new ModelAndView("/feriado/add", model);
+  }
+
+  @PutMapping("/salvar")
+  public ModelAndView salvarAtualizacao(@Valid @ModelAttribute("feriado") Feriado feriado, BindingResult result, RedirectAttributes attr) {
+    if(result.hasErrors()) {
+      return new ModelAndView("/feriado/add");
+    }
+
+    feriadoService.atualizar(feriado);
+    attr.addFlashAttribute("mensagem", "Feriado atualizado com sucesso.");
+    return new ModelAndView("redirect:/feriados/listar");
+  }
+
   @GetMapping("{id}/remover")
-  public String remover(@PathVariable("id") Integer id, RedirectAttributes attr){
+  public String remover(@PathVariable("id") long id, RedirectAttributes attr){
 
     if(feriadoService.listarPorId(id) == null){
       attr.addFlashAttribute("mensagem", "Feriado informado não existe");
@@ -47,17 +77,5 @@ public class FeriadoController {
 
   }
 
-
-
-  @PostMapping("/salvar")
-  public String salvar(@Valid @ModelAttribute("feriado") Feriado feriado, BindingResult result, RedirectAttributes attr) {
-    if(result.hasErrors()) {
-      return "/feriado/add";
-    }
-
-    feriadoService.salvar(feriado);
-    attr.addFlashAttribute("mensagem", "Feriado criado com sucesso.");
-    return "redirect:/feriados/listar";
-  }
 
 }
