@@ -1,6 +1,7 @@
-package br.com.qintess.repositories.interfaces;
+package br.com.qintess.repositories;
 
 import br.com.qintess.entities.Feriado;
+import br.com.qintess.repositories.interfaces.IFeriadoRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -8,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class FeriadoRepository implements IFeriadoRepository{
+public class FeriadoRepository implements IFeriadoRepository {
 
   @PersistenceContext
   private EntityManager em;
@@ -38,4 +39,5 @@ public class FeriadoRepository implements IFeriadoRepository{
     this.em.remove(this.em.getReference(Feriado.class,id));
 
   }
+
 }
