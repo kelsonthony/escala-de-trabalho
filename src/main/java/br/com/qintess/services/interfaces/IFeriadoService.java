@@ -10,5 +10,5 @@ public interface IFeriadoService {
     Feriado listarPorId(Integer id);
     List<Feriado> listar();
     void atualizar(Feriado feriado);
-    void excluirPorId(Integer id);
+    void excluir(Integer id);
 }

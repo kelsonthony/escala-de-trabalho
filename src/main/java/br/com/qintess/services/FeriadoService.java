@@ -50,7 +50,8 @@ public class FeriadoService implements IFeriadoService {
   }
 
   @Override
-  public void excluirPorId(final Integer id) {
+  @Transactional
+  public void excluir(final Integer id) {
 
     this.feriadoRepository.excluir(id);
 
