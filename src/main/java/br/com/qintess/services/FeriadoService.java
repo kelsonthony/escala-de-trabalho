@@ -16,7 +16,7 @@ public class FeriadoService implements IFeriadoService {
 
 
   @Override
-  public void save(final Feriado feriado) {
+  public void salvar(final Feriado feriado) {
 
     this.feriadoRepository.salvar(feriado);
 

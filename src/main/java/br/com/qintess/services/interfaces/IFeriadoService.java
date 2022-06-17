@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IFeriadoService {
 
-    void save(Feriado feriado);
+    void salvar(Feriado feriado);
     Feriado listarPorId(Integer id);
     List<Feriado> listar();
     void atualizar(Feriado feriado);
