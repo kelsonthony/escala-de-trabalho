@@ -25,7 +25,6 @@ public class FeriadoController {
 
   @GetMapping("/listar")
   public ModelAndView listar(ModelMap model) {
-
     model.addAttribute("feriados", feriadoService.listar());
     return new ModelAndView("/feriado/list", model);
   }
@@ -44,7 +43,7 @@ public class FeriadoController {
 
     feriadoService.salvar(feriado);
     attr.addFlashAttribute("mensagem", "Feriado criado com sucesso.");
-    return "redirect:/feriado/listar";
+    return "redirect:/feriados/listar";
   }
 
 }

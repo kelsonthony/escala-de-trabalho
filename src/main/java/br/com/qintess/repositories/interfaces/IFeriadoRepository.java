@@ -1,11 +1,11 @@
 package br.com.qintess.repositories.interfaces;
 
 import br.com.qintess.entities.Feriado;
-import org.springframework.stereotype.Repository;
+
 
 import java.util.List;
 
-@Repository
+
 public interface IFeriadoRepository {
 
   void salvar(Feriado feriado);

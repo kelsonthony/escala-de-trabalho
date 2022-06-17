@@ -3,6 +3,7 @@ package br.com.qintess.entities;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class Feriado {
     private String nome;
 
 
-    @NotBlank
+    @NotNull
     @Column(nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate data;

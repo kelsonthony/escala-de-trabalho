@@ -15,7 +15,7 @@ public class FeriadoRepository implements IFeriadoRepository {
   private EntityManager em;
 
   @Override
-  public void salvar( final Feriado feriado) {
+  public void salvar(Feriado feriado) {
     this.em.persist(feriado);
   }
 

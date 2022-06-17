@@ -35,9 +35,9 @@
             <div class="form-group col-md-4">
               <label for="tipo">Tipo:</label>
               <select class="form-control form-select-lg mb-3" aria-label=".form-select-lg example" th:field="*{tipo}" id="tipo">
-                <option value="NACIONAL">Nacional</option>
-                <option value="ESTADUAL">Estadual</option>
-                <option value="FEDERAL'">Municipal</option>
+                <option th:value="Nacional">Nacional</option>
+                <option th:value="Estadual">Estadual</option>
+                <option th:value="Municipal">Municipal</option>
               </select>
               <div th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}"></div>
             </div>
