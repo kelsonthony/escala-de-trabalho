@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -42,6 +39,31 @@ public class CargoController {
 
         cargoService.salvar(cargo);
         attr.addFlashAttribute("mensagem", "Cargo criado com sucesso.");
+        return "redirect:/cargos/listar";
+    }
+
+    @GetMapping("/{id}/atualizar")
+    public ModelAndView atualizar(@PathVariable("id") long id, ModelMap model) {
+        Cargo cargo = cargoService.listarPorId(id);
+        model.addAttribute("cargo", cargo);
+        return new ModelAndView("/cargo/add", model);
+    }
+
+    @PutMapping("/salvar")
+    public ModelAndView salvarAtualizacao(@Valid @ModelAttribute("cargo") Cargo cargo, BindingResult result, RedirectAttributes attr) {
+        if(result.hasErrors()) {
+            return new ModelAndView("/cargo/add");
+        }
+
+        cargoService.atualizar(cargo);
+        attr.addFlashAttribute("mensagem", "Cargo atualizado com sucesso.");
+        return new ModelAndView("redirect:/cargos/listar");
+    }
+
+    @GetMapping("/{id}/remover")
+    public String remover(@PathVariable("id") long id, RedirectAttributes attr) {
+        cargoService.excluir(id);
+        attr.addFlashAttribute("mensagem", "Cargo excluído com sucesso.");
         return "redirect:/cargos/listar";
     }
 }

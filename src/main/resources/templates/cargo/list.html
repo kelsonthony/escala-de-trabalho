@@ -58,8 +58,10 @@
                                 <td th:text="${cargo.permissaoAcesso}">Permissão de acesso</td>
                                 <td th:text="${cargo.horasExtrasPermitidas}">Horas Extras Permitidas</td>
                                 <td>
-                                    <a class="btn btn-sm btn-info" th:href="@{/cargos/{id}/atualizar(id=${cargo.id})}">Atualizar</a>
-                                    <a class="btn btn-sm btn-danger" th:href="@{/cargos/{id}/remover(id=${cargo.id})}">Remover</a>
+                                    <div class="btn-group" role="group" aria-label="Actions">
+                                        <a class="btn btn-sm btn-info" th:href="@{/cargos/{id}/atualizar(id=${cargo.id})}">Atualizar</a>
+                                        <a class="btn btn-sm btn-danger" th:href="@{/cargos/{id}/remover(id=${cargo.id})}">Remover</a>
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>

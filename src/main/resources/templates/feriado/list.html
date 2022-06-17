@@ -58,8 +58,10 @@
                                 <td th:text="${feriado.tipo}">Tipo</td>
                                 <td th:text="${feriado.diaSemana}">Dia da Semana</td>
                                 <td>
-                                    <a class="btn btn-sm btn-info" th:href="@{/feriados/{id}/atualizar(id=${feriado.id})}">Atualizar</a>
-                                    <a class="btn btn-sm btn-danger" th:href="@{/feriados/{id}/remover(id=${feriado.id})}">Remover</a>
+                                    <div class="btn-group" role="group" aria-label="Actions">
+                                        <a class="btn btn-sm btn-info" th:href="@{/feriados/{id}/atualizar(id=${feriado.id})}">Atualizar</a>
+                                        <a class="btn btn-sm btn-danger" th:href="@{/feriados/{id}/remover(id=${feriado.id})}">Remover</a>
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>
