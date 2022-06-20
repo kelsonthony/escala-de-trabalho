@@ -12,17 +12,17 @@
 <div layout:fragment="content">
     <div class="card mb-4"></div>
     <div th:switch="${type}">
-        <ol th:case="'cargo'" class="breadcrumb mb-4">
+        <ol th:case="'Cargos'" class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a  href="/cargos/listar">Cargos</a></li>
             <li class="breadcrumb-item active"><span th:text="${nome}">nome</span></li>
         </ol>
 
-        <ol th:case="'equipe'" class="breadcrumb mb-4">
+        <ol th:case="'Equipes'" class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a  href="/equipes/listar">Equipes</a></li>
             <li class="breadcrumb-item active"><span th:text="${nome}">nome</span></li>
         </ol>
 
-        <ol th:case="'turno'" class="breadcrumb mb-4">
+        <ol th:case="'Turnos'" class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a  href="/turnos/listar">Turnos</a></li>
             <li class="breadcrumb-item active"><span th:text="${nome}">nome</span></li>
         </ol>
@@ -93,7 +93,7 @@
         <div th:if="${#lists.isEmpty(funcionarios)}">
             <div class="alert alert-info" role="alert">
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
-                0 funcionários cadastrados!
+                Nenhum funcionário cadastrado no módulo => <span th:text="${type}">type</span>: <span th:text="${nome}">nome</span>
             </div>
         </div>
     </div>

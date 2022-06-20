@@ -1,10 +1,13 @@
 package br.com.qintess.controller;
 
+import br.com.qintess.entities.Cargo;
+import br.com.qintess.entities.Equipe;
 import br.com.qintess.entities.Funcionario;
-import br.com.qintess.services.FuncionarioService;
+import br.com.qintess.services.interfaces.ICargoService;
+import br.com.qintess.services.interfaces.IEquipeService;
+import br.com.qintess.services.interfaces.IFuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +22,13 @@ import java.util.List;
 public class FuncionarioController {
 
     @Autowired
-    private FuncionarioService funcionarioService;
+    private IFuncionarioService funcionarioService;
+
+    @Autowired
+    private ICargoService cargoService;
+
+    @Autowired
+    private IEquipeService equipeService;
 
     @GetMapping("/listar")
     public ModelAndView listar(ModelMap model) {
@@ -35,13 +44,12 @@ public class FuncionarioController {
 
     @GetMapping("/listar/cargo/{cargoId}")
     public ModelAndView listarPorCargo(@PathVariable("cargoId") long cargoId, ModelMap model) {
+        Cargo cargo = cargoService.listarPorId(cargoId);
         List<Funcionario> funcionarios = funcionarioService.listarPorCargo(cargoId);
-        String nome = funcionarios.get(0).getCargo().getNome();
-        String sigla = funcionarios.get(0).getCargo().getSigla();
 
         model.addAttribute("cargoId", cargoId);
-        model.addAttribute("nome", nome + " (" + sigla + ") ");
-        model.addAttribute("type", "cargo");
+        model.addAttribute("nome", cargo.getNome() + " (" + cargo.getSigla() + ") ");
+        model.addAttribute("type", "Cargos");
         if(!funcionarios.isEmpty())
             model.addAttribute("funcionarios", funcionarios);
 
@@ -50,26 +58,12 @@ public class FuncionarioController {
 
     @GetMapping("/listar/equipe/{equipeId}")
     public ModelAndView listarPorEquipe(@PathVariable("equipeId") long equipeId, ModelMap model){
+        Equipe equipe = equipeService.listarPorId(equipeId);
         List<Funcionario> funcionarios = funcionarioService.listarPorEquipe(equipeId);
-        String nome = funcionarios.get(0).getEquipe().getNome();
 
         model.addAttribute("equipeId", equipeId);
-        model.addAttribute("nome", nome);
-        model.addAttribute("type", "equipe");
-        if(!funcionarios.isEmpty())
-            model.addAttribute("funcionarios", funcionarios);
-
-        return new ModelAndView("/funcionario/list", model);
-    }
-
-    @GetMapping("/listar/turno/{turnoId}")
-    public ModelAndView listarPorTurno(@PathVariable("turnoId") long turnoId, ModelMap model){
-        List<Funcionario> funcionarios = funcionarioService.listarPorTurno(turnoId);
-        String nome = funcionarios.get(0).getTurno().getNome();
-
-        model.addAttribute("turnoId", turnoId);
-        model.addAttribute("nome", nome);
-        model.addAttribute("type", "turno");
+        model.addAttribute("nome", equipe.getNome());
+        model.addAttribute("type", "Equipes");
         if(!funcionarios.isEmpty())
             model.addAttribute("funcionarios", funcionarios);
 
