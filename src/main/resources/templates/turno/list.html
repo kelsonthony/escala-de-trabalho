@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no"/>
+
+    <title>Turnos - Escala de Trabalho Automática</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card mb-4"></div>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/turnos/listar">Turnos</a></li>
+        <li class="breadcrumb-item">Listar Turnos</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div th:if="${turnos != null}">
+
+            <div th:if="${mensagem != null}">
+                <div class="alert alert-info" role="alert">
+                    <span th:text="${mensagem == null ? '&nbsp;' : mensagem}">mensagem</span>
+                </div>
+            </div>
+
+            <div class="card-header">
+                <i class="fas fa-table mr-1"></i>
+                Turnos
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+
+                          <th>Nome</th>
+                          <th>Sigla</th>
+                          <th>Tipo do Turno</th>
+                          <th>Horário do Início</th>
+                          <th>Horário do Termino</th>
+                          <th>Total de horas</th>
+                          <th>Ações</th>
+
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                          <th>Nome</th>
+                          <th>Sigla</th>
+                          <th>Tipo do Turno</th>
+                          <th>Horário do Início</th>
+                          <th>Horário do Termino</th>
+                          <th>Total de horas</th>
+                          <th>Ações</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr th:each="turno : ${turnos}">
+                          <td th:text="${turno.nome}">Nome</td>
+                          <td th:text="${turno.sigla}">turno</td>
+                          <td>
+                            <p th:if="${turno.turnoFixo != null}">Fixo</p>
+                            <p th:if="${turno.turnoAlternado != null}">Alternado</p>
+                          </td>
+                          <td th:text="${turno.horaInicio}">Horário do Início</td>
+                          <td th:text="${turno.horaTermino}">Horário do Termino</td>
+                          <td th:text="${turno.totalHoras}">Total de horas</td>
+                          <td>
+                            <div class="btn-group" role="group" aria-label="Actions">
+                              <a class="btn btn-sm btn-info" th:href="@{/turnos/{id}/atualizar(id=${turno.id})}">Atualizar</a>
+                              <a class="btn btn-sm btn-danger" th:href="@{/turnos/{id}/remover(id=${turno.id})}" >Remover</a>
+                            </div>
+                          </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div th:if="${#lists.isEmpty(turnos)}">
+            <div class="alert alert-info" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                0 turnos cadastrados!
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
