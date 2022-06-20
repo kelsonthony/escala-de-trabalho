@@ -93,7 +93,7 @@
         <div th:if="${#lists.isEmpty(funcionarios)}">
             <div class="alert alert-info" role="alert">
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
-                Nenhum funcionário cadastrado no módulo => <span th:text="${type}">type</span>: <span th:text="${nome}">nome</span>
+                Nenhum funcionário cadastrado em: <span th:text="${type}">type</span> / <span th:text="${nome}">nome</span>
             </div>
         </div>
     </div>

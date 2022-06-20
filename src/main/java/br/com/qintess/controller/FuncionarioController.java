@@ -3,9 +3,11 @@ package br.com.qintess.controller;
 import br.com.qintess.entities.Cargo;
 import br.com.qintess.entities.Equipe;
 import br.com.qintess.entities.Funcionario;
+import br.com.qintess.entities.Turno;
 import br.com.qintess.services.interfaces.ICargoService;
 import br.com.qintess.services.interfaces.IEquipeService;
 import br.com.qintess.services.interfaces.IFuncionarioService;
+import br.com.qintess.services.interfaces.ITurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +31,9 @@ public class FuncionarioController {
 
     @Autowired
     private IEquipeService equipeService;
+
+    @Autowired
+    private ITurnoService turnoService;
 
     @GetMapping("/listar")
     public ModelAndView listar(ModelMap model) {
@@ -64,6 +69,20 @@ public class FuncionarioController {
         model.addAttribute("equipeId", equipeId);
         model.addAttribute("nome", equipe.getNome());
         model.addAttribute("type", "Equipes");
+        if(!funcionarios.isEmpty())
+            model.addAttribute("funcionarios", funcionarios);
+
+        return new ModelAndView("/funcionario/list", model);
+    }
+
+    @GetMapping("/listar/turno/{turnoId}")
+    public ModelAndView listarPorTurno(@PathVariable("turnoId") long turnoId, ModelMap model){
+        Turno turno = turnoService.listarPorId(turnoId);
+        List<Funcionario> funcionarios = funcionarioService.listarPorTurno(turnoId);
+
+        model.addAttribute("turnoId", turnoId);
+        model.addAttribute("nome", turno.getNome());
+        model.addAttribute("type", "Turnos");
         if(!funcionarios.isEmpty())
             model.addAttribute("funcionarios", funcionarios);
 
