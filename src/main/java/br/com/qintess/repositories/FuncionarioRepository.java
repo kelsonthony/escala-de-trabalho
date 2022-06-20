@@ -26,9 +26,28 @@ public class FuncionarioRepository implements IFuncionarioRepository {
     }
 
     @Override
+    public Funcionario listarPorId(long id) {
+        return em.find(Funcionario.class, id);
+    }
+
+    @Override
     public List<Funcionario> listarPorCargo(long cargoId) {
         return em.createQuery("SELECT f FROM Funcionario f WHERE f.cargo.id = :cargoId", Funcionario.class)
                 .setParameter("cargoId", cargoId)
+                .getResultList();
+    }
+
+    @Override
+    public List<Funcionario> listarPorEquipe(long equipeId) {
+        return em.createQuery("SELECT f FROM Funcionario f WHERE f.equipe.id = :equipeId", Funcionario.class)
+                .setParameter("equipeId", equipeId)
+                .getResultList();
+    }
+
+    @Override
+    public List<Funcionario> listarPorTurno(long turnoId) {
+        return em.createQuery("SELECT f FROM Funcionario f WHERE f.turno.id = :turnoId", Funcionario.class)
+                .setParameter("turnoId", turnoId)
                 .getResultList();
     }
 

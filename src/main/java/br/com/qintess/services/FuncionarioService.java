@@ -35,8 +35,26 @@ public class FuncionarioService implements IFuncionarioService {
 
     @Override
     @Transactional(readOnly = true)
+    public Funcionario listarPorId(long id) {
+        return funcionarioRepository.listarPorId(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Funcionario> listarPorCargo(long cargoId) {
         return funcionarioRepository.listarPorCargo(cargoId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Funcionario> listarPorEquipe(long equipeId) {
+        return funcionarioRepository.listarPorEquipe(equipeId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Funcionario> listarPorTurno(long turnoId) {
+        return funcionarioRepository.listarPorTurno(turnoId);
     }
 
     @Override

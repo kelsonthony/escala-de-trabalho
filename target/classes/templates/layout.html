@@ -91,18 +91,47 @@
 								</nav>
 							</div>
 
-							<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#turnoCollapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-								<div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+							<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#equipeCollapseLayouts" aria-expanded="false" aria-controls="equipeCollapseLayouts">
+								<div class="far fa-address-card mr-2"> <i class="fas fa-tachometer-alt"> </i> </div>
+								Equipes
+								<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+							</a>
+							<div class="collapse" id="equipeCollapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+								<nav class="sb-sidenav-menu-nested nav">
+									<a class="nav-link" th:href="@{/equipes/cadastrar}">
+										<div class="fas fa-angle-right mr-2"> </div>
+										Cadastrar
+									</a>
+									<a class="nav-link" th:href="@{/equipes/associar}">
+										<div class="fas fa-angle-right mr-2"> </div>
+										Associar Funcionarios
+									</a>
+									<a class="nav-link" th:href="@{/equipes/listar}">
+										<div class="fas fa-angle-right mr-2"> </div>
+										Listar todos
+									</a>
+								</nav>
+							</div>
+
+							<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#turnoCollapseLayouts" aria-expanded="false" aria-controls="turnoCollapseLayouts">
+								<div class="far fa-address-card mr-2"> <i class="fas fa-tachometer-alt"> </i> </div>
 								Turnos
 								<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 							</a>
 							<div class="collapse" id="turnoCollapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
 								<nav class="sb-sidenav-menu-nested nav">
-									<a class="nav-link" th:href="layout-static.html">
-										<div class="far fa-address-card mr-2"> <i class="fas fa-tachometer-alt"> </i> </div>
+									<a class="nav-link" th:href="@{/turnos/cadastrar}">
+										<div class="fas fa-angle-right mr-2"> </div>
 										Cadastrar
 									</a>
-									<a class="nav-link" th:href="layout-sidenav-light.html">Listar Todos</a>
+									<a class="nav-link" th:href="@{/turnos/associar}">
+										<div class="fas fa-angle-right mr-2"> </div>
+										Associar Funcionarios
+									</a>
+									<a class="nav-link" th:href="@{/turnos/listar}">
+										<div class="fas fa-angle-right mr-2"> </div>
+										Listar todos
+									</a>
 								</nav>
 							</div>
 

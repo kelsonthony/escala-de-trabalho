@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no"/>
+
+    <title>Funcionários - Escala de Trabalho Automática</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card mb-4"></div>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/funcionarios/listar">Funcionários</a></li>
+        <li class="breadcrumb-item active"><span th:text="${funcionario.nome}">nome</span></li>
+    </ol>
+
+    <div class="card mb-4">
+        <div th:if="${mensagem != null}">
+            <div class="alert alert-info" role="alert">
+                <span th:text="${mensagem == null ? '&nbsp;' : mensagem}">mensagem</span>
+            </div>
+        </div>
+
+        <div class="card-header">
+            <i class="fas fa-table mr-1"></i>
+            Dados do funcionário
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <th>Cargo</th>
+                        <td>
+                            <a th:text="${funcionario.cargo.nome}" th:href="@{/funcionarios/listar/cargo/{id}(id=${funcionario.cargo.id})}">cargo</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Equipe</th>
+                        <td>
+                            <a th:text="${funcionario.equipe.nome}" th:href="@{/funcionarios/listar/equipe/{id}(id=${funcionario.equipe.id})}">equipe</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Turno</th>
+                        <td>
+                            <a th:text="${funcionario.turno.nome}" th:href="@{/funcionarios/listar/turno/{id}(id=${funcionario.turno.id})}">turno</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Matrícula</th>
+                        <td th:text="${funcionario.matricula}">matricula</td>
+                    </tr>
+                    <tr>
+                        <th>Localidade</th>
+                        <td th:text="${funcionario.localidade}">localidade</td>
+                    </tr>
+                    <tr>
+                        <th>Código</th>
+                        <td th:text="${funcionario.codigo}">codigo</td>
+                    </tr>
+                    <tr>
+                        <th>E-mail</th>
+                        <td th:text="${funcionario.email}">email</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

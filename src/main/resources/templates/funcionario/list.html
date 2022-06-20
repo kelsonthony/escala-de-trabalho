@@ -11,12 +11,27 @@
 <body>
 <div layout:fragment="content">
     <div class="card mb-4"></div>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="/funcionarios/listar">Funcionários</a></li>
-        <li class="breadcrumb-item"><a href="/cargos/listar">Listar por Cargo</a></li>
-        <li class="breadcrumb-item active"><span th:text="${cargo == null ? 'Listar todos' : cargo}">cargo</span></li>
-    </ol>
+    <div th:switch="${type}">
+        <ol th:case="'cargo'" class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a  href="/cargos/listar">Cargos</a></li>
+            <li class="breadcrumb-item active"><span th:text="${nome}">nome</span></li>
+        </ol>
 
+        <ol th:case="'equipe'" class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a  href="/equipes/listar">Equipes</a></li>
+            <li class="breadcrumb-item active"><span th:text="${nome}">nome</span></li>
+        </ol>
+
+        <ol th:case="'turno'" class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a  href="/turnos/listar">Turnos</a></li>
+            <li class="breadcrumb-item active"><span th:text="${nome}">nome</span></li>
+        </ol>
+
+        <ol th:case="*" class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/funcionarios/listar">Funcionários</a></li>
+            <li class="breadcrumb-item active">Listar todos</li>
+        </ol>
+    </div>
     <div class="card mb-4">
         <div th:if="${funcionarios != null}">
 
@@ -39,9 +54,6 @@
                             <th>Nome</th>
                             <th>Equipe</th>
                             <th>Turno</th>
-                            <th>Localidade</th>
-                            <th>Código</th>
-                            <th>E-mail</th>
                             <th>Ações</th>
                         </tr>
                         </thead>
@@ -51,21 +63,17 @@
                             <th>Nome</th>
                             <th>Equipe</th>
                             <th>Turno</th>
-                            <th>Localidade</th>
-                            <th>Código</th>
-                            <th>E-mail</th>
                             <th>Ações</th>
                         </tr>
                         </tfoot>
                         <tbody>
                         <tr th:each="funcionario : ${funcionarios}">
-                            <td th:text="${funcionario.matricula}">matricula</td>
+                            <td>
+                                <a th:text="${funcionario.matricula}" th:href="@{/funcionarios/listar/{id}(id=${funcionario.id})}">matricula</a>
+                            </td>
                             <td th:text="${funcionario.nome}">nome</td>
                             <td th:text="${funcionario.equipe.nome}">equipe</td>
                             <td th:text="${funcionario.turno.nome}">turno</td>
-                            <td th:text="${funcionario.localidade}">localidade</td>
-                            <td th:text="${funcionario.codigo}">codigo</td>
-                            <td th:text="${funcionario.email}">email</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Actions">
                                     <a class="btn btn-sm btn-info" th:href="@{/cargos/{cargoId}/funcionarios/{funcionarioId}/atualizar(cargoId=${cargoId},funcionarioId=${funcionario.id})}">Atualizar</a>
