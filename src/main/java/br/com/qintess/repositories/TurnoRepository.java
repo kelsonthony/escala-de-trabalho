@@ -39,10 +39,8 @@ public class TurnoRepository implements ITurnoRepository {
   }
 
   @Override
-  @Transactional
   public void excluir(long id) {
     em.remove(em.getReference(Turno.class,id));
   }
-
 
 }
