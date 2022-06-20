@@ -12,8 +12,9 @@
 <div layout:fragment="content">
     <div class="card mb-4"></div>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="/cargos/listar">Funcionários</a></li>
-        <li class="breadcrumb-item active">Listar todos</li>
+        <li class="breadcrumb-item"><a href="/funcionarios/listar">Funcionários</a></li>
+        <li class="breadcrumb-item"><a href="/cargos/listar">Listar por Cargo</a></li>
+        <li class="breadcrumb-item active"><span th:text="${cargo == null ? 'Listar todos' : cargo}">cargo</span></li>
     </ol>
 
     <div class="card mb-4">
@@ -34,11 +35,10 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>Cargo</th>
-                            <th>Equipe</th>
-                            <th>Turno</th>
                             <th>Matrícula</th>
                             <th>Nome</th>
+                            <th>Equipe</th>
+                            <th>Turno</th>
                             <th>Localidade</th>
                             <th>Código</th>
                             <th>E-mail</th>
@@ -47,11 +47,10 @@
                         </thead>
                         <tfoot>
                         <tr>
-                            <th>Cargo</th>
+                            <th>Matrícula</th>
                             <th>Nome</th>
                             <th>Equipe</th>
                             <th>Turno</th>
-                            <th>Matrícula</th>
                             <th>Localidade</th>
                             <th>Código</th>
                             <th>E-mail</th>
@@ -60,13 +59,10 @@
                         </tfoot>
                         <tbody>
                         <tr th:each="funcionario : ${funcionarios}">
-                            <td >
-                                <a th:text="${funcionario.cargo.nome}" th:href="@{/cargos/{id}/funcionarios/listar(id=${cargo.id})}">cargo</a>
-                            </td>
+                            <td th:text="${funcionario.matricula}">matricula</td>
                             <td th:text="${funcionario.nome}">nome</td>
                             <td th:text="${funcionario.equipe.nome}">equipe</td>
-                            <td th:text="${funcionario.nome.turno}">turno</td>
-                            <td th:text="${funcionario.matricula}">matricula</td>
+                            <td th:text="${funcionario.turno.nome}">turno</td>
                             <td th:text="${funcionario.localidade}">localidade</td>
                             <td th:text="${funcionario.codigo}">codigo</td>
                             <td th:text="${funcionario.email}">email</td>
@@ -79,6 +75,7 @@
                         </tr>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>

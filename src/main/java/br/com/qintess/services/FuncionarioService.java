@@ -1,5 +1,6 @@
 package br.com.qintess.services;
 
+import br.com.qintess.entities.Cargo;
 import br.com.qintess.entities.Funcionario;
 import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
 import br.com.qintess.services.interfaces.ICargoService;
@@ -24,6 +25,12 @@ public class FuncionarioService implements IFuncionarioService {
     public void salvar(Funcionario funcionario, long cargoId) {
         funcionario.setCargo(cargoService.listarPorId(cargoId));
         funcionarioRepository.salvar(funcionario);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Funcionario> listar() {
+        return funcionarioRepository.listar();
     }
 
     @Override

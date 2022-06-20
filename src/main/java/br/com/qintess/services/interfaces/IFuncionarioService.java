@@ -1,5 +1,6 @@
 package br.com.qintess.services.interfaces;
 
+import br.com.qintess.entities.Cargo;
 import br.com.qintess.entities.Funcionario;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 public interface IFuncionarioService {
 
     void salvar(Funcionario funcionario, long cargoId);
+    List<Funcionario> listar();
     List<Funcionario> listarPorCargo(long cargoId);
     Funcionario listarPorCargoIdEFuncionarioId(long cargoId, long funcionarioId);
     void atualizar(Funcionario funcionario, long cargoId);

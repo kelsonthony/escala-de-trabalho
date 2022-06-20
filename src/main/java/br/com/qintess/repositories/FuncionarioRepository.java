@@ -1,5 +1,6 @@
 package br.com.qintess.repositories;
 
+import br.com.qintess.entities.Cargo;
 import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
 import br.com.qintess.entities.Funcionario;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,11 @@ public class FuncionarioRepository implements IFuncionarioRepository {
     @Override
     public void salvar(Funcionario funcionario) {
         em.persist(funcionario);
+    }
+
+    @Override
+    public List<Funcionario> listar()  {
+        return em.createQuery("SELECT f FROM Funcionario f", Funcionario.class).getResultList();
     }
 
     @Override

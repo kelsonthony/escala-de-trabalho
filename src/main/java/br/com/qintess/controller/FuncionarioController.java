@@ -11,27 +11,36 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
-@RequestMapping("cargos/{cargoId}/funcionarios")
+@RequestMapping("funcionarios")
 public class FuncionarioController {
 
     @Autowired
     private FuncionarioService funcionarioService;
 
     @GetMapping("/listar")
-    public ModelAndView listar(@PathVariable("cargoId") long cargoId, ModelMap model) {
-        model.addAttribute("funcionarios", funcionarioService.listarPorCargo(cargoId));
-        model.addAttribute("cargoId", cargoId);
+    public ModelAndView listar(ModelMap model) {
+        model.addAttribute("funcionarios", funcionarioService.listar());
         return new ModelAndView("/funcionario/list", model);
     }
 
-    @GetMapping("/cadastrar")
+    @GetMapping("/listar/cargo/{cargoId}")
+    public ModelAndView listarPorCargo(@PathVariable("cargoId") long cargoId, ModelMap model) {
+        List<Funcionario> funcionarios = funcionarioService.listarPorCargo(cargoId);
+        model.addAttribute("funcionarios", funcionarios);
+        model.addAttribute("cargoId", cargoId);
+        model.addAttribute("cargo", funcionarios.get(0).getCargo().getNome() + " (" + funcionarios.get(0).getCargo().getSigla() + ") ");
+        return new ModelAndView("/funcionario/list", model);
+    }
+
+    @GetMapping("/cadastrar/cargo/{cargoId}")
     public String cadastrar(@ModelAttribute("funcionario") Funcionario funcionario, @PathVariable("cargoId") long cargoId) {
         return "/funcionario/add";
     }
 
-    @PostMapping("/salvar")
+    @PostMapping("/salvar/cargo/{cargoId}")
     public String salvar(@PathVariable("cargoId") long cargoId, @Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
             return "/funcionario/add";
@@ -42,7 +51,7 @@ public class FuncionarioController {
         return "redirect:/cargos/" + cargoId + "/funcionarios/listar";
     }
 
-    @GetMapping("/{funcionarioId}/atualizar")
+    @GetMapping("/{funcionarioId}/atualizar/cargo/{cargoId}")
     public ModelAndView atualizar(@PathVariable("cargoId") long cargoId, @PathVariable("funcionarioId") long funcionarioId, ModelMap model) {
         Funcionario funcionario = funcionarioService.listarPorCargoIdEFuncionarioId(cargoId, funcionarioId);
         model.addAttribute("funcionario", funcionario);
@@ -50,7 +59,7 @@ public class FuncionarioController {
         return new ModelAndView("/funcionario/add", model);
     }
 
-    @PutMapping("/salvar")
+    @PutMapping("/salvar/cargo/{cargoId}")
     public ModelAndView salvarAtualizacao(@PathVariable("cargoId") long cargoId, @Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
             return new ModelAndView("/funcionario/add");
@@ -61,7 +70,7 @@ public class FuncionarioController {
         return new ModelAndView("redirect:/cargos/" + cargoId + "funcionarios/listar");
     }
 
-    @GetMapping("/funcionarioId}/remover")
+    @GetMapping("/funcionarioId}/remover/cargo/{cargoId}")
     public String remover(@PathVariable("cargoId") long cargoId, @PathVariable("funcionarioId") long funcionarioId, RedirectAttributes attr) {
         funcionarioService.excluir(cargoId, funcionarioId);
         attr.addFlashAttribute("mensagem", "Funcionário excluído com sucesso.");
