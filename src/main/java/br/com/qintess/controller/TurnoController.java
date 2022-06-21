@@ -17,7 +17,6 @@ public class TurnoController {
   @Autowired
   private TurnoService turnoService;
 
-
   @GetMapping("/listar")
   public ModelAndView listar(ModelMap model){
     model.addAttribute("turnos",this.turnoService.listar());

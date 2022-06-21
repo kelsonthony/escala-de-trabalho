@@ -24,8 +24,6 @@ public class Funcionario {
     @Column(nullable = false,length = 125)
     private String nome;
 
-    @NotBlank
-    @Size(min = 0, max = 1)
     @Column(nullable = false, length = 1)
     private char localidade;
 
@@ -44,17 +42,14 @@ public class Funcionario {
     @Column(nullable = false, length = 255)
     private String senha;
 
-    @ManyToOne
-    @JoinColumn(name = "CARGO_FUNCIONARIO_ID")
-    private Cargo cargo;
+    @Column(name = "CARGO_FUNCIONARIO_ID")
+    private long cargo;
 
-    @ManyToOne
-    @JoinColumn(name = "EQUIPE_FUNCIONARIO_ID")
-    private Equipe equipe;
+    @Column(name = "EQUIPE_FUNCIONARIO_ID")
+    private long equipe;
 
-    @ManyToOne
-    @JoinColumn(name = "TURNO_ID")
-    private Turno turno;
+    @Column(name = "TURNO_ID")
+    private long turno;
 
     @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
     private List<Escala> escala;
@@ -115,27 +110,27 @@ public class Funcionario {
         this.senha = senha;
     }
 
-    public Cargo getCargo() {
+    public long getCargo() {
         return cargo;
     }
 
-    public void setCargo(Cargo cargo) {
+    public void setCargo(long cargo) {
         this.cargo = cargo;
     }
 
-    public Equipe getEquipe() {
+    public long getEquipe() {
         return equipe;
     }
 
-    public void setEquipe(Equipe equipe) {
+    public void setEquipe(long equipe) {
         this.equipe = equipe;
     }
 
-    public Turno getTurno() {
+    public long getTurno() {
         return turno;
     }
 
-    public void setTurno(Turno turno) {
+    public void setTurno(long turno) {
         this.turno = turno;
     }
 

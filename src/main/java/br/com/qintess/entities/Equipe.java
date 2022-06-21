@@ -18,6 +18,10 @@ public class Equipe {
     @Column(nullable = false, length = 125)
     private String nome;
 
+    @Size(min = 2, max = 4000)
+    @Column(nullable = false, length = 4000)
+    private String descricao;
+
     @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL)
     private List<Funcionario> funcionarios;
 
@@ -35,6 +39,14 @@ public class Equipe {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public List<Funcionario> getFuncionarios() {

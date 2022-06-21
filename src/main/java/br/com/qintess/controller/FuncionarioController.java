@@ -1,9 +1,6 @@
 package br.com.qintess.controller;
 
-import br.com.qintess.entities.Cargo;
-import br.com.qintess.entities.Equipe;
-import br.com.qintess.entities.Funcionario;
-import br.com.qintess.entities.Turno;
+import br.com.qintess.entities.*;
 import br.com.qintess.services.interfaces.ICargoService;
 import br.com.qintess.services.interfaces.IEquipeService;
 import br.com.qintess.services.interfaces.IFuncionarioService;
@@ -37,7 +34,9 @@ public class FuncionarioController {
 
     @GetMapping("/listar")
     public ModelAndView listar(ModelMap model) {
-        model.addAttribute("funcionarios", funcionarioService.listar());
+        List<Funcionario> funcionarios = funcionarioService.listar();
+
+        model.addAttribute("funcionarios", funcionarios);
         return new ModelAndView("/funcionario/list", model);
     }
 
@@ -89,20 +88,25 @@ public class FuncionarioController {
         return new ModelAndView("/funcionario/list", model);
     }
 
-    @GetMapping("/cadastrar/cargo/{cargoId}")
-    public String cadastrar(@ModelAttribute("funcionario") Funcionario funcionario, @PathVariable("cargoId") long cargoId) {
+    @GetMapping("/cadastrar")
+    public String cadastrar(@ModelAttribute("funcionario") Funcionario funcionario, ModelMap model) {
+        model.addAttribute("cargos", cargoService.listar());
+        model.addAttribute("equipes", equipeService.listar());
+        model.addAttribute("turnos", turnoService.listar());
+
         return "/funcionario/add";
     }
 
-    @PostMapping("/salvar/cargo/{cargoId}")
-    public String salvar(@PathVariable("cargoId") long cargoId, @Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
+    @PostMapping("/salvar")
+    public String salvar(@Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
-            return "/funcionario/add";
+            attr.addFlashAttribute("mensagem", "Erro ao cadastrar funcionário.");
+            return "redirect:/funcionarios/listar";
         }
 
-        funcionarioService.salvar(funcionario, cargoId);
+        funcionarioService.salvar(funcionario);
         attr.addFlashAttribute("mensagem", "Funcionário cadastrado com sucesso.");
-        return "redirect:/cargos/" + cargoId + "/funcionarios/listar";
+        return "redirect:/funcionarios/listar";
     }
 
     @GetMapping("/{funcionarioId}/atualizar/cargo/{cargoId}")
@@ -119,7 +123,7 @@ public class FuncionarioController {
             return new ModelAndView("/funcionario/add");
         }
 
-        funcionarioService.atualizar(funcionario, cargoId);
+        funcionarioService.atualizar(funcionario);
         attr.addFlashAttribute("mensagem", "Funcionário atualizado com sucesso.");
         return new ModelAndView("redirect:/cargos/" + cargoId + "funcionarios/listar");
     }

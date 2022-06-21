@@ -1,14 +1,21 @@
 package br.com.qintess.services;
 
 import br.com.qintess.entities.Cargo;
+import br.com.qintess.entities.Escala;
 import br.com.qintess.entities.Funcionario;
+import br.com.qintess.repositories.interfaces.ICargoRepository;
+import br.com.qintess.repositories.interfaces.IEquipeRepository;
 import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
+import br.com.qintess.repositories.interfaces.ITurnoRepository;
 import br.com.qintess.services.interfaces.ICargoService;
+import br.com.qintess.services.interfaces.IEquipeService;
 import br.com.qintess.services.interfaces.IFuncionarioService;
+import br.com.qintess.services.interfaces.ITurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,11 +26,25 @@ public class FuncionarioService implements IFuncionarioService {
     private IFuncionarioRepository funcionarioRepository;
 
     @Autowired
+    private ICargoRepository cargoRepository;
+
+    @Autowired
+    private IEquipeRepository equipeRepository;
+
+    @Autowired
+    private ITurnoRepository turnoRepository;
+
+    @Autowired
     private ICargoService cargoService;
 
+    @Autowired
+    private IEquipeService equipeService;
+
+    @Autowired
+    private ITurnoService turnoService;
+
     @Override
-    public void salvar(Funcionario funcionario, long cargoId) {
-        funcionario.setCargo(cargoService.listarPorId(cargoId));
+    public void salvar(Funcionario funcionario) {
         funcionarioRepository.salvar(funcionario);
     }
 
@@ -64,8 +85,7 @@ public class FuncionarioService implements IFuncionarioService {
     }
 
     @Override
-    public void atualizar(Funcionario funcionario, long cargoId) {
-        funcionario.setCargo(cargoService.listarPorId(cargoId));
+    public void atualizar(Funcionario funcionario) {
         funcionarioRepository.atualizar(funcionario);
     }
 

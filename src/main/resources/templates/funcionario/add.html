@@ -1,10 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no"/>
+
+  <title>Funcionários - Escala de Trabalho Automática</title>
 </head>
 <body>
+  <div layout:fragment="content">
+    <div class="card mb-4"></div>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a th:href="@{/funcionarios/listar}">Funcionários</a></li>
+      <li class="breadcrumb-item active">Cadastrar Novo</li>
+    </ol>
+    <div class="card mb-4">
+      <div class="container">
+        <form th:action="@{/funcionarios/salvar}" th:method="${funcionario.id} == 0 ? post : put" th:object="${funcionario}">
+          <div class="row">
+            <input id="id" type="hidden" th:field="*{id}"/>
 
+            <div class="form-group col-md-12">
+              <label for="cargo">Cargo:</label>
+              <select class="form-control" id="cargo" th:field="*{cargo}">
+                <option th:each="c : ${cargos}" th:value="${c.id}" th:text="${c.nome + ' (' + c.sigla + ') '}"></option>
+              </select>
+              <div th:if="${#fields.hasErrors('cargo')}" th:errors="*{cargo}"></div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="equipe">Equipe:</label>
+              <select class="form-control" id="equipe" th:field="*{equipe}">
+                <option value="0">Selecione uma Equipe para o Funcionário...</option>
+                <option th:each="e : ${equipes}" th:value="${e.id}" th:text="${e.nome}" selected="selected"></option>
+              </select>
+              <div th:if="${#fields.hasErrors('equipe')}" th:errors="*{equipe}"></div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="turno">Turno:</label>
+              <select class="form-control" id="turno" th:field="*{turno}">
+                <option value="0">Selecione um Turno para o Funcionário...</option>
+                <option th:each="t : ${turnos}" th:value="${t.id}" th:text="${t.nome}" selected="selected"></option>
+              </select>
+              <div th:if="${#fields.hasErrors('turno')}" th:errors="*{turno}"></div>
+            </div>
+
+            <div class="form-group col-md-12">
+              <label for="nome">Nome:</label>
+              <input class="form-control" id="nome" type="text" th:field="*{nome}"/>
+              <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="matricula">Matrícula:</label>
+              <input class="form-control" id="matricula" type="text" th:field="*{matricula}"/>
+              <div th:if="${#fields.hasErrors('matricula')}" th:errors="*{matricula}"></div>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="localidade">Localidade:</label>
+              <select class="form-control" id="localidade" th:field="*{localidade}"/>
+                <option th:value="'P'" th:text="Presencial"></option>
+                <option th:value="'R'" th:text="Remoto"></option>
+              </select>
+              <div th:if="${#fields.hasErrors('localidade')}" th:errors="*{localidade}"></div>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="codigo">Código:</label>
+              <input class="form-control" id="codigo" type="text" th:field="*{codigo}"/>
+              <div th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></div>
+            </div>
+
+            <div class="form-group col-md-12">
+              <label for="email">Email:</label>
+              <input class="form-control" id="email" type="text" th:field="*{email}"/>
+              <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+
+            <div class="form-group col-md-12">
+              <label for="senha">Senha:</label>
+              <input class="form-control" id="senha" type="password" th:field="*{senha}"/>
+              <div th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
+            </div>
+
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">&nbsp; Salvar &nbsp;</button>
+            <a class="btn btn-danger" th:href="@{/funcionarios/listar}">Cancelar</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>

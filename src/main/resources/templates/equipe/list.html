@@ -34,20 +34,23 @@
                             <thead>
                             <tr>
                                 <th>Nome</th>
+                                <th>Descrição</th>
                                 <th>Ações</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th>Nome</th>
+                                <th>Descrição</th>
                                 <th>Ações</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             <tr th:each="equipe : ${equipes}">
-                                <td >
+                                <td>
                                     <a th:text="${equipe.nome}" th:href="@{/funcionarios/listar/equipe/{id}(id=${equipe.id})}">nome</a>
                                 </td>
+                                <td th:text="${equipe.descricao}">descricao</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Actions">
                                         <a class="btn btn-sm btn-info" th:href="@{/equipes/{id}/atualizar(id=${equipe.id})}">Atualizar</a>

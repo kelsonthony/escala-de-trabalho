@@ -72,8 +72,8 @@
                                 <a th:text="${funcionario.matricula}" th:href="@{/funcionarios/listar/{id}(id=${funcionario.id})}">matricula</a>
                             </td>
                             <td th:text="${funcionario.nome}">nome</td>
-                            <td th:text="${funcionario.equipe.nome}">equipe</td>
-                            <td th:text="${funcionario.turno.nome}">turno</td>
+                            <td th:text="${funcionario.equipe}">equipe</td>
+                            <td th:text="${funcionario.turno}">turno</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Actions">
                                     <a class="btn btn-sm btn-info" th:href="@{/cargos/{cargoId}/funcionarios/{funcionarioId}/atualizar(cargoId=${cargoId},funcionarioId=${funcionario.id})}">Atualizar</a>
