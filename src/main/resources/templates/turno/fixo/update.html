@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no"/>
+
+  <title>Turno - Escala de Trabalho Automática</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="card mb-4"></div>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a th:href="@{/turnos/listar}">Turno</a></li>
+    <li class="breadcrumb-item active">Atualizar Turno</li>
+  </ol>
+    <div class="card mb-4">
+      <div class="container">
+        <form th:action="@{/turnos/salvar/fixo}" th:method="${turno.id} == 0 ? post : put" th:object="${turno}">
+          <div class="row">
+            <input id="id" type="hidden" th:field="*{id}"/>
+            <div class="form-group col-md-12">
+              <label for="nome">Nome:</label>
+              <input class="form-control" id="nome" type="text" th:field="*{nome}"/>
+              <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="sigla">Sigla:</label>
+              <input class="form-control" id="sigla" type="text" th:field="*{sigla}"/>
+              <div th:if="${#fields.hasErrors('sigla')}" th:errors="*{sigla}"></div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="trabalhaNoFeriado">Trabalha no Feriado:</label>
+              <select class="form-control form-select-lg mb-3" aria-label=".form-select-lg example" th:field="*{trabalhaNoFeriado}" id="trabalhaNoFeriado">
+                <option th:value="1">Sim</option>
+                <option th:value="0">Não</option>
+              </select>
+              <div th:if="${#fields.hasErrors('trabalhaNoFeriado')}" th:errors="*{trabalhaNoFeriado}"></div>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="horaInicio">Horario Inicio:</label>
+              <input class="form-control" id="horaInicio" type="time" th:field="*{horaInicio}"/>
+              <div th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}"></div>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="horaTermino">Horario Termino:</label>
+              <input class="form-control" id="horaTermino" type="time" th:field="*{horaTermino}"/>
+              <div th:if="${#fields.hasErrors('horaTermino')}" th:errors="*{horaTermino}"></div>
+            </div>
+
+          </div>
+
+            <div th:object="${turnofixo}">
+              <table class="table table-bordered border-primary">
+                <input id="idTurnoFixo" name="id" type="hidden" th:field="${turnofixo.id}"/>
+                <thead>
+                <tr>
+                  <th>Segunda</th>
+                  <th>Terça</th>
+                  <th>Quarta</th>
+                  <th>Quinta</th>
+                  <th>Sexta</th>
+                  <th>Sábado</th>
+                  <th>Domingo</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>
+                      <select class="form-control"  id="segunda" name="segunda" >
+                        <option th:selected="${turnofixo.segunda == 1}"  th:value="1">Sim</option>
+                        <option th:selected="${turnofixo.segunda == 0}" th:value="0">Não</option>
+                      </select>
+                  </td>
+                  <td>
+                    <select class="form-control"  id="terca" name="terca" >
+                      <option th:selected="${turnofixo.terca == 1}"  th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.terca == 0}" th:value="0">Não</option>
+                    </select>
+
+                  </td>
+                  <td>
+                    <select class="form-control"  id="quarta" name="quarta" >
+                      <option th:selected="${turnofixo.quarta == 1}" th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.quarta == 0}" th:value="0">Não</option>
+                    </select>
+
+                  </td>
+                  <td>
+                    <select class="form-control"  id="quinta" name="quinta" >
+                      <option th:selected="${turnofixo.quinta == 1}" th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.quinta == 0}" th:value="0">Não</option>
+                    </select>
+
+                  </td>
+                  <td>
+                    <select class="form-control"   id="sexta" name="sexta">
+                      <option th:selected="${turnofixo.sexta == 1}" th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.sexta == 0}" th:value="0">Não</option>
+                    </select>
+
+                  </td>
+                  <td>
+                    <select class="form-control" id="sabado" name="sabado" >
+                      <option th:selected="${turnofixo.sabado == 1}"  th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.sabado == 0}" th:value="0">Não</option>
+                    </select>
+
+                  </td>
+                  <td>
+                    <select class="form-control"  id="domingo" name="domingo" >
+                      <option th:selected="${turnofixo.domingo == 1}"  th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.domingo == 0}"  th:value="0">Não</option>
+                    </select>
+
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">Salvar</button>
+            <a class="btn btn-danger" th:href="@{/turnos/listar}">Cancelar</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+</div>
+</body>
+</html>
