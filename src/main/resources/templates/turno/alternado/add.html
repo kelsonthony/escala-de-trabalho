@@ -17,7 +17,7 @@
   </ol>
     <div class="card mb-4">
       <div class="container">
-        <form th:action="@{/turnos/salvar/fixo}" th:method="${turno.id} == 0 ? post : put" th:object="${turno}">
+        <form th:action="@{/turnos/salvar/alternado}" th:method="${turno.id} == 0 ? post : put" th:object="${turno}">
           <div class="row">
             <input id="id" type="hidden" th:field="*{id}"/>
             <div class="form-group col-md-12">
@@ -51,75 +51,6 @@
             </div>
 
           </div>
-
-            <div th:object="${turnofixo}">
-              <table class="table table-bordered border-primary">
-                <thead>
-                <tr>
-                  <th>Segunda</th>
-                  <th>Terça</th>
-                  <th>Quarta</th>
-                  <th>Quinta</th>
-                  <th>Sexta</th>
-                  <th>Sábado</th>
-                  <th>Domingo</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>
-                      <select class="form-control"  id="segunda" name="segunda" >
-                        <option th:value="1">Sim</option>
-                        <option th:value="0">Não</option>
-                      </select>
-                  </td>
-                  <td>
-                    <select class="form-control"  id="terca" name="terca" >
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
-                    </select>
-
-                  </td>
-                  <td>
-                    <select class="form-control"  id="quarta" name="quarta" >
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
-                    </select>
-
-                  </td>
-                  <td>
-                    <select class="form-control"  id="quinta" name="quinta" >
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
-                    </select>
-
-                  </td>
-                  <td>
-                    <select class="form-control"   id="sexta" name="sexta">
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
-                    </select>
-
-                  </td>
-                  <td>
-                    <select class="form-control" id="sabado" name="sabado" >
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
-                    </select>
-
-                  </td>
-                  <td>
-                    <select class="form-control"  id="domingo" name="domingo" >
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
-                    </select>
-
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-
-            </div>
 
           <div class="form-group">
             <button class="btn btn-primary" type="submit">Salvar</button>

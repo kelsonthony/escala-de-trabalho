@@ -39,7 +39,8 @@ public class TurnoService implements ITurnoService {
 
   @Override
   public void atualizar(Turno turno) {
-
+    turno.setTotalHoras(calculaTotalHoras(turno.getHoraInicio(),turno.getHoraTermino()));
+    this.turnoRepository.atualizar(turno);
   }
 
   @Override

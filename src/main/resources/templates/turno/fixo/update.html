@@ -13,7 +13,7 @@
   <div class="card mb-4"></div>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a th:href="@{/turnos/listar}">Turno</a></li>
-    <li class="breadcrumb-item active">Cadastrar Novo</li>
+    <li class="breadcrumb-item active">Atualizar Turno</li>
   </ol>
     <div class="card mb-4">
       <div class="container">
@@ -54,6 +54,7 @@
 
             <div th:object="${turnofixo}">
               <table class="table table-bordered border-primary">
+                <input id="idTurnoFixo" name="id" type="hidden" th:field="${turnofixo.id}"/>
                 <thead>
                 <tr>
                   <th>Segunda</th>
@@ -69,49 +70,49 @@
                 <tr>
                   <td>
                       <select class="form-control"  id="segunda" name="segunda" >
-                        <option th:value="1">Sim</option>
-                        <option th:value="0">Não</option>
+                        <option th:selected="${turnofixo.segunda == 1}"  th:value="1">Sim</option>
+                        <option th:selected="${turnofixo.segunda == 0}" th:value="0">Não</option>
                       </select>
                   </td>
                   <td>
                     <select class="form-control"  id="terca" name="terca" >
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
+                      <option th:selected="${turnofixo.terca == 1}"  th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.terca == 0}" th:value="0">Não</option>
                     </select>
 
                   </td>
                   <td>
                     <select class="form-control"  id="quarta" name="quarta" >
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
+                      <option th:selected="${turnofixo.quarta == 1}" th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.quarta == 0}" th:value="0">Não</option>
                     </select>
 
                   </td>
                   <td>
                     <select class="form-control"  id="quinta" name="quinta" >
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
+                      <option th:selected="${turnofixo.quinta == 1}" th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.quinta == 0}" th:value="0">Não</option>
                     </select>
 
                   </td>
                   <td>
                     <select class="form-control"   id="sexta" name="sexta">
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
+                      <option th:selected="${turnofixo.sexta == 1}" th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.sexta == 0}" th:value="0">Não</option>
                     </select>
 
                   </td>
                   <td>
                     <select class="form-control" id="sabado" name="sabado" >
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
+                      <option th:selected="${turnofixo.sabado == 1}"  th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.sabado == 0}" th:value="0">Não</option>
                     </select>
 
                   </td>
                   <td>
                     <select class="form-control"  id="domingo" name="domingo" >
-                      <option th:value="1">Sim</option>
-                      <option th:value="0">Não</option>
+                      <option th:selected="${turnofixo.domingo == 1}"  th:value="1">Sim</option>
+                      <option th:selected="${turnofixo.domingo == 0}"  th:value="0">Não</option>
                     </select>
 
                   </td>

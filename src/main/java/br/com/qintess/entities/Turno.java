@@ -40,7 +40,7 @@ public class Turno {
     @OneToMany(mappedBy = "turno", cascade = CascadeType.ALL)
     private List<Funcionario> funcionarios;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TURNO_FIXO_ID")
     private TurnoFixo turnoFixo;
 
