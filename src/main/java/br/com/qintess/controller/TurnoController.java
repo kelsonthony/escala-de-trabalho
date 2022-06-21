@@ -5,12 +5,12 @@ import br.com.qintess.services.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("turnos")
@@ -23,6 +23,17 @@ public class TurnoController {
   @GetMapping("/cadastrar")
   public String cadastrar(@ModelAttribute("turno") Turno turno){
     return "turno/add";
+  }
+
+  @PostMapping("/salvar")
+  public String salvar(@Valid @ModelAttribute("turno") Turno turno, BindingResult result, RedirectAttributes attr) {
+    if(result.hasErrors()) {
+      return "/turno/add";
+    }
+
+    turnoService.salvar(turno);
+    attr.addFlashAttribute("mensagem", "Turno criado com sucesso.");
+    return "redirect:/turnos/listar";
   }
 
 

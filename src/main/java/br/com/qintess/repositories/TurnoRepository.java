@@ -17,7 +17,7 @@ public class TurnoRepository implements ITurnoRepository {
 
     @Override
     public void salvar(Turno turno) {
-
+        this.em.persist(turno);
     }
 
     @Override
