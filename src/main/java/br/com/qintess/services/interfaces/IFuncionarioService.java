@@ -15,5 +15,5 @@ public interface IFuncionarioService {
     List<Funcionario> listarPorTurno(long turnoId);
     Funcionario listarPorCargoIdEFuncionarioId(long cargoId, long funcionarioId);
     void atualizar(Funcionario funcionario);
-    void excluir(long cargoId, long funcionarioId);
+    void excluir(long funcionarioId);
 }

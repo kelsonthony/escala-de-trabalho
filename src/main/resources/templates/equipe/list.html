@@ -48,13 +48,13 @@
                             <tbody>
                             <tr th:each="equipe : ${equipes}">
                                 <td>
-                                    <a th:text="${equipe.nome}" th:href="@{/funcionarios/listar/equipe/{id}(id=${equipe.id})}">nome</a>
+                                    <a th:text="${equipe.nome}" th:href="@{/funcionarios/listar/equipe/{id}(id=${equipe.equipeId})}">nome</a>
                                 </td>
                                 <td th:text="${equipe.descricao}">descricao</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Actions">
-                                        <a class="btn btn-sm btn-info" th:href="@{/equipes/{id}/atualizar(id=${equipe.id})}">Atualizar</a>
-                                        <a class="btn btn-sm btn-danger" th:href="@{/equipes/{id}/remover(id=${equipe.id})}">Remover</a>
+                                        <a class="btn btn-sm btn-info" th:href="@{/equipes/{id}/atualizar(id=${equipe.equipeId})}">Atualizar</a>
+                                        <a class="btn btn-sm btn-danger" th:href="@{/equipes/{id}/remover(id=${equipe.equipeId})}">Remover</a>
                                     </div>
                                 </td>
                             </tr>

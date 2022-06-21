@@ -34,28 +34,28 @@ public class FuncionarioRepository implements IFuncionarioRepository {
 
     @Override
     public List<Funcionario> listarPorCargo(long cargoId) {
-        return em.createQuery("SELECT f FROM Funcionario f WHERE f.cargo = :cargoId", Funcionario.class)
+        return em.createQuery("SELECT f FROM Funcionario f WHERE f.cargo.cargoId = :cargoId", Funcionario.class)
                 .setParameter("cargoId", cargoId)
                 .getResultList();
     }
 
     @Override
     public List<Funcionario> listarPorEquipe(long equipeId) {
-        return em.createQuery("SELECT f FROM Funcionario f WHERE f.equipe = :equipeId", Funcionario.class)
+        return em.createQuery("SELECT f FROM Funcionario f WHERE f.equipe.equipeId = :equipeId", Funcionario.class)
                 .setParameter("equipeId", equipeId)
                 .getResultList();
     }
 
     @Override
     public List<Funcionario> listarPorTurno(long turnoId) {
-        return em.createQuery("SELECT f FROM Funcionario f WHERE f.turno = :turnoId", Funcionario.class)
+        return em.createQuery("SELECT f FROM Funcionario f WHERE f.turno.id = :turnoId", Funcionario.class)
                 .setParameter("turnoId", turnoId)
                 .getResultList();
     }
 
     @Override
     public Funcionario listarPorCargoIdEFuncionarioId(long cargoId, long funcionarioId) {
-        return em.createQuery("select f from Funcionario f where f.cargo = :cargoId and f.id = :funcionarioId", Funcionario.class)
+        return em.createQuery("select f from Funcionario f where f.cargo.cargoId = :cargoId and f.id = :funcionarioId", Funcionario.class)
                 .setParameter("cargoId", cargoId)
                 .setParameter("funcionarioId", funcionarioId)
                 .getSingleResult();

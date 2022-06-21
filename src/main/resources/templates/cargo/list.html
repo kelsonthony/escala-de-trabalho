@@ -52,15 +52,15 @@
                             <tbody>
                             <tr th:each="cargo : ${cargos}">
                                 <td >
-                                    <a th:text="${cargo.nome}" th:href="@{/funcionarios/listar/cargo/{id}(id=${cargo.id})}">nome</a>
+                                    <a th:text="${cargo.nome}" th:href="@{/funcionarios/listar/cargo/{id}(id=${cargo.cargoId})}">nome</a>
                                 </td>
                                 <td th:text="${cargo.sigla}">sigla</td>
                                 <td th:text="${cargo.permissaoAcesso}">Permissão de acesso</td>
                                 <td th:text="${cargo.horasExtrasPermitidas}">Horas Extras Permitidas</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Actions">
-                                        <a class="btn btn-sm btn-info" th:href="@{/cargos/{id}/atualizar(id=${cargo.id})}">Atualizar</a>
-                                        <a class="btn btn-sm btn-danger" th:href="@{/cargos/{id}/remover(id=${cargo.id})}">Remover</a>
+                                        <a class="btn btn-sm btn-info" th:href="@{/cargos/{id}/atualizar(id=${cargo.cargoId})}">Atualizar</a>
+                                        <a class="btn btn-sm btn-danger" th:href="@{/cargos/{id}/remover(id=${cargo.cargoId})}">Remover</a>
                                     </div>
                                 </td>
                             </tr>

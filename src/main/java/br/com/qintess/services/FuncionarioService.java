@@ -90,7 +90,7 @@ public class FuncionarioService implements IFuncionarioService {
     }
 
     @Override
-    public void excluir(long cargoId, long funcionarioId) {
-        funcionarioRepository.excluir(listarPorCargoIdEFuncionarioId(cargoId, funcionarioId).getId());
+    public void excluir(long funcionarioId) {
+        funcionarioRepository.excluir(listarPorId(funcionarioId).getFuncionarioId());
     }
 }

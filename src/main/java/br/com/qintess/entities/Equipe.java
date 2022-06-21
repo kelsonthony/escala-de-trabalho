@@ -11,7 +11,8 @@ public class Equipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "ID")
+    private long equipeId;
 
     @NotBlank
     @Size(min = 2, max = 125)
@@ -25,12 +26,12 @@ public class Equipe {
     @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL)
     private List<Funcionario> funcionarios;
 
-    public long getId() {
-        return id;
+    public long getEquipeId() {
+        return equipeId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setEquipeId(long equipeId) {
+        this.equipeId = equipeId;
     }
 
     public String getNome() {

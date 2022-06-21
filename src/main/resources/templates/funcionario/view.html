@@ -34,13 +34,13 @@
                     <tr>
                         <th>Cargo</th>
                         <td>
-                            <a th:text="${funcionario.cargo.nome}" th:href="@{/funcionarios/listar/cargo/{id}(id=${funcionario.cargo.id})}">cargo</a>
+                            <a th:text="${funcionario.cargo.nome}" th:href="@{/funcionarios/listar/cargo/{id}(id=${funcionario.cargo.cargoId})}">cargo</a>
                         </td>
                     </tr>
                     <tr>
                         <th>Equipe</th>
                         <td>
-                            <a th:text="${funcionario.equipe.nome}" th:href="@{/funcionarios/listar/equipe/{id}(id=${funcionario.equipe.id})}">equipe</a>
+                            <a th:text="${funcionario.equipe.nome}" th:href="@{/funcionarios/listar/equipe/{id}(id=${funcionario.equipe.equipeId})}">equipe</a>
                         </td>
                     </tr>
                     <tr>

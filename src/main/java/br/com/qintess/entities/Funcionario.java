@@ -12,7 +12,8 @@ public class Funcionario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "ID")
+    private long funcionarioId;
 
     @NotBlank
     @Size(min = 2, max = 8)
@@ -42,24 +43,27 @@ public class Funcionario {
     @Column(nullable = false, length = 255)
     private String senha;
 
-    @Column(name = "CARGO_FUNCIONARIO_ID")
-    private long cargo;
+    @ManyToOne
+    @JoinColumn(name = "CARGO_FUNCIONARIO_ID")
+    private Cargo cargo;
 
-    @Column(name = "EQUIPE_FUNCIONARIO_ID")
-    private long equipe;
+    @ManyToOne
+    @JoinColumn(name = "EQUIPE_FUNCIONARIO_ID")
+    private Equipe equipe;
 
-    @Column(name = "TURNO_ID")
-    private long turno;
+    @ManyToOne
+    @JoinColumn(name = "TURNO_ID")
+    private Turno turno;
 
     @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
     private List<Escala> escala;
 
-    public long getId() {
-        return id;
+    public long getFuncionarioId() {
+        return funcionarioId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setFuncionarioId(long funcionarioId) {
+        this.funcionarioId = funcionarioId;
     }
 
     public String getMatricula() {
@@ -110,27 +114,27 @@ public class Funcionario {
         this.senha = senha;
     }
 
-    public long getCargo() {
+    public Cargo getCargo() {
         return cargo;
     }
 
-    public void setCargo(long cargo) {
+    public void setCargo(Cargo cargo) {
         this.cargo = cargo;
     }
 
-    public long getEquipe() {
+    public Equipe getEquipe() {
         return equipe;
     }
 
-    public void setEquipe(long equipe) {
+    public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
     }
 
-    public long getTurno() {
+    public Turno getTurno() {
         return turno;
     }
 
-    public void setTurno(long turno) {
+    public void setTurno(Turno turno) {
         this.turno = turno;
     }
 

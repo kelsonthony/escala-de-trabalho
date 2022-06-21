@@ -46,12 +46,12 @@ public class FuncionarioController {
         return new ModelAndView("/funcionario/view", model);
     }
 
-    @GetMapping("/listar/cargo/{cargoId}")
-    public ModelAndView listarPorCargo(@PathVariable("cargoId") long cargoId, ModelMap model) {
-        Cargo cargo = cargoService.listarPorId(cargoId);
-        List<Funcionario> funcionarios = funcionarioService.listarPorCargo(cargoId);
+    @GetMapping("/listar/cargo/{id}")
+    public ModelAndView listarPorCargo(@PathVariable("id") long id, ModelMap model) {
+        Cargo cargo = cargoService.listarPorId(id);
+        List<Funcionario> funcionarios = funcionarioService.listarPorCargo(id);
 
-        model.addAttribute("cargoId", cargoId);
+        model.addAttribute("id", id);
         model.addAttribute("nome", cargo.getNome() + " (" + cargo.getSigla() + ") ");
         model.addAttribute("type", "Cargos");
         if(!funcionarios.isEmpty())
@@ -74,12 +74,12 @@ public class FuncionarioController {
         return new ModelAndView("/funcionario/list", model);
     }
 
-    @GetMapping("/listar/turno/{turnoId}")
-    public ModelAndView listarPorTurno(@PathVariable("turnoId") long turnoId, ModelMap model){
-        Turno turno = turnoService.listarPorId(turnoId);
-        List<Funcionario> funcionarios = funcionarioService.listarPorTurno(turnoId);
+    @GetMapping("/listar/turno/{id}")
+    public ModelAndView listarPorTurno(@PathVariable("id") long id, ModelMap model){
+        Turno turno = turnoService.listarPorId(id);
+        List<Funcionario> funcionarios = funcionarioService.listarPorTurno(id);
 
-        model.addAttribute("turnoId", turnoId);
+        model.addAttribute("id", id);
         model.addAttribute("nome", turno.getNome());
         model.addAttribute("type", "Turnos");
         if(!funcionarios.isEmpty())
@@ -98,22 +98,35 @@ public class FuncionarioController {
     }
 
     @PostMapping("/salvar")
-    public String salvar(@Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
+    public String salvar(@Valid @ModelAttribute("funcionario") Funcionario funcionario,
+                         @ModelAttribute("turno") Turno turno,
+                         @ModelAttribute("equipe") Equipe equipe,
+                         @ModelAttribute("cargo") Cargo cargo,
+                         BindingResult result, RedirectAttributes attr) {
+
         if (result.hasErrors()) {
             attr.addFlashAttribute("mensagem", "Erro ao cadastrar funcionário.");
+            //attr.addFlashAttribute("mensagem", result.getAllErrors());
             return "redirect:/funcionarios/listar";
         }
 
+        funcionario.setCargo(cargo);
+        funcionario.setEquipe(equipe);
+        funcionario.setTurno(turno);
         funcionarioService.salvar(funcionario);
+
         attr.addFlashAttribute("mensagem", "Funcionário cadastrado com sucesso.");
         return "redirect:/funcionarios/listar";
     }
 
-    @GetMapping("/{funcionarioId}/atualizar/cargo/{cargoId}")
-    public ModelAndView atualizar(@PathVariable("cargoId") long cargoId, @PathVariable("funcionarioId") long funcionarioId, ModelMap model) {
-        Funcionario funcionario = funcionarioService.listarPorCargoIdEFuncionarioId(cargoId, funcionarioId);
+    @GetMapping("/{funcionarioId}/atualizar")
+    public ModelAndView atualizar(@PathVariable("funcionarioId") long funcionarioId, ModelMap model) {
+        Funcionario funcionario = funcionarioService.listarPorId(funcionarioId);
         model.addAttribute("funcionario", funcionario);
-        model.addAttribute("cargoId", cargoId);
+        model.addAttribute("cargos", cargoService.listar());
+        model.addAttribute("equipes", equipeService.listar());
+        model.addAttribute("turnos", turnoService.listar());
+
         return new ModelAndView("/funcionario/add", model);
     }
 
@@ -128,10 +141,10 @@ public class FuncionarioController {
         return new ModelAndView("redirect:/cargos/" + cargoId + "funcionarios/listar");
     }
 
-    @GetMapping("/funcionarioId}/remover/cargo/{cargoId}")
-    public String remover(@PathVariable("cargoId") long cargoId, @PathVariable("funcionarioId") long funcionarioId, RedirectAttributes attr) {
-        funcionarioService.excluir(cargoId, funcionarioId);
+    @GetMapping("/funcionarioId}/remover")
+    public String remover(@PathVariable("funcionarioId") long funcionarioId, RedirectAttributes attr) {
+        funcionarioService.excluir(funcionarioId);
         attr.addFlashAttribute("mensagem", "Funcionário excluído com sucesso.");
-        return "redirect:/cargos/" + cargoId + "funcionarios/listar";
+        return "redirect:/funcionarios/listar";
     }
 }

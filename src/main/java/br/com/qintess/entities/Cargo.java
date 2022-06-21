@@ -14,7 +14,8 @@ public class Cargo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "ID")
+    private long cargoId;
 
     @NotBlank
     @Size(min = 2, max = 125)
@@ -38,12 +39,12 @@ public class Cargo {
     @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
     private List<Funcionario> funcionarios;
 
-    public long getId() {
-        return id;
+    public long getCargoId() {
+        return cargoId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCargoId(long cargoId) {
+        this.cargoId = cargoId;
     }
 
     public String getNome() {
