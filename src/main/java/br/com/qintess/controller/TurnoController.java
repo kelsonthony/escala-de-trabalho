@@ -1,6 +1,7 @@
 package br.com.qintess.controller;
 
 import br.com.qintess.entities.Turno;
+import br.com.qintess.entities.TurnoFixo;
 import br.com.qintess.services.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,17 +21,20 @@ public class TurnoController {
   private TurnoService turnoService;
 
 
-  @GetMapping("/cadastrar")
-  public String cadastrar(@ModelAttribute("turno") Turno turno){
-    return "turno/add";
+  @GetMapping("/cadastrar/fixo")
+  public String cadastrarTurnoFixo(@ModelAttribute("turno") Turno turno){
+    return "turno/fixo/add";
   }
 
-  @PostMapping("/salvar")
-  public String salvar(@Valid @ModelAttribute("turno") Turno turno, BindingResult result, RedirectAttributes attr) {
+  @PostMapping("/salvar/fixo")
+  public String salvarTurnoFixo(@Valid @ModelAttribute("turno") Turno turno, @Valid @ModelAttribute("turnofixo") TurnoFixo turnoFixo,
+                       BindingResult result, RedirectAttributes attr) {
+
     if(result.hasErrors()) {
-      return "/turno/add";
+      return "turno/fixo/add";
     }
 
+    turno.setTurnoFixo(turnoFixo);
     turnoService.salvar(turno);
     attr.addFlashAttribute("mensagem", "Turno criado com sucesso.");
     return "redirect:/turnos/listar";
