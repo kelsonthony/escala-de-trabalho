@@ -32,8 +32,8 @@ public class TurnoController {
   }
 
   @GetMapping("/salvar/fixo")
-  public String cadastrarTurnoSalvarFixo(@ModelAttribute("turno") Turno turno){
-    return "redirect:turno/fixo/add";
+  public String salvarTurnoFixoRedirect(@ModelAttribute("turno") Turno turno){
+    return "redirect:/turnos/cadastrar/fixo";
   }
 
   @PostMapping("/salvar/fixo")

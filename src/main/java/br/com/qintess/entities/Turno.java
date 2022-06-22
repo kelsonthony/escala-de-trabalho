@@ -17,17 +17,17 @@ public class Turno {
     private long id;
 
     @NotBlank
-    @Size(min = 2, max = 125 )
+    @Size(min = 2, max = 125 , message = "Tamanho deve estar entre 2 e 125")
     @Column(nullable = false, length = 125)
     private String nome;
 
     @NotBlank
-    @Size(min = 1, max = 5)
+    @Size(min = 1, max = 5 , message = "Tamanho deve estar entre 1 e 5")
     @Column(nullable = false, length = 5)
     private String sigla;
 
     @NotNull
-    @Range(min = 0, max = 1)
+    @Range(min = 0, max = 1 , message = "Valor deve ser 1 ou 0")
     private int trabalhaNoFeriado;
 
     @NotBlank

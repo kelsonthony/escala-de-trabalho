@@ -29,25 +29,25 @@
             <div class="form-group col-md-4">
               <label for="sigla">Sigla:</label>
               <input class="form-control" id="sigla" type="text" th:field="*{sigla}"  th:errorclass="is-invalid"/>
-              <div calss="invalid-feedback" th:errors="*{sigla}"></div>
+              <div class="invalid-feedback" th:errors="*{sigla}"></div>
             </div>
             <div class="form-group col-md-4">
               <label for="trabalhaNoFeriado">Trabalha no Feriado:</label>
-              <select class="form-control form-select-lg mb-3" aria-label=".form-select-lg example" th:field="*{trabalhaNoFeriado}" id="trabalhaNoFeriado">
+              <select class="form-control form-select-lg mb-3" aria-label=".form-select-lg example" th:field="*{trabalhaNoFeriado}" id="trabalhaNoFeriado" th:errorclass="is-invalid">
                 <option th:value="1">Sim</option>
                 <option th:value="0">Não</option>
               </select>
-              <div th:if="${#fields.hasErrors('trabalhaNoFeriado')}" th:errors="*{trabalhaNoFeriado}"></div>
+              <div class="invalid-feedback" th:errors="*{trabalhaNoFeriado}"></div>
             </div>
             <div class="form-group col-md-2">
               <label for="horaInicio">Horario Inicio:</label>
-              <input class="form-control" id="horaInicio" type="time" th:field="*{horaInicio}"/>
-              <div th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}"></div>
+              <input class="form-control" id="horaInicio" type="time" th:field="*{horaInicio}" th:errorclass="is-invalid"/>
+              <div class="invalid-feedback" th:errors="*{horaInicio}"></div>
             </div>
             <div class="form-group col-md-2">
               <label for="horaTermino">Horario Termino:</label>
-              <input class="form-control" id="horaTermino" type="time" th:field="*{horaTermino}"/>
-              <div th:if="${#fields.hasErrors('horaTermino')}" th:errors="*{horaTermino}"></div>
+              <input class="form-control" id="horaTermino" type="time" th:field="*{horaTermino}" th:errorclass="is-invalid"/>
+              <div class="invalid-feedback" th:errors="*{horaTermino}"></div>
             </div>
 
           </div>
@@ -95,7 +95,7 @@
 
                   </td>
                   <td>
-                    <select class="form-control"   id="sexta" name="sexta">
+                    <select class="form-control" id="sexta" name="sexta">
                       <option th:value="1">Sim</option>
                       <option th:value="0">Não</option>
                     </select>
@@ -120,6 +120,7 @@
               </table>
 
             </div>
+
 
           <div class="form-group">
             <button class="btn btn-primary" type="submit">Salvar</button>
