@@ -16,30 +16,30 @@ public class Funcionario {
     private long funcionarioId;
 
     @NotBlank
-    @Size(min = 2, max = 8)
+    @Size(min = 2, max = 8, message = "Tamanho deve estar entre 2 e 8")
     @Column(nullable = false, length = 8)
     private String matricula;
 
     @NotBlank
-    @Size(min = 2, max = 125)
-    @Column(nullable = false,length = 125)
+    @Size(min = 2, max = 125 , message = "Tamanho deve estar entre 2 e 125")
+    @Column(nullable = false, length = 125)
     private String nome;
 
     @Column(nullable = false, length = 1)
     private char localidade;
 
-    @Size(min = 0, max = 14)
-    @Column(nullable = true, length = 14)
+    @Size(min = 2, max = 14, message = "Tamanho deve estar entre 2 e 14")
+    @Column(nullable = false, length = 14)
     private String codigo;
 
-    @Email
     @NotBlank
-    @Size(min = 5, max = 255)
+    @Size(min = 5, max = 255, message = "Tamanho deve estar entre 5 e 255")
+    @Email
     @Column(nullable = false, length = 255)
     private String email;
 
     @NotBlank
-    @Size(min = 5, max = 255)
+    @Size(min = 6, max = 255, message = "Tamanho deve estar entre 6 e 255")
     @Column(nullable = false, length = 255)
     private String senha;
 
