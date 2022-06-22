@@ -11,6 +11,7 @@ import br.com.qintess.services.interfaces.ICargoService;
 import br.com.qintess.services.interfaces.IEquipeService;
 import br.com.qintess.services.interfaces.IFuncionarioService;
 import br.com.qintess.services.interfaces.ITurnoService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,7 +91,12 @@ public class FuncionarioService implements IFuncionarioService {
     }
 
     @Override
-    public void excluir(long funcionarioId) {
-        funcionarioRepository.excluir(listarPorId(funcionarioId).getFuncionarioId());
+    public void excluir(long id) {
+        Funcionario funcionario = funcionarioRepository.listarPorId(id);
+        if (funcionario == null) {
+            throw new ConstraintViolationException(
+                    "Erro ao tentar excluir o funcionário (#Id não existe).", null, null);
+        }
+        funcionarioRepository.excluir(listarPorId(id).getFuncionarioId());
     }
 }

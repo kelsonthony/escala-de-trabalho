@@ -28,4 +28,9 @@ public class EscalaController {
 
     @GetMapping("/contato-suporte")
     public String contatoSuporte() { return "contato-suporte"; }
+
+    @GetMapping("/error")
+    public String error() {
+        return "/error/404.html";
+    }
 }

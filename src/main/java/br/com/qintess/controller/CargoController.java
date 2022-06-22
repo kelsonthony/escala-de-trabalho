@@ -1,7 +1,9 @@
 package br.com.qintess.controller;
 
 import br.com.qintess.entities.Cargo;
+import br.com.qintess.exceptions.EscalaException;
 import br.com.qintess.services.interfaces.ICargoService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -61,8 +63,16 @@ public class CargoController {
 
     @GetMapping("/{id}/remover")
     public String remover(@PathVariable("id") long id, RedirectAttributes attr) {
-        cargoService.excluir(id);
-        attr.addFlashAttribute("mensagem", "Cargo excluído com sucesso.");
+        String mensagem = "Mensagem do sistema: ";
+        try {
+            cargoService.excluir(id);
+            mensagem +=  "Cargo excluído com sucesso.";
+        } catch (EscalaException e) {
+            mensagem += e.getMessage() + " - Código: " + e.getCodigo();
+        } catch (RuntimeException e ) {
+            mensagem += e.getMessage();
+        }
+        attr.addFlashAttribute("mensagem", mensagem);
         return "redirect:/cargos/listar";
     }
 }

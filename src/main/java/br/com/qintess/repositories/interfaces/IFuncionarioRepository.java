@@ -16,4 +16,5 @@ public interface IFuncionarioRepository {
     Funcionario listarPorCargoIdEFuncionarioId(long cargoId, long funcionarioId);
     void atualizar(Funcionario funcionario);
     void excluir(long funcionarioId);
+    boolean temFuncionarios(String entity, long id);
 }

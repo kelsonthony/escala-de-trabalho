@@ -70,4 +70,17 @@ public class FuncionarioRepository implements IFuncionarioRepository {
     public void excluir(long funcionarioId) {
         em.remove(em.getReference(Funcionario.class, funcionarioId));
     }
+
+    public boolean temFuncionarios(String entity, long id) {
+        switch (entity) {
+            case "cargo":
+                return !(this.listarPorCargo(id).isEmpty());
+            case "equipe":
+                return !(this.listarPorEquipe(id).isEmpty());
+            case "turno":
+                return !(this.listarPorTurno(id).isEmpty());
+            default:
+                return false;
+        }
+    }
 }

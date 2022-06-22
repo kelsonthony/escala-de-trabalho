@@ -1,6 +1,7 @@
 package br.com.qintess.controller;
 
 import br.com.qintess.entities.Equipe;
+import br.com.qintess.exceptions.EscalaException;
 import br.com.qintess.services.interfaces.IEquipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,8 +62,16 @@ public class EquipeController {
 
     @GetMapping("/{id}/remover")
     public String remover(@PathVariable("id") long id, RedirectAttributes attr) {
-        equipeService.excluir(id);
-        attr.addFlashAttribute("mensagem", "Equipe excluída com sucesso.");
+        String mensagem = "Mensagem do sistema: ";
+        try {
+            equipeService.excluir(id);
+            mensagem +=  "Equipe excluída com sucesso.";
+        } catch (EscalaException e) {
+            mensagem += e.getMessage() + " - Código: " + e.getCodigo();
+        } catch (RuntimeException e ) {
+            mensagem += e.getMessage();
+        }
+        attr.addFlashAttribute("mensagem", mensagem);
         return "redirect:/equipes/listar";
     }
 }

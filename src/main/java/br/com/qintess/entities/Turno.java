@@ -37,7 +37,7 @@ public class Turno {
     @Column(nullable = true, length = 8)
     private String totalHoras;
 
-    @OneToMany(mappedBy = "turno", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "turno")
     private List<Funcionario> funcionarios;
 
     @ManyToOne(cascade = CascadeType.ALL)

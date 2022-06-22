@@ -17,9 +17,9 @@
     </ol>
     <div class="card mb-4">
       <div class="container">
-        <form th:action="@{/cargos/salvar}" th:method="${cargo.id} == 0 ? post : put" th:object="${cargo}">
+        <form th:action="@{/cargos/salvar}" th:method="${cargo.cargoId} == 0 ? post : put" th:object="${cargo}">
           <div class="row">
-            <input id="id" type="hidden" th:field="*{id}"/>
+            <input id="cargoId" type="hidden" th:field="*{cargoId}"/>
             <div class="form-group col-md-12">
               <label for="nome">Nome:</label>
               <input class="form-control" id="nome" type="text" th:field="*{nome}"/>

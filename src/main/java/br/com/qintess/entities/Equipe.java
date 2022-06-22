@@ -23,7 +23,7 @@ public class Equipe {
     @Column(nullable = false, length = 4000)
     private String descricao;
 
-    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "equipe")
     private List<Funcionario> funcionarios;
 
     public long getEquipeId() {

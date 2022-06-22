@@ -1,6 +1,7 @@
 package br.com.qintess.controller;
 
 import br.com.qintess.entities.*;
+import br.com.qintess.exceptions.EscalaException;
 import br.com.qintess.services.interfaces.ICargoService;
 import br.com.qintess.services.interfaces.IEquipeService;
 import br.com.qintess.services.interfaces.IFuncionarioService;
@@ -98,7 +99,7 @@ public class FuncionarioController {
     }
 
     @PostMapping("/salvar")
-    public String salvar(@Valid @ModelAttribute("funcionario") Funcionario funcionario,
+    public String salvar(@ModelAttribute("funcionario") Funcionario funcionario,
                          @ModelAttribute("turno") Turno turno,
                          @ModelAttribute("equipe") Equipe equipe,
                          @ModelAttribute("cargo") Cargo cargo,
@@ -141,10 +142,18 @@ public class FuncionarioController {
         return new ModelAndView("redirect:/cargos/" + cargoId + "funcionarios/listar");
     }
 
-    @GetMapping("/funcionarioId}/remover")
-    public String remover(@PathVariable("funcionarioId") long funcionarioId, RedirectAttributes attr) {
-        funcionarioService.excluir(funcionarioId);
-        attr.addFlashAttribute("mensagem", "Funcionário excluído com sucesso.");
+    @GetMapping("/{id}/remover")
+    public String remover(@PathVariable("id") long id, RedirectAttributes attr) {
+        String mensagem = "Mensagem do sistema: ";
+        try {
+            funcionarioService.excluir(id);
+            mensagem +=  "Funcionário excluído com sucesso.";
+        } catch (EscalaException e) {
+            mensagem += e.getMessage() + " - Código: " + e.getCodigo();
+        } catch (RuntimeException e ) {
+            mensagem += e.getMessage();
+        }
+        attr.addFlashAttribute("mensagem", mensagem);
         return "redirect:/funcionarios/listar";
     }
 }

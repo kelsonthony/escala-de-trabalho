@@ -2,7 +2,9 @@ package br.com.qintess.services;
 
 import br.com.qintess.entities.Turno;
 import br.com.qintess.repositories.TurnoRepository;
+import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
 import br.com.qintess.services.interfaces.ITurnoService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class TurnoService implements ITurnoService {
 
   @Autowired
   private TurnoRepository turnoRepository;
+
+  @Autowired
+  IFuncionarioRepository funcionarioRepository;
 
   @Override
   public void salvar(Turno turno) {
@@ -45,6 +50,11 @@ public class TurnoService implements ITurnoService {
 
   @Override
   public void excluir(long id) {
+    boolean temFuncionarios = funcionarioRepository.temFuncionarios("turno", id);
+    if (temFuncionarios){
+      throw new ConstraintViolationException(
+              "Não é possível excluir um turno que possui funcionários cadastrados.", null, null);
+    }
     this.turnoRepository.excluir(id);
   }
 

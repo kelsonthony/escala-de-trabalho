@@ -3,6 +3,7 @@ package br.com.qintess.controller;
 
 import br.com.qintess.entities.Turno;
 import br.com.qintess.entities.TurnoFixo;
+import br.com.qintess.exceptions.EscalaException;
 import br.com.qintess.services.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -83,19 +84,18 @@ public class TurnoController {
   }
 
   @GetMapping("{id}/remover")
-  public String remover(@PathVariable("id") long id, RedirectAttributes attr){
-
-    if(turnoService.listarPorId(id) == null){
-      attr.addFlashAttribute("mensagem", "Turno informado não existe");
-      return "redirect:/turnos/listar";
+  public String remover(@PathVariable("id") long id, RedirectAttributes attr) {
+    String mensagem = "Mensagem do sistema: ";
+    try {
+      turnoService.excluir(id);
+      mensagem += "Turno removido com sucesso.";
+    } catch (EscalaException e) {
+      mensagem += e.getMessage() + " - Código: " + e.getCodigo();
+    } catch (RuntimeException e) {
+      mensagem += e.getMessage();
     }
-
-    turnoService.excluir(id);
-    attr.addFlashAttribute("mensagem", "Turno removido com sucesso");
+    attr.addFlashAttribute("mensagem", mensagem);
     return "redirect:/turnos/listar";
-
   }
-
-
 
 }

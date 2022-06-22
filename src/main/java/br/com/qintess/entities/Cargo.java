@@ -36,7 +36,7 @@ public class Cargo {
     @Column(nullable = true, length = 999)
     private int horasExtrasPermitidas;
 
-    @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cargo")
     private List<Funcionario> funcionarios;
 
     public long getCargoId() {
