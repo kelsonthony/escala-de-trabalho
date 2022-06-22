@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Turno {
     private long id;
 
     @NotBlank
-    @Size(min = 2, max = 125)
+    @Size(min = 2, max = 125 )
     @Column(nullable = false, length = 125)
     private String nome;
 
@@ -25,15 +26,19 @@ public class Turno {
     @Column(nullable = false, length = 5)
     private String sigla;
 
+    @NotNull
     @Range(min = 0, max = 1)
     private int trabalhaNoFeriado;
 
+    @NotBlank
     @Column(nullable = true, length = 8)
     private String horaInicio;
 
+    @NotBlank
     @Column(nullable = true, length = 8)
     private String horaTermino;
 
+    @NotBlank
     @Column(nullable = true, length = 8)
     private String totalHoras;
 

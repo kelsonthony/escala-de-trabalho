@@ -21,7 +21,6 @@ public class TurnoController {
   @Autowired
   private TurnoService turnoService;
 
-
   @GetMapping("/cadastrar/fixo")
   public String cadastrarTurnoFixo(@ModelAttribute("turno") Turno turno){
     return "turno/fixo/add";
@@ -32,11 +31,15 @@ public class TurnoController {
     return "turno/alternado/add";
   }
 
-  @PostMapping("/salvar/fixo")
-  public String salvarTurnoFixo(@Valid @ModelAttribute("turno") Turno turno, @Valid @ModelAttribute("turnofixo") TurnoFixo turnoFixo,
-                                BindingResult result, RedirectAttributes attr) {
+  @GetMapping("/salvar/fixo")
+  public String cadastrarTurnoSalvarFixo(@ModelAttribute("turno") Turno turno){
+    return "redirect:turno/fixo/add";
+  }
 
-    if(result.hasErrors()) {
+  @PostMapping("/salvar/fixo")
+  public String salvarTurnoFixo(@Valid @ModelAttribute("turno") Turno turno,BindingResult resultTurno, @Valid @ModelAttribute("turnofixo") TurnoFixo turnoFixo,
+                                BindingResult result, RedirectAttributes attr) {
+    if(resultTurno.hasErrors()) {
       return "turno/fixo/add";
     }
 
@@ -59,8 +62,6 @@ public class TurnoController {
     return new ModelAndView("redirect:/turnos/listar") ;
 
   }
-
-
 
   @GetMapping("/{id}/atualizar")
   public ModelAndView atualizar(@PathVariable("id") long id, ModelMap model) {

@@ -20,10 +20,10 @@
         <form th:action="@{/turnos/salvar/alternado}" th:method="${turno.id} == 0 ? post : put" th:object="${turno}">
           <div class="row">
             <input id="id" type="hidden" th:field="*{id}"/>
-            <div class="form-group col-md-12">
+             <div class="form-group col-md-12" th:classappend="${#fields.hasErrors('nome')} ? has-error">>
               <label for="nome">Nome:</label>
               <input class="form-control" id="nome" type="text" th:field="*{nome}"/>
-              <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+              <!-- <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div> -->
             </div>
 
             <div class="form-group col-md-4">
@@ -44,6 +44,20 @@
               <input class="form-control" id="horaInicio" type="time" th:field="*{horaInicio}"/>
               <div th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}"></div>
             </div>
+            <div class="form-group col-md-2">
+              <label for="horaTermino">Horario Termino:</label>
+              <input class="form-control" id="horaTermino" type="time" th:field="*{horaTermino}"/>
+              <div th:if="${#fields.hasErrors('horaTermino')}" th:errors="*{horaTermino}"></div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="form-group col-md-2">
+              <label for="horaTermino">Horario Termino:</label>
+              <input class="form-control" id="horaTermino" type="time" th:field="*{horaTermino}"/>
+              <div th:if="${#fields.hasErrors('horaTermino')}" th:errors="*{horaTermino}"></div>
+            </div>
+
             <div class="form-group col-md-2">
               <label for="horaTermino">Horario Termino:</label>
               <input class="form-control" id="horaTermino" type="time" th:field="*{horaTermino}"/>
