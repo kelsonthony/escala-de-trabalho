@@ -15,11 +15,12 @@ public class Equipe {
     private long equipeId;
 
     @NotBlank
-    @Size(min = 2, max = 125)
+    @Size(min = 2, max = 125, message = "Tamanho deve estar entre 2 e 125")
     @Column(nullable = false, length = 125)
     private String nome;
 
-    @Size(min = 2, max = 4000)
+    @NotBlank
+    @Size(min = 2, max = 4000,message = "Tamanho deve estar entre 2 e 4000")
     @Column(nullable = false, length = 4000)
     private String descricao;
 
