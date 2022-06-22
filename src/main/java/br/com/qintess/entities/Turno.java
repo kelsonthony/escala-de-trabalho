@@ -38,7 +38,6 @@ public class Turno {
     @Column(nullable = true, length = 8)
     private String horaTermino;
 
-    @NotBlank
     @Column(nullable = true, length = 8)
     private String totalHoras;
 
