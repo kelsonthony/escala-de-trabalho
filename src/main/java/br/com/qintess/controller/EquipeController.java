@@ -31,6 +31,11 @@ public class EquipeController {
         return "/equipe/add";
     }
 
+    @GetMapping("/salvar")
+    public String salvarRedirect(@ModelAttribute("equipe") Equipe equipe){
+      return "redirect:/equipes/cadastrar";
+    }
+
     @PostMapping("/salvar")
     public String salvar(@Valid @ModelAttribute("equipe") Equipe equipe, BindingResult result, RedirectAttributes attr) {
         if(result.hasErrors()) {

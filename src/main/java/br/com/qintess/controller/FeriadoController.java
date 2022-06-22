@@ -1,12 +1,11 @@
 package br.com.qintess.controller;
 
 
-import br.com.qintess.entities.Cargo;
+
 import br.com.qintess.entities.Feriado;
 import br.com.qintess.services.interfaces.IFeriadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +31,11 @@ public class FeriadoController {
   public String cadastrar(@ModelAttribute("feriado") Feriado feriado){
     return "feriado/add";
 
+  }
+
+  @GetMapping("/salvar")
+  public String salvarFeriadoRedirect(@ModelAttribute("feriado") Feriado feriado){
+    return "redirect:/feriados/cadastrar";
   }
 
   @PostMapping("/salvar")

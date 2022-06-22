@@ -18,12 +18,12 @@ public class Feriado {
     private long id;
 
     @NotBlank
-    @Size(min = 2, max = 125)
+    @Size(min = 2, max = 125, message = "Tamanho deve estar entre 2 e 125")
     @Column(nullable = false, length = 125)
     private String nome;
 
 
-    @NotNull
+    @NotNull(message = "Não pode esta em branco")
     @Column(nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate data;

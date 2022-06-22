@@ -22,24 +22,24 @@
             <input id="id" type="hidden" th:field="*{id}"/>
             <div class="form-group col-md-12">
               <label for="nome">Nome:</label>
-              <input class="form-control" id="nome" type="text" th:field="*{nome}"/>
-              <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+              <input class="form-control" id="nome" type="text" th:field="*{nome}" th:errorClass="is-invalid"/>
+              <div class="invalid-feedback" th:errors="*{nome}"></div>
             </div>
 
             <div class="form-group col-md-4">
               <label for="data">Data:</label>
-              <input class="form-control" id="data" type="date" th:field="*{data}"/>
-              <div th:if="${#fields.hasErrors('data')}" th:errors="*{data}"></div>
+              <input class="form-control" id="data" type="date" th:field="*{data}"  th:errorclass="is-invalid"/>
+              <div class="invalid-feedback" th:errors="*{data}"></div>
             </div>
 
             <div class="form-group col-md-4">
               <label for="tipo">Tipo:</label>
-              <select class="form-control form-select-lg mb-3" aria-label=".form-select-lg example" th:field="*{tipo}" id="tipo">
+              <select class="form-control form-select-lg mb-3" aria-label=".form-select-lg example" th:field="*{tipo}" id="tipo" th:erroClass="is-invalid">
                 <option th:value="Nacional">Nacional</option>
                 <option th:value="Estadual">Estadual</option>
                 <option th:value="Municipal">Municipal</option>
               </select>
-              <div th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}"></div>
+              <div class="invalid-feedback" th:errors="*{tipo}"></div>
             </div>
 
           </div>
