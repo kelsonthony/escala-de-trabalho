@@ -40,9 +40,11 @@ public class TurnoController {
   }
 
   @PostMapping("/salvar/fixo")
-  public String salvarTurnoFixo(@Valid @ModelAttribute("turno") Turno turno,BindingResult resultTurno, @Valid @ModelAttribute("turnofixo") TurnoFixo turnoFixo,
-                                BindingResult result, RedirectAttributes attr) {
-    if(resultTurno.hasErrors()) {
+  public String salvarTurnoFixo(@Valid @ModelAttribute("turno") Turno turno,BindingResult resultTurno,
+                                @Valid @ModelAttribute("turnofixo") TurnoFixo turnoFixo,
+                                BindingResult resultFixo, RedirectAttributes attr) {
+
+    if(resultTurno.hasErrors() || resultFixo.hasErrors()) {
       return "turno/fixo/add";
     }
 
@@ -55,8 +57,9 @@ public class TurnoController {
   @PostMapping("/salvar/alternado")
   public String salvarTurnoAlternado(@Valid @ModelAttribute("turno") Turno turno,BindingResult resultTurno,
                                 @Valid @ModelAttribute("turnoAlternado") TurnoAlternado turnoAlternado,
-                                BindingResult result, RedirectAttributes attr) {
-    if(resultTurno.hasErrors()) {
+                                BindingResult resultAlternado, RedirectAttributes attr) {
+
+    if(resultTurno.hasErrors() || resultAlternado.hasErrors()) {
       return "turno/alternado/add";
     }
 
@@ -67,9 +70,11 @@ public class TurnoController {
   }
 
   @PutMapping("/salvar/fixo")
-  public ModelAndView salvarAtualizacaoTurnoFixo(@Valid @ModelAttribute("turno") Turno turno, @Valid @ModelAttribute("turnofixo") TurnoFixo turnoFixo
-          ,BindingResult result, RedirectAttributes attr) {
-    if(result.hasErrors()) {
+  public ModelAndView salvarAtualizacaoTurnoFixo(@Valid @ModelAttribute("turno") Turno turno,BindingResult resultTurno,
+                                                 @Valid @ModelAttribute("turnofixo") TurnoFixo turnoFixo,
+                                                 BindingResult resultFixo, RedirectAttributes attr) {
+
+    if(resultFixo.hasErrors() || resultTurno.hasErrors()) {
       return new ModelAndView("turno/fixo/update");
     }
 
@@ -81,10 +86,10 @@ public class TurnoController {
   }
 
   @PutMapping("/salvar/alternado")
-  public ModelAndView salvarAtualizacaoTurnoAlternado(@Valid @ModelAttribute("turno") Turno turno,
+  public ModelAndView salvarAtualizacaoTurnoAlternado(@Valid @ModelAttribute("turno") Turno turno, BindingResult resultTurno,
                                                       @Valid @ModelAttribute("turnoAlternado") TurnoAlternado turnoAlternado,
-                                                      BindingResult result, RedirectAttributes attr) {
-    if(result.hasErrors()) {
+                                                      BindingResult resultAlternado, RedirectAttributes attr) {
+    if(resultAlternado.hasErrors() ||resultTurno.hasErrors()) {
       return new ModelAndView("turno/alternado/update");
     }
 
