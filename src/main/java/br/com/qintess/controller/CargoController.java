@@ -1,6 +1,7 @@
 package br.com.qintess.controller;
 
 import br.com.qintess.entities.Cargo;
+import br.com.qintess.entities.Funcionario;
 import br.com.qintess.exceptions.EscalaException;
 import br.com.qintess.services.interfaces.ICargoService;
 import org.hibernate.exception.ConstraintViolationException;
@@ -30,6 +31,11 @@ public class CargoController {
     @GetMapping("/cadastrar")
     public String cadastrar(@ModelAttribute("cargo") Cargo cargo) {
         return "/cargo/add";
+    }
+
+    @GetMapping("/salvar")
+    public String salvarRedirect(@ModelAttribute("cargo") Cargo cargo){
+        return "redirect:/cargos/cadastrar";
     }
 
     @PostMapping("/salvar")

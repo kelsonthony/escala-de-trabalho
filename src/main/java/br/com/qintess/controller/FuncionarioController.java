@@ -98,48 +98,84 @@ public class FuncionarioController {
         return "/funcionario/add";
     }
 
+    @GetMapping("/salvar")
+    public String salvarRedirect(@ModelAttribute("funcionario") Funcionario funcionario){
+        return "redirect:/funcionarios/cadastrar";
+    }
+
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute("funcionario") Funcionario funcionario,
+    public String salvar(@Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult result,
                          @ModelAttribute("turno") Turno turno,
                          @ModelAttribute("equipe") Equipe equipe,
                          @ModelAttribute("cargo") Cargo cargo,
-                         BindingResult result, RedirectAttributes attr) {
+                         ModelMap model, RedirectAttributes attr) {
 
         if (result.hasErrors()) {
-            attr.addFlashAttribute("mensagem", "Erro ao cadastrar funcionário.");
-            //attr.addFlashAttribute("mensagem", result.getAllErrors());
-            return "redirect:/funcionarios/listar";
+            model.addAttribute("cargos", cargoService.listar());
+            model.addAttribute("equipes", equipeService.listar());
+            model.addAttribute("turnos", turnoService.listar());
+            return "/funcionario/add";
         }
 
         funcionario.setCargo(cargo);
         funcionario.setEquipe(equipe);
         funcionario.setTurno(turno);
-        funcionarioService.salvar(funcionario);
 
+        funcionarioService.salvar(funcionario);
         attr.addFlashAttribute("mensagem", "Funcionário cadastrado com sucesso.");
         return "redirect:/funcionarios/listar";
     }
 
     @GetMapping("/{funcionarioId}/atualizar")
     public ModelAndView atualizar(@PathVariable("funcionarioId") long funcionarioId, ModelMap model) {
+
         Funcionario funcionario = funcionarioService.listarPorId(funcionarioId);
+
         model.addAttribute("funcionario", funcionario);
+        model.addAttribute("selectedCargoId", funcionario.getCargo().getCargoId());
+        model.addAttribute("selectedEquipeId", funcionario.getEquipe().getEquipeId());
+        model.addAttribute("selectedTurnoId", funcionario.getTurno().getId());
+        model.addAttribute("selectedLocalidade", funcionario.getLocalidade());
+
         model.addAttribute("cargos", cargoService.listar());
         model.addAttribute("equipes", equipeService.listar());
         model.addAttribute("turnos", turnoService.listar());
 
-        return new ModelAndView("/funcionario/add", model);
+        return new ModelAndView("/funcionario/update", model);
     }
 
-    @PutMapping("/salvar/cargo/{cargoId}")
-    public ModelAndView salvarAtualizacao(@PathVariable("cargoId") long cargoId, @Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
+    @GetMapping("/atualizar")
+    public String atualizarRedirect(@ModelAttribute("funcionario") Funcionario funcionario, ModelMap model) {
+        Funcionario f = funcionarioService.listarPorId(funcionario.getFuncionarioId());
+        model.addAttribute("cargos", cargoService.listar());
+        model.addAttribute("equipes", equipeService.listar());
+        model.addAttribute("turnos", turnoService.listar());
+
+        return "/funcionario/update";
+    }
+
+    @PutMapping("/atualizar")
+    public ModelAndView salvarAtualizacao(@Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult result,
+                         @ModelAttribute("turno") Turno turno,
+                         @ModelAttribute("equipe") Equipe equipe,
+                         @ModelAttribute("cargo") Cargo cargo,
+                         ModelMap model, RedirectAttributes attr) {
+
         if (result.hasErrors()) {
-            return new ModelAndView("/funcionario/add");
+            model.addAttribute("cargos", cargoService.listar());
+            model.addAttribute("equipes", equipeService.listar());
+            model.addAttribute("turnos", turnoService.listar());
+
+            return new ModelAndView("/funcionario/update");
         }
+
+        funcionario.setCargo(cargo);
+        funcionario.setEquipe(equipe);
+        funcionario.setTurno(turno);
 
         funcionarioService.atualizar(funcionario);
         attr.addFlashAttribute("mensagem", "Funcionário atualizado com sucesso.");
-        return new ModelAndView("redirect:/cargos/" + cargoId + "funcionarios/listar");
+        return new ModelAndView("redirect:/funcionarios/listar");
     }
 
     @GetMapping("/{id}/remover")
@@ -147,7 +183,7 @@ public class FuncionarioController {
         String mensagem = "Mensagem do sistema: ";
         try {
             funcionarioService.excluir(id);
-            mensagem +=  "Funcionário excluído com sucesso.";
+            mensagem +=  "Funcionário removido com sucesso.";
         } catch (EscalaException e) {
             mensagem += e.getMessage() + " - Código: " + e.getCodigo();
         } catch (RuntimeException e ) {

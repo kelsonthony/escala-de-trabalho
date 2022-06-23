@@ -50,8 +50,8 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>Matrícula</th>
                             <th>Nome</th>
+                            <th>Matrícula</th>
                             <th>Equipe</th>
                             <th>Turno</th>
                             <th>Ações</th>
@@ -59,8 +59,8 @@
                         </thead>
                         <tfoot>
                         <tr>
-                            <th>Matrícula</th>
                             <th>Nome</th>
+                            <th>Matrícula</th>
                             <th>Equipe</th>
                             <th>Turno</th>
                             <th>Ações</th>
@@ -68,10 +68,8 @@
                         </tfoot>
                         <tbody>
                         <tr th:each="funcionario : ${funcionarios}">
-                            <td>
-                                <a th:text="${funcionario.matricula}" th:href="@{/funcionarios/listar/{id}(id=${funcionario.funcionarioId})}">matricula</a>
-                            </td>
-                            <td th:text="${funcionario.nome}">nome</td>
+                            <td><a th:text="${funcionario.nome}" th:href="@{/funcionarios/listar/{id}(id=${funcionario.funcionarioId})}">nome</a></td>
+                            <td th:text="${funcionario.matricula}">matricula</td>
                             <td th:text="${funcionario.equipe.nome}">equipe</td>
                             <td th:text="${funcionario.turno.nome}">turno</td>
                             <td>
@@ -88,7 +86,6 @@
             </div>
         </div>
     </div>
-
     <div class="card mb-4">
         <div th:if="${#lists.isEmpty(funcionarios)}">
             <div class="alert alert-info" role="alert">

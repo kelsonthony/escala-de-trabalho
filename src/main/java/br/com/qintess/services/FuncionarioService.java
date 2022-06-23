@@ -27,15 +27,6 @@ public class FuncionarioService implements IFuncionarioService {
     private IFuncionarioRepository funcionarioRepository;
 
     @Autowired
-    private ICargoRepository cargoRepository;
-
-    @Autowired
-    private IEquipeRepository equipeRepository;
-
-    @Autowired
-    private ITurnoRepository turnoRepository;
-
-    @Autowired
     private ICargoService cargoService;
 
     @Autowired
@@ -46,6 +37,10 @@ public class FuncionarioService implements IFuncionarioService {
 
     @Override
     public void salvar(Funcionario funcionario) {
+        if (funcionario == null) {
+            throw new ConstraintViolationException(
+                    "Erro ao tentar salvar o funcionário (#Objeto vazio).", null, null);
+        }
         funcionarioRepository.salvar(funcionario);
     }
 
@@ -95,7 +90,7 @@ public class FuncionarioService implements IFuncionarioService {
         Funcionario funcionario = funcionarioRepository.listarPorId(id);
         if (funcionario == null) {
             throw new ConstraintViolationException(
-                    "Erro ao tentar excluir o funcionário (#Id não existe).", null, null);
+                    "Erro ao tentar remover o funcionário (#Id não existe).", null, null);
         }
         funcionarioRepository.excluir(listarPorId(id).getFuncionarioId());
     }

@@ -13,30 +13,47 @@
     <div class="card mb-4"></div>
     <ol class="breadcrumb mb-4">
       <li class="breadcrumb-item"><a th:href="@{/funcionarios/listar}">Funcionários</a></li>
-      <li class="breadcrumb-item active">Cadastrar Novo</li>
+      <li class="breadcrumb-item active">Atualizar Cadastro</li>
     </ol>
     <div class="card mb-4">
       <div class="container">
-        <form th:action="@{/funcionarios/salvar}" th:method="post" th:object="${funcionario}">
+        <form th:action="@{/funcionarios/atualizar}" th:method="put" th:object="${funcionario}">
           <div class="row">
-            <div class="form-group col-md-12" th:object="${cargo}">
+            <input id="funcionarioId" type="hidden" th:field="*{funcionarioId}"/>
+
+            <div class="form-group col-md-12" th:object="${cargos}">
               <label for="cargoId">Cargo:</label>
               <select class="form-control"  id="cargoId" name="cargoId" >
-                <option th:each="c : ${cargos}" th:value="${c.cargoId}" th:text="${c.nome + ' (' + c.sigla + ') '}"></option>
+                <option
+                        th:each="cargo : ${cargos}"
+                        th:selected="${cargo.cargoId == selectedCargoId}"
+                        th:value="${cargo.cargoId}"
+                        th:text="${cargo.nome + ' (' + cargo.sigla + ') '}">
+                </option>
               </select>
             </div>
 
-            <div class="form-group col-md-6" th:object="${equipe}">
+            <div class="form-group col-md-6" th:object="${equipes}">
               <label for="equipeId">Equipe:</label>
               <select class="form-control" id="equipeId" name="equipeId" >
-                <option th:each="e : ${equipes}" th:value="${e.equipeId}" th:text="${e.nome}"></option>
+                <option
+                        th:each="equipe : ${equipes}"
+                        th:selected="${equipe.equipeId == selectedEquipeId}"
+                        th:value="${equipe.equipeId}"
+                        th:text="${equipe.nome}">
+                </option>
               </select>
             </div>
 
-            <div class="form-group col-md-6" th:object="${turno}">
+            <div class="form-group col-md-6" th:object="${turnos}">
               <label for="id">Turno:</label>
               <select class="form-control" id="id" name="id" >
-                <option th:each="t : ${turnos}" th:value="${t.id}" th:text="${t.nome}"></option>
+                <option
+                        th:each="turno : ${turnos}"
+                        th:selected="${turno.id == selectedTurnoId}"
+                        th:value="${turno.id}"
+                        th:text="${turno.nome}">
+                </option>
               </select>
             </div>
 
@@ -54,9 +71,9 @@
 
             <div class="form-group col-md-4">
               <label for="localidade">Localidade:</label>
-              <select class="form-control" id="localidade" th:field="*{localidade}"/>
-                <option th:value="'P'" th:text="Presencial"></option>
-                <option th:value="'R'" th:text="Remoto"></option>
+              <select class="form-control"  id="localidade" name="localidade" >
+                <option th:selected="${funcionario.localidade == selectedLocalidade}" th:value="'P'">Presencial</option>
+                <option th:selected="${funcionario.localidade == selectedLocalidade}" th:value="'R'">Remoto</option>
               </select>
             </div>
 
