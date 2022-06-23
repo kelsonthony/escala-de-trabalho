@@ -14,7 +14,7 @@ public class Log {
     private long id;
 
     @Column(nullable = false)
-    private long funcionario_id;
+    private long funcionarioId;
 
     @NotBlank
     @Column(nullable = false)
@@ -36,12 +36,12 @@ public class Log {
         this.id = id;
     }
 
-    public long getFuncionario_id() {
-        return funcionario_id;
+    public long getFuncionarioId() {
+        return funcionarioId;
     }
 
-    public void setFuncionario_id(long funcionario_id) {
-        this.funcionario_id = funcionario_id;
+    public void setFuncionarioId(long funcionarioId) {
+        this.funcionarioId = funcionarioId;
     }
 
     public Date getDataAlteracao() {
