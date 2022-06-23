@@ -13,7 +13,8 @@ public class Escala {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "ID")
+    private long escalaId;
 
     @NotBlank
     @Column(nullable = false)
@@ -43,12 +44,12 @@ public class Escala {
     @JoinColumn(name = "FUNCIONARIO_ID")
     private Funcionario funcionario;
 
-    public long getId() {
-        return id;
+    public long getEscalaId() {
+        return escalaId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setEscalaId(long escalaId) {
+        this.escalaId = escalaId;
     }
 
     public Date getData() {

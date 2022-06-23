@@ -1,14 +1,11 @@
 package br.com.qintess.repositories;
 
-import br.com.qintess.entities.Turno;
 import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
 import br.com.qintess.entities.Funcionario;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import java.util.Collection;
 import java.util.List;
 
 @Repository
