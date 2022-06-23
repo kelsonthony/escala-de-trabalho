@@ -1,7 +1,6 @@
 package br.com.qintess.services;
 
 import br.com.qintess.entities.Cargo;
-import br.com.qintess.entities.Funcionario;
 import br.com.qintess.repositories.interfaces.ICargoRepository;
 import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
 import br.com.qintess.services.interfaces.ICargoService;

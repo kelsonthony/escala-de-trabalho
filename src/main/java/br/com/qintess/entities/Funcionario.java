@@ -39,7 +39,7 @@ public class Funcionario {
     private String email;
 
     @NotBlank
-    @Size(min = 6, max = 255, message = "Tamanho deve estar entre 6 e 255")
+    @Size(min = 5, max = 255, message = "Tamanho deve estar entre 6 e 255")
     @Column(nullable = false, length = 255)
     private String senha;
 
