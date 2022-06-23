@@ -56,8 +56,8 @@ public class TurnoController {
 
   @PostMapping("/salvar/alternado")
   public String salvarTurnoAlternado(@Valid @ModelAttribute("turno") Turno turno,BindingResult resultTurno,
-                                @Valid @ModelAttribute("turnoAlternado") TurnoAlternado turnoAlternado,
-                                BindingResult resultAlternado, RedirectAttributes attr) {
+                                     @Valid @ModelAttribute("turnoAlternado") TurnoAlternado turnoAlternado,
+                                     BindingResult resultAlternado, RedirectAttributes attr) {
 
     if(resultTurno.hasErrors() || resultAlternado.hasErrors()) {
       return "turno/alternado/add";
@@ -89,6 +89,7 @@ public class TurnoController {
   public ModelAndView salvarAtualizacaoTurnoAlternado(@Valid @ModelAttribute("turno") Turno turno, BindingResult resultTurno,
                                                       @Valid @ModelAttribute("turnoAlternado") TurnoAlternado turnoAlternado,
                                                       BindingResult resultAlternado, RedirectAttributes attr) {
+
     if(resultAlternado.hasErrors() ||resultTurno.hasErrors()) {
       return new ModelAndView("turno/alternado/update");
     }
@@ -116,8 +117,8 @@ public class TurnoController {
       return new ModelAndView("/turno/alternado/update", model);
 
     }
-
     return new ModelAndView("redirect:/turnos/listar");
+
   }
 
 
