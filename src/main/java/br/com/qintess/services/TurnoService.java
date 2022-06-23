@@ -1,12 +1,13 @@
 package br.com.qintess.services;
 
+import br.com.qintess.entities.Cargo;
+import br.com.qintess.entities.Funcionario;
 import br.com.qintess.entities.Turno;
 import br.com.qintess.repositories.TurnoRepository;
 import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
 import br.com.qintess.services.interfaces.ITurnoService;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,10 +23,13 @@ public class TurnoService implements ITurnoService {
 
   @Autowired
   IFuncionarioRepository funcionarioRepository;
-
+  
   @Override
   public void salvar(Turno turno) {
-
+    if (turno.equals(null)) {
+      throw new ConstraintViolationException(
+              "Erro ao tentar salvar o turno (#Objeto vazio).", null, null);
+    }
     turno.setTotalHoras(calculaTotalHoras(turno.getHoraInicio(),turno.getHoraTermino()));
     this.turnoRepository.salvar(turno);
   }
@@ -38,7 +42,7 @@ public class TurnoService implements ITurnoService {
 
   @Override
   @Transactional(readOnly = true)
-  public Turno listarPorId(long id) {
+  public Turno listarPorId(final long id) {
     return this.turnoRepository.listarPorId(id);
   }
 
@@ -49,12 +53,18 @@ public class TurnoService implements ITurnoService {
   }
 
   @Override
-  public void excluir(long id) {
+  public void excluir(final long id) {
+    Turno turno = turnoRepository.listarPorId(id);
     boolean temFuncionarios = funcionarioRepository.temFuncionarios("turno", id);
+
+    if (turno.equals(null))
+      throw new ConstraintViolationException("Erro ao tentar remover o turno (#Id não existe).", null, null);
+
     if (temFuncionarios){
       throw new ConstraintViolationException(
-              "Não é possível excluir um turno que possui funcionários cadastrados.", null, null);
+              "Não é possível remover um turno que possui funcionários cadastrados.", null, null);
     }
+
     this.turnoRepository.excluir(id);
   }
 

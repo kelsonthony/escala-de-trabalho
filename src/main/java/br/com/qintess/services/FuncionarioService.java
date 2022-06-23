@@ -1,12 +1,7 @@
 package br.com.qintess.services;
 
-import br.com.qintess.entities.Cargo;
-import br.com.qintess.entities.Escala;
 import br.com.qintess.entities.Funcionario;
-import br.com.qintess.repositories.interfaces.ICargoRepository;
-import br.com.qintess.repositories.interfaces.IEquipeRepository;
 import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
-import br.com.qintess.repositories.interfaces.ITurnoRepository;
 import br.com.qintess.services.interfaces.ICargoService;
 import br.com.qintess.services.interfaces.IEquipeService;
 import br.com.qintess.services.interfaces.IFuncionarioService;
@@ -16,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,7 +31,7 @@ public class FuncionarioService implements IFuncionarioService {
 
     @Override
     public void salvar(Funcionario funcionario) {
-        if (funcionario == null) {
+        if (funcionario.equals(null)) {
             throw new ConstraintViolationException(
                     "Erro ao tentar salvar o funcionário (#Objeto vazio).", null, null);
         }
@@ -52,31 +46,31 @@ public class FuncionarioService implements IFuncionarioService {
 
     @Override
     @Transactional(readOnly = true)
-    public Funcionario listarPorId(long id) {
+    public Funcionario listarPorId(final long id) {
         return funcionarioRepository.listarPorId(id);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Funcionario> listarPorCargo(long cargoId) {
+    public List<Funcionario> listarPorCargo(final long cargoId) {
         return funcionarioRepository.listarPorCargo(cargoId);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Funcionario> listarPorEquipe(long equipeId) {
+    public List<Funcionario> listarPorEquipe(final long equipeId) {
         return funcionarioRepository.listarPorEquipe(equipeId);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Funcionario> listarPorTurno(long turnoId) {
+    public List<Funcionario> listarPorTurno(final long turnoId) {
         return funcionarioRepository.listarPorTurno(turnoId);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Funcionario listarPorCargoIdEFuncionarioId(long cargoId, long funcionarioId) {
+    public Funcionario listarPorCargoIdEFuncionarioId(final long cargoId, final long funcionarioId) {
         return funcionarioRepository.listarPorCargoIdEFuncionarioId(cargoId, funcionarioId);
     }
 
@@ -86,12 +80,12 @@ public class FuncionarioService implements IFuncionarioService {
     }
 
     @Override
-    public void excluir(long id) {
+    public void excluir(final long id) {
         Funcionario funcionario = funcionarioRepository.listarPorId(id);
-        if (funcionario == null) {
+        if (funcionario.equals(null)) {
             throw new ConstraintViolationException(
                     "Erro ao tentar remover o funcionário (#Id não existe).", null, null);
         }
-        funcionarioRepository.excluir(listarPorId(id).getFuncionarioId());
+        funcionarioRepository.excluir(id);
     }
 }

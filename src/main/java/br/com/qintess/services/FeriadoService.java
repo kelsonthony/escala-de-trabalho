@@ -1,8 +1,10 @@
 package br.com.qintess.services;
 
+import br.com.qintess.entities.Equipe;
 import br.com.qintess.entities.Feriado;
 import br.com.qintess.repositories.interfaces.IFeriadoRepository;
 import br.com.qintess.services.interfaces.IFeriadoService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +21,13 @@ public class FeriadoService implements IFeriadoService {
   @Autowired
   private IFeriadoRepository feriadoRepository;
 
-
   @Override
   @Transactional
   public void salvar(Feriado feriado) {
-
+    if (feriado.equals(null)) {
+      throw new ConstraintViolationException(
+              "Erro ao tentar salvar o feriado (#Objeto vazio).", null, null);
+    }
     feriado.setDiaSemana(retornaDiaDaSemana(feriado.getData()));
     this.feriadoRepository.salvar(feriado);
   }
@@ -53,9 +57,11 @@ public class FeriadoService implements IFeriadoService {
   @Override
   @Transactional
   public void excluir(final long id) {
-
+    Feriado feriado = feriadoRepository.listarPorId(id);
+    if (feriado.equals(null)) {
+      throw new ConstraintViolationException("Erro ao tentar remover o feriado (#Id não existe).", null, null);
+    }
     this.feriadoRepository.excluir(id);
-
   }
 
   private String retornaDiaDaSemana(LocalDate date){

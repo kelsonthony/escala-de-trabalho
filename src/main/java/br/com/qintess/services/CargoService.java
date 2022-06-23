@@ -1,6 +1,7 @@
 package br.com.qintess.services;
 
 import br.com.qintess.entities.Cargo;
+import br.com.qintess.entities.Funcionario;
 import br.com.qintess.repositories.interfaces.ICargoRepository;
 import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
 import br.com.qintess.services.interfaces.ICargoService;
@@ -23,6 +24,10 @@ public class CargoService implements ICargoService {
 
     @Override
     public void salvar(Cargo cargo) {
+        if (cargo.equals(null)) {
+            throw new ConstraintViolationException(
+                    "Erro ao tentar salvar o cargo (#Objeto vazio).", null, null);
+        }
         cargoRepository.salvar(cargo);
     }
 
@@ -34,7 +39,7 @@ public class CargoService implements ICargoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Cargo listarPorId(long id) {
+    public Cargo listarPorId(final long id) {
         return cargoRepository.listarPorId(id);
     }
 
@@ -44,12 +49,18 @@ public class CargoService implements ICargoService {
     }
 
     @Override
-    public void excluir(long id) {
+    public void excluir(final long id) {
+        Cargo cargo = cargoRepository.listarPorId(id);
         boolean temFuncionarios = funcionarioRepository.temFuncionarios("cargo", id);
+
+        if (cargo.equals(null))
+            throw new ConstraintViolationException("Erro ao tentar remover o cargo (#Id não existe).", null, null);
+
         if (temFuncionarios){
             throw new ConstraintViolationException(
-                    "Não é possível excluir um cargo que possui funcionários cadastrados.", null, null);
+                    "Não é possível remover um cargo que possui funcionários cadastrados.", null, null);
         }
+
         cargoRepository.excluir(id);
     }
 }

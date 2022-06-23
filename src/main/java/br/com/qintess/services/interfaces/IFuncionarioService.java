@@ -1,6 +1,5 @@
 package br.com.qintess.services.interfaces;
 
-import br.com.qintess.entities.Cargo;
 import br.com.qintess.entities.Funcionario;
 
 import java.util.List;
