@@ -98,7 +98,7 @@ C:> mvn install:install-file -Dfile=C:\Oracle\app\product\21c\dbhomeXE\jdbc\lib\
 
 No arquivo application.properties (src/main/resources/application.properties) acrescentamos as seguintes diretivas para evitar conflitos entre o Flyway e o Hibernate:
 
-spring.jpa.hibernate.ddl-auto=none
+spring.jpa.hibernate.ddl-auto=validate
 
 spring.jpa.show-sql=false
 
