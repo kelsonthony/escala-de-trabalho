@@ -48,7 +48,7 @@ public class Turno {
     @JoinColumn(name = "TURNO_FIXO_ID")
     private TurnoFixo turnoFixo;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TURNO_ALTERNADO_ID")
     private TurnoAlternado turnoAlternado;
 

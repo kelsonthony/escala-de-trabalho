@@ -2,6 +2,7 @@ package br.com.qintess.controller;
 
 
 import br.com.qintess.entities.Turno;
+import br.com.qintess.entities.TurnoAlternado;
 import br.com.qintess.entities.TurnoFixo;
 import br.com.qintess.exceptions.EscalaException;
 import br.com.qintess.services.TurnoService;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("turnos")
@@ -50,6 +52,20 @@ public class TurnoController {
     return "redirect:/turnos/listar";
   }
 
+  @PostMapping("/salvar/alternado")
+  public String salvarTurnoAlternado(@Valid @ModelAttribute("turno") Turno turno,BindingResult resultTurno,
+                                @Valid @ModelAttribute("turnoAlternado") TurnoAlternado turnoAlternado,
+                                BindingResult result, RedirectAttributes attr) {
+    if(resultTurno.hasErrors()) {
+      return "turno/alternado/add";
+    }
+
+    turno.setTurnoAlternado(turnoAlternado);
+    turnoService.salvar(turno);
+    attr.addFlashAttribute("mensagem", "Turno criado com sucesso.");
+    return "redirect:/turnos/listar";
+  }
+
   @PutMapping("/salvar/fixo")
   public ModelAndView salvarAtualizacaoTurnoFixo(@Valid @ModelAttribute("turno") Turno turno, @Valid @ModelAttribute("turnofixo") TurnoFixo turnoFixo
           ,BindingResult result, RedirectAttributes attr) {
@@ -64,14 +80,36 @@ public class TurnoController {
 
   }
 
+  @PutMapping("/salvar/alternado")
+  public ModelAndView salvarAtualizacaoTurnoAlternado(@Valid @ModelAttribute("turno") Turno turno,
+                                                      @Valid @ModelAttribute("turnoAlternado") TurnoAlternado turnoAlternado,
+                                                      BindingResult result, RedirectAttributes attr) {
+    if(result.hasErrors()) {
+      return new ModelAndView("turno/alternado/update");
+    }
+
+    turno.setTurnoAlternado(turnoAlternado);
+    turnoService.atualizar(turno);
+    attr.addFlashAttribute("mensagem", "Turno atualizado com sucesso.");
+    return new ModelAndView("redirect:/turnos/listar") ;
+
+  }
+
+
   @GetMapping("/{id}/atualizar")
   public ModelAndView atualizar(@PathVariable("id") long id, ModelMap model) {
     Turno turno = turnoService.listarPorId(id);
 
-    if(!turno.getTurnoFixo().equals(null)){
+    if(!(Objects.isNull(turno.getTurnoFixo()))){
       model.addAttribute("turno", turno);
       model.addAttribute("turnofixo",turno.getTurnoFixo());
       return new ModelAndView("/turno/fixo/update", model);
+    }else if (!(Objects.isNull(turno.getTurnoAlternado()))){
+
+      model.addAttribute("turno",turno);
+      model.addAttribute("turnoAlternado",turno.getTurnoAlternado());
+      return new ModelAndView("/turno/alternado/update", model);
+
     }
 
     return new ModelAndView("redirect:/turnos/listar");

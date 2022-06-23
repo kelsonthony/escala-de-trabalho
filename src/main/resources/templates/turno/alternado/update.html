@@ -13,7 +13,7 @@
   <div class="card mb-4"></div>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a th:href="@{/turnos/listar}">Turno</a></li>
-    <li class="breadcrumb-item active">Cadastrar Novo</li>
+    <li class="breadcrumb-item active">Atualizar Turno</li>
   </ol>
     <div class="card mb-4">
       <div class="container">
@@ -42,12 +42,12 @@
             <div class="form-group col-md-2">
               <label for="horaInicio">Horario Inicio:</label>
               <input class="form-control" id="horaInicio" type="time" th:field="*{horaInicio}" th:errorclass="is-invalid"/>
-              <div class="invalid-feedback" th:errors="*{horaInicio}"></div>
+              <div class="invalid-feedback"  th:errors="*{horaInicio}"></div>
             </div>
             <div class="form-group col-md-2">
               <label for="horaTermino">Horario Termino:</label>
               <input class="form-control" id="horaTermino" type="time" th:field="*{horaTermino}" th:errorclass="is-invalid"/>
-              <div class="invalid-feedback" th:errors="*{horaTermino}"></div>
+              <div class="invalid-feedback"  th:errors="*{horaTermino}"></div>
             </div>
 
             <div class="container" th:object="${turno.turnoAlternado}">
@@ -57,10 +57,10 @@
                   <label class="mt-2" for="quantDiasConsecutivosTrabalho">Quantidade de dias consecutivos trabalhados:</label>
                 </div>
                 <div class="form-group col-1">
-                  <input class="form-control" id="quantDiasConsecutivosTrabalho" type="number"  min="1" th:field="*{quantDiasConsecutivosTrabalho}" th:errorclass="is-invalid"/>
+                  <input class="form-control" id="quantDiasConsecutivosTrabalho" type="number"  min="1" name="quantDiasConsecutivosTrabalho"
+                         th:value="${turnoAlternado.quantDiasConsecutivosTrabalho}" th:field="*{quantDiasConsecutivosTrabalho}" th:errorclass="is-invalid"/>
                   <div class="invalid-feedback" th:errors="*{quantDiasConsecutivosTrabalho}"></div>
                 </div>
-
               </div>
 
               <div class="row">
@@ -68,7 +68,7 @@
                   <label class="mt-2" for="quantDiasFolga">Quantidade dias de folga:</label>
                 </div>
                 <div class="form-group col-1">
-                  <input class="form-control" id="quantDiasFolga" type="number"  min="0" th:field="*{quantDiasFolga}"/>
+                  <input class="form-control" id="quantDiasFolga" type="number"  min="0" name="quantDiasFolga" th:field="*{quantDiasFolga}" />
                   <div class="invalid-feedback" th:errors="*{quantDiasFolga}"></div>
                 </div>
               </div>
