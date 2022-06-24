@@ -33,7 +33,13 @@ public class TurnoRepository implements ITurnoRepository {
                 .getSingleResult();
     }
 
-    @Override
+  @Override
+  public List<Turno> listaPorSigla(final String sigla) {
+    return em.createQuery("SELECT t FROM Turno t WHERE t.sigla LIKE :sigla", Turno.class)
+             .setParameter("sigla",sigla).getResultList();
+  }
+
+  @Override
     public void atualizar(Turno turno) {
           this.em.merge(turno);
     }
