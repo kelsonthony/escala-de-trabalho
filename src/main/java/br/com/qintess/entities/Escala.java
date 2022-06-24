@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "TB_ESCALA_TRABALHO")
@@ -40,9 +41,8 @@ public class Escala {
     @Column(nullable = true)
     private int quantFeriadosTrabalhados;
 
-    @ManyToOne
-    @JoinColumn(name = "FUNCIONARIO_ID")
-    private Funcionario funcionario;
+    @OneToMany(mappedBy = "escala")
+    private List<Funcionario> funcionarios;
 
     public long getEscalaId() {
         return escalaId;
@@ -100,11 +100,11 @@ public class Escala {
         this.quantFeriadosTrabalhados = quantFeriadosTrabalhados;
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
     }
 
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public void setFuncionarios(List<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
     }
 }

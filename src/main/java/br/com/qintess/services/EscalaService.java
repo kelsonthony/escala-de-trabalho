@@ -1,6 +1,7 @@
 package br.com.qintess.services;
 
 import br.com.qintess.entities.Escala;
+import br.com.qintess.entities.Funcionario;
 import br.com.qintess.repositories.interfaces.IEscalaRepository;
 import br.com.qintess.services.interfaces.IEscalaService;
 import org.hibernate.exception.ConstraintViolationException;
@@ -43,7 +44,6 @@ public class EscalaService implements IEscalaService {
     public List<Escala> listarPorFuncionario(final long funcionarioId) {
         return escalaRepository.listarPorFuncionario(funcionarioId);
     }
-
 
     @Override
     public void atualizar(Escala escala) {
