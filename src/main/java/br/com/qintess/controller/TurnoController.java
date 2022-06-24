@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import java.sql.SQLDataException;
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Objects;
 
 @Controller
@@ -48,9 +52,18 @@ public class TurnoController {
       return "turno/fixo/add";
     }
 
-    turno.setTurnoFixo(turnoFixo);
-    turnoService.salvar(turno);
-    attr.addFlashAttribute("mensagem", "Turno criado com sucesso.");
+    try {
+
+      turno.setTurnoFixo(turnoFixo);
+      turnoService.salvar(turno);
+      attr.addFlashAttribute("mensagem", "Turno criado com sucesso.");
+
+    }catch (Exception e){
+      attr.addFlashAttribute("mensagem",e.getMessage());
+      return "redirect:/turnos/cadastrar/fixo";
+    }
+
+
     return "redirect:/turnos/listar";
   }
 
@@ -63,9 +76,17 @@ public class TurnoController {
       return "turno/alternado/add";
     }
 
-    turno.setTurnoAlternado(turnoAlternado);
-    turnoService.salvar(turno);
-    attr.addFlashAttribute("mensagem", "Turno criado com sucesso.");
+    try{
+
+      turno.setTurnoAlternado(turnoAlternado);
+      turnoService.salvar(turno);
+      attr.addFlashAttribute("mensagem", "Turno criado com sucesso.");
+
+    }catch (Exception e){
+      attr.addFlashAttribute("mensagem",e.getMessage());
+      return "redirect:/turnos/cadastrar/alternado";
+    }
+
     return "redirect:/turnos/listar";
   }
 
@@ -93,6 +114,7 @@ public class TurnoController {
     if(resultAlternado.hasErrors() ||resultTurno.hasErrors()) {
       return new ModelAndView("turno/alternado/update");
     }
+
 
     turno.setTurnoAlternado(turnoAlternado);
     turnoService.atualizar(turno);

@@ -15,6 +15,12 @@
     <li class="breadcrumb-item"><a th:href="@{/turnos/listar}">Turno</a></li>
     <li class="breadcrumb-item active">Cadastrar Novo</li>
   </ol>
+
+  <div th:if="${mensagem != null}">
+    <div class="alert alert-info" role="alert">
+      <span th:text="${mensagem == null ? '&nbsp;' : mensagem}">mensagem</span>
+    </div>
+  </div>
     <div class="card mb-4">
       <div class="container">
         <form th:action="@{/turnos/salvar/alternado}" th:method="${turno.id} == 0 ? post : put" th:object="${turno}">
