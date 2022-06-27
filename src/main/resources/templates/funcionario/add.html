@@ -18,6 +18,15 @@
     <div class="card mb-4">
       <div class="container">
         <form th:action="@{/funcionarios/salvar}" th:method="post" th:object="${funcionario}">
+
+
+
+          <!-- Campo criado apenas para cadatrar funcionários enquanto não crio o cadastro de equipes. -->
+          <input type="hidden" id="escalaId" name="escalaId" value="1" />
+
+
+
+
           <div class="row">
             <div class="form-group col-md-12" th:object="${cargo}">
               <label for="cargoId">Cargo:</label>
