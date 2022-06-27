@@ -1,0 +1,2 @@
+INSERT INTO TB_ESCALA (tb_escala.data, tb_escala.nome) VALUES (TO_DATE('2022/06', 'yyyy/mm'), 'PRESENCIAL');
+INSERT INTO TB_ESCALA (tb_escala.data, tb_escala.nome) VALUES (TO_DATE('2022/06', 'yyyy/mm'), 'REMOTO');
