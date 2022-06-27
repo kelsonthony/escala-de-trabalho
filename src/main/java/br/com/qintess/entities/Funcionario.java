@@ -43,11 +43,11 @@ public class Funcionario {
     private String senha;
 
     @ManyToOne
-    @JoinColumn(name = "CARGO_FUNCIONARIO_ID")
+    @JoinColumn(name = "CARGO_ID")
     private Cargo cargo;
 
     @ManyToOne
-    @JoinColumn(name = "EQUIPE_FUNCIONARIO_ID")
+    @JoinColumn(name = "EQUIPE_ID")
     private Equipe equipe;
 
     @ManyToOne
@@ -55,7 +55,7 @@ public class Funcionario {
     private Turno turno;
 
     @ManyToOne
-    @JoinColumn(name = "ESCALA_TRABALHO_ID")
+    @JoinColumn(name = "ESCALA_ID")
     private Escala escala;
 
     public long getFuncionarioId() {
@@ -138,4 +138,11 @@ public class Funcionario {
         this.turno = turno;
     }
 
+    public Escala getEscala() {
+        return escala;
+    }
+
+    public void setEscala(Escala escala) {
+        this.escala = escala;
+    }
 }

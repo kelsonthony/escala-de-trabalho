@@ -1,7 +1,5 @@
 package br.com.qintess.entities;
 
-import org.hibernate.validator.constraints.Range;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -9,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "TB_ESCALA_TRABALHO")
+@Table(name = "TB_ESCALA")
 public class Escala {
 
     @Id
@@ -21,28 +19,15 @@ public class Escala {
     @Column(nullable = false)
     private Date data;
 
-    @Size(min = 0, max = 9)
-    @Column(nullable = true, length = 9)
-    private String totalHoras;
-
-    @Size(min = 0, max = 9)
-    @Column(nullable = true, length = 9)
-    private String totalHorasExtras;
-
-    @Range(min = 0, max = 99)
-    @Column(nullable = true)
-    private int quantSabadosTrabalhados;
-
-    @Range(min = 0, max = 99)
-    @Column(nullable = true)
-    private int quantDomingosTrabalhados;
-
-    @Range(min = 0, max = 99)
-    @Column(nullable = true)
-    private int quantFeriadosTrabalhados;
+    @Size(min = 2, max = 125)
+    @Column(nullable = false, length = 125)
+    private String nome;
 
     @OneToMany(mappedBy = "escala")
     private List<Funcionario> funcionarios;
+
+    @OneToMany(mappedBy = "escalaTipo")
+    private List<EscalaTipo> tipos;
 
     public long getEscalaId() {
         return escalaId;
@@ -60,44 +45,12 @@ public class Escala {
         this.data = data;
     }
 
-    public String getTotalHoras() {
-        return totalHoras;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTotalHoras(String totalHoras) {
-        this.totalHoras = totalHoras;
-    }
-
-    public String getTotalHorasExtras() {
-        return totalHorasExtras;
-    }
-
-    public void setTotalHorasExtras(String totalHorasExtras) {
-        this.totalHorasExtras = totalHorasExtras;
-    }
-
-    public int getQuantSabadosTrabalhados() {
-        return quantSabadosTrabalhados;
-    }
-
-    public void setQuantSabadosTrabalhados(int quantSabadosTrabalhados) {
-        this.quantSabadosTrabalhados = quantSabadosTrabalhados;
-    }
-
-    public int getQuantDomingosTrabalhados() {
-        return quantDomingosTrabalhados;
-    }
-
-    public void setQuantDomingosTrabalhados(int quantDomingosTrabalhados) {
-        this.quantDomingosTrabalhados = quantDomingosTrabalhados;
-    }
-
-    public int getQuantFeriadosTrabalhados() {
-        return quantFeriadosTrabalhados;
-    }
-
-    public void setQuantFeriadosTrabalhados(int quantFeriadosTrabalhados) {
-        this.quantFeriadosTrabalhados = quantFeriadosTrabalhados;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public List<Funcionario> getFuncionarios() {
@@ -106,5 +59,13 @@ public class Escala {
 
     public void setFuncionarios(List<Funcionario> funcionarios) {
         this.funcionarios = funcionarios;
+    }
+
+    public List<EscalaTipo> getTipos() {
+        return tipos;
+    }
+
+    public void setTipos(List<EscalaTipo> tipos) {
+        this.tipos = tipos;
     }
 }

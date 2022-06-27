@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TB_CARGO_FUNCIONARIO")
+@Table(name = "TB_CARGO")
 public class Cargo {
 
     @Id
