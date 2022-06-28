@@ -20,7 +20,7 @@ public class EscalaTipo {
 
     @ManyToOne
     @JoinColumn(name = "ESCALA_ID")
-    private Escala escalaTipo;
+    private Escala escala;
 
     public long getEscalaTipoId() {
         return escalaTipoId;
@@ -38,11 +38,11 @@ public class EscalaTipo {
         this.nome = nome;
     }
 
-    public Escala getEscalaTipo() {
-        return escalaTipo;
+    public Escala getEscala() {
+        return escala;
     }
 
-    public void setEscalaTipo(Escala escalaTipo) {
-        this.escalaTipo = escalaTipo;
+    public void setEscala(Escala escala) {
+        this.escala = escala;
     }
 }

@@ -113,6 +113,32 @@
 								</nav>
 							</div>
 
+							<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#escalaCollapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+								<div class="far fa-address-card mr-2"> <i class="fas fa-tachometer-alt"> </i> </div>
+								Escalas
+								<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+							</a>
+							<div class="collapse" id="escalaCollapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+								<nav class="sb-sidenav-menu-nested nav">
+									<a class="nav-link" th:href="@{/escalas/cadastrar}">
+										<div class="fas fa-angle-right mr-2"> </div>
+										Cadastrar Escala
+									</a>
+									<a class="nav-link" th:href="@{/escalas/cadastrar/tipo}">
+										<div class="fas fa-angle-right mr-2"> </div>
+										Cadastrar Tipos
+									</a>
+									<a class="nav-link" th:href="@{/escalas/listar}">
+										<div class="fas fa-angle-right mr-2"> </div>
+										Listar Escalas
+									</a>
+									<a class="nav-link" th:href="@{/escalas/listar/tipo}">
+										<div class="fas fa-angle-right mr-2"> </div>
+										Listar Tipos
+									</a>
+								</nav>
+							</div>
+
 							<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#turnoCollapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
 								<div class="far fa-address-card mr-2"> <i class="fas fa-tachometer-alt"> </i> </div>
 								Turnos

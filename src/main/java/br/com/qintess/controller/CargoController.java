@@ -1,10 +1,8 @@
 package br.com.qintess.controller;
 
 import br.com.qintess.entities.Cargo;
-import br.com.qintess.entities.Funcionario;
 import br.com.qintess.exceptions.EscalaException;
 import br.com.qintess.services.interfaces.ICargoService;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

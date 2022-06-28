@@ -1,8 +1,8 @@
 package br.com.qintess.services;
 
 import br.com.qintess.entities.Escala;
-import br.com.qintess.entities.Funcionario;
 import br.com.qintess.repositories.interfaces.IEscalaRepository;
+import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
 import br.com.qintess.services.interfaces.IEscalaService;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,9 @@ public class EscalaService implements IEscalaService {
     @Autowired
     private IEscalaRepository escalaRepository;
 
+    @Autowired
+    private IFuncionarioRepository funcionarioRepository;
+
     @Override
     public void salvar(Escala escala) {
         if (escala.equals(null)) {
@@ -30,19 +33,14 @@ public class EscalaService implements IEscalaService {
     @Override
     @Transactional(readOnly = true)
     public List<Escala> listar() {
-        return escalaRepository.listar();
+        List<Escala> escalas = escalaRepository.listar();
+        return escalas;
     }
 
     @Override
     @Transactional(readOnly = true)
     public Escala listarPorId(final long id) {
         return escalaRepository.listarPorId(id);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Escala> listarPorFuncionario(final long funcionarioId) {
-        return escalaRepository.listarPorFuncionario(funcionarioId);
     }
 
     @Override
@@ -53,9 +51,16 @@ public class EscalaService implements IEscalaService {
     @Override
     public void excluir(final long id) {
         Escala escala = escalaRepository.listarPorId(id);
-        if (escala.equals(null)) {
+        boolean temFuncionarios = funcionarioRepository.temFuncionarios("escala", id);
+
+        if (escala.equals(null))
             throw new ConstraintViolationException("Erro ao tentar remover a escala (#Id não existe).", null, null);
+
+        if (temFuncionarios){
+            throw new ConstraintViolationException(
+                    "Não é possível remover uma escala que possui funcionários cadastrados.", null, null);
         }
+
         escalaRepository.excluir(id);
     }
 

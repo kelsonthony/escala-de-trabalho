@@ -51,6 +51,13 @@ public class FuncionarioRepository implements IFuncionarioRepository {
     }
 
     @Override
+    public List<Funcionario> listarPorEscala(long escalaId) {
+        return em.createQuery("SELECT f FROM Funcionario f WHERE f.escala.escalaId = :escalaId", Funcionario.class)
+                .setParameter("escalaId", escalaId)
+                .getResultList();
+    }
+
+    @Override
     public Funcionario listarPorCargoIdEFuncionarioId(long cargoId, long funcionarioId) {
         return em.createQuery("select f from Funcionario f where f.cargo.cargoId = :cargoId and f.id = :funcionarioId", Funcionario.class)
                 .setParameter("cargoId", cargoId)
@@ -76,6 +83,8 @@ public class FuncionarioRepository implements IFuncionarioRepository {
                 return !(this.listarPorEquipe(id).isEmpty());
             case "turno":
                 return !(this.listarPorTurno(id).isEmpty());
+            case "escala":
+                return !(this.listarPorEscala(id).isEmpty());
             default:
                 return false;
         }

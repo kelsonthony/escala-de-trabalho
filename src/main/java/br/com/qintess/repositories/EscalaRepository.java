@@ -1,7 +1,6 @@
 package br.com.qintess.repositories;
 
 import br.com.qintess.entities.Escala;
-import br.com.qintess.entities.Funcionario;
 import br.com.qintess.repositories.interfaces.IEscalaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -31,19 +30,12 @@ public class EscalaRepository implements IEscalaRepository {
     }
 
     @Override
-    public List<Escala> listarPorFuncionario(long funcionarioId) {
-        return em.createQuery("SELECT e FROM Escala e WHERE e.funcionario.funcionarioId = :funcionarioId", Escala.class)
-                .setParameter("funcionarioId", funcionarioId)
-                .getResultList();
-    }
-
-    @Override
     public void atualizar(Escala escala) {
         em.merge(escala);
     }
 
     @Override
-    public void excluir(long escalaId) {
-        em.remove(em.getReference(Escala.class, escalaId));
+    public void excluir(long id) {
+        em.remove(em.getReference(Escala.class, id));
     }
 }

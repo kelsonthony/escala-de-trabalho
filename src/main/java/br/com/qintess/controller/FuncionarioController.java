@@ -90,10 +90,12 @@ public class FuncionarioController {
     }
 
     @GetMapping("/cadastrar")
-    public String cadastrar(@ModelAttribute("funcionario") Funcionario funcionario, ModelMap model) {
+    public String cadastrar(@ModelAttribute("funcionario") Funcionario funcionario,
+                            ModelMap model) {
         model.addAttribute("cargos", cargoService.listar());
         model.addAttribute("equipes", equipeService.listar());
         model.addAttribute("turnos", turnoService.listar());
+        model.addAttribute("escalas", escalaService.listar());
 
         return "/funcionario/add";
     }

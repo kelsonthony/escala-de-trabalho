@@ -1,9 +1,11 @@
 package br.com.qintess.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -15,18 +17,20 @@ public class Escala {
     @Column(name = "ID")
     private long escalaId;
 
-    @NotBlank
+    @NotNull(message = "Não pode esta em branco")
     @Column(nullable = false)
-    private Date data;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate data;
 
-    @Size(min = 2, max = 125)
+    @NotNull
+    @Size(min = 2, max = 125, message = "Tamanho deve estar entre 2 e 125")
     @Column(nullable = false, length = 125)
     private String nome;
 
     @OneToMany(mappedBy = "escala")
     private List<Funcionario> funcionarios;
 
-    @OneToMany(mappedBy = "escalaTipo")
+    @OneToMany(mappedBy = "escala")
     private List<EscalaTipo> tipos;
 
     public long getEscalaId() {
@@ -37,11 +41,11 @@ public class Escala {
         this.escalaId = escalaId;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 

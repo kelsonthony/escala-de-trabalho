@@ -9,7 +9,6 @@ public interface IEscalaRepository {
     void salvar(Escala escala);
     List<Escala> listar();
     Escala listarPorId(long id);
-    List<Escala> listarPorFuncionario(long funcionnarioId);
     void atualizar(Escala escala);
-    void excluir(long escalaId);
+    void excluir(long id);
 }

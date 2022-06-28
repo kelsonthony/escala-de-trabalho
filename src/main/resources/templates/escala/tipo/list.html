@@ -12,12 +12,12 @@
     <div layout:fragment="content">
         <div class="card mb-4"></div>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="/escalas/listar">Escalas de Trabalho</a></li>
+            <li class="breadcrumb-item"><a href="/escalas/listar">Tipos de Escala de Trabalho</a></li>
             <li class="breadcrumb-item active">Listar todas</li>
         </ol>
 
         <div class="card mb-4">
-            <div th:if="${escalas != null}">
+            <div th:if="${tipos != null}">
 
                 <div th:if="${mensagem != null}">
                     <div class="alert alert-info" role="alert">
@@ -26,35 +26,33 @@
                 </div>
                 <div class="card-header">
                     <i class="fas fa-table mr-1"></i>
-                    Escalas de Trabalho
+                    Tipos de Escala de Trabalho
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
-                                <th>Nome</th>
-                                <th>Data</th>
+                                <th>Nome do Tipo</th>
+                                <th>Escala</th>
                                 <th>Ações</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>Nome</th>
-                                <th>Data</th>
+                                <th>Escala</th>
+                                <th>Tipo</th>
                                 <th>Ações</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr th:each="escala : ${escalas}">
-                                <td >
-                                    <a th:text="${escala.nome + ' (' + #temporals.format(escala.data, 'MMM/yyyy') + ') '}" th:href="@{/escalas/listar/tipo/{id}(id=${escala.escalaId})}">nome</a>
-                                </td>
-                                <td th:text="${#temporals.format(escala.data, 'MM/yyyy')}">data</td>
+                            <tr th:each="tipo : ${tipos}">
+                                <td ><a th:text="${tipo.nome}" th:href="@{/escalas/listar/tipo/{id}(id=${tipo.escalaTipoId})}">nome</a></td>
+                                <td th:text="${tipo.escala.nome + ' (' + #temporals.format(tipo.escala.data, 'MMM/yyyy') + ') '}">escala</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Actions">
-                                        <a class="btn btn-sm btn-info" th:href="@{/escalas/{id}/atualizar(id=${escala.escalaId})}">Atualizar</a>
-                                        <a class="btn btn-sm btn-danger" th:href="@{/escalas/{id}/remover(id=${escala.escalaId})}">Remover</a>
+                                        <a class="btn btn-sm btn-info" th:href="@{/escalas/atualizar/{id}/tipo(id=${tipo.escalaTipoId})}">Atualizar</a>
+                                        <a class="btn btn-sm btn-danger" th:href="@{/escalas/remover/{id}/tipo(id=${tipo.escalaTipoId})}">Remover</a>
                                     </div>
                                 </td>
                             </tr>
@@ -66,10 +64,10 @@
         </div>
 
         <div class="card mb-4">
-            <div th:if="${#lists.isEmpty(escalas)}">
+            <div th:if="${#lists.isEmpty(tipos)}">
                 <div class="alert alert-info" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign"></span>
-                    0 escalas cadastradas!
+                    0 tipos de escala cadastradas!
                 </div>
             </div>
         </div>

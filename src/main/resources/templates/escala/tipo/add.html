@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no"/>
+
+  <title>Escalas - Escala de Trabalho Automática</title>
+</head>
+<body>
+  <div layout:fragment="content">
+    <div class="card mb-4"></div>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a th:href="@{/escalas/listar/tipos}">Tipos de Escalas</a></li>
+      <li class="breadcrumb-item active">Cadastrar Novo</li>
+    </ol>
+    <div class="card mb-4">
+      <div class="container">
+        <form th:action="@{/escalas/salvar/tipo}" th:method="${escalaTipo.escalaTipoId} == 0 ? post : put" th:object="${escalaTipo}">
+          <div class="row">
+
+            <input id="escalaTipoId" type="hidden" th:field="*{escalaTipoId}"/>
+
+            <div class="form-group col-md-8">
+              <label for="nome">Nome:</label>
+              <input class="form-control" id="nome" type="text" th:field="*{nome}" th:errorclass="is-invalid"/>
+              <div class="invalid-feedback" th:errors="*{nome}"></div>
+            </div>
+
+
+            <div class="form-group col-md-4" th:object="${escala}">
+              <label for="escalaId">Escala:</label>
+              <select class="form-control"  id="escalaId" name="escalaId" >
+                <option th:each="e : ${escalas}" th:value="${e.escalaId}" th:text="${e.nome}"></option>
+              </select>
+            </div>
+
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">&nbsp; Salvar &nbsp;</button>
+            <a class="btn btn-danger" th:href="@{/escalas/listar/tipo}">Cancelar</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

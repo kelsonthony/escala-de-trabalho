@@ -19,14 +19,6 @@
       <div class="container">
         <form th:action="@{/funcionarios/salvar}" th:method="post" th:object="${funcionario}">
 
-
-
-          <!-- Campo criado apenas para cadatrar funcionários enquanto não crio o cadastro de equipes. -->
-          <input type="hidden" id="escalaId" name="escalaId" value="1" />
-
-
-
-
           <div class="row">
             <div class="form-group col-md-12" th:object="${cargo}">
               <label for="cargoId">Cargo:</label>
@@ -35,17 +27,24 @@
               </select>
             </div>
 
-            <div class="form-group col-md-6" th:object="${equipe}">
+            <div class="form-group col-md-4" th:object="${equipe}">
               <label for="equipeId">Equipe:</label>
               <select class="form-control" id="equipeId" name="equipeId" >
                 <option th:each="e : ${equipes}" th:value="${e.equipeId}" th:text="${e.nome}"></option>
               </select>
             </div>
 
-            <div class="form-group col-md-6" th:object="${turno}">
+            <div class="form-group col-md-4" th:object="${turno}">
               <label for="id">Turno:</label>
               <select class="form-control" id="id" name="id" >
                 <option th:each="t : ${turnos}" th:value="${t.id}" th:text="${t.nome}"></option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-4" th:object="${escala}">
+              <label for="escalaId">Escala:</label>
+              <select class="form-control" id="escalaId" name="escalaId" >
+                <option th:each="e : ${escalas}" th:value="${e.id}" th:text="${e.nome}"></option>
               </select>
             </div>
 
@@ -75,16 +74,15 @@
               <div class="invalid-feedback" th:errors="*{codigo}"></div>
             </div>
 
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-8">
               <label for="email">Email:</label>
               <input class="form-control" id="email" type="text" th:field="*{email}" th:errorclass="is-invalid"/>
               <div class="invalid-feedback" th:errors="*{email}"></div>
             </div>
 
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4">
               <label for="senha">Senha:</label>
-              <input class="form-control" id="senha" type="password" th:field="*{senha}" th:errorclass="is-invalid"/>
-              <div class="invalid-feedback" th:errors="*{senha}"></div>
+              <input class="form-control" id="senha" type="password" th:field="*{senha}" readonly="readonly" placeholder="*******"/>
             </div>
 
           </div>
