@@ -54,10 +54,6 @@ public class Funcionario {
     @JoinColumn(name = "TURNO_ID")
     private Turno turno;
 
-    @ManyToOne
-    @JoinColumn(name = "ESCALA_ID")
-    private Escala escala;
-
     public long getFuncionarioId() {
         return funcionarioId;
     }
@@ -138,11 +134,4 @@ public class Funcionario {
         this.turno = turno;
     }
 
-    public Escala getEscala() {
-        return escala;
-    }
-
-    public void setEscala(Escala escala) {
-        this.escala = escala;
-    }
 }

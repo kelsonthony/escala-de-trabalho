@@ -28,9 +28,6 @@ public class Escala {
     private String nome;
 
     @OneToMany(mappedBy = "escala")
-    private List<Funcionario> funcionarios;
-
-    @OneToMany(mappedBy = "escala")
     private List<EscalaTipo> tipos;
 
     public long getEscalaId() {
@@ -55,14 +52,6 @@ public class Escala {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public List<Funcionario> getFuncionarios() {
-        return funcionarios;
-    }
-
-    public void setFuncionarios(List<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
     }
 
     public List<EscalaTipo> getTipos() {

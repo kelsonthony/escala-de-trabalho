@@ -30,9 +30,6 @@ public class FuncionarioController {
     @Autowired
     private ITurnoService turnoService;
 
-    @Autowired
-    private IEscalaService escalaService;
-
     @GetMapping("/listar")
     public ModelAndView listar(ModelMap model) {
         List<Funcionario> funcionarios = funcionarioService.listar();
@@ -95,7 +92,6 @@ public class FuncionarioController {
         model.addAttribute("cargos", cargoService.listar());
         model.addAttribute("equipes", equipeService.listar());
         model.addAttribute("turnos", turnoService.listar());
-        model.addAttribute("escalas", escalaService.listar());
 
         return "/funcionario/add";
     }
@@ -110,18 +106,15 @@ public class FuncionarioController {
                          @ModelAttribute("turno") Turno turno,
                          @ModelAttribute("equipe") Equipe equipe,
                          @ModelAttribute("cargo") Cargo cargo,
-                         @ModelAttribute("escala") Escala escala,
                          ModelMap model, RedirectAttributes attr) {
 
         if (result.hasErrors()) {
-            model.addAttribute("escalas", escalaService.listar());
             model.addAttribute("cargos", cargoService.listar());
             model.addAttribute("equipes", equipeService.listar());
             model.addAttribute("turnos", turnoService.listar());
             return "/funcionario/add";
         }
 
-        funcionario.setEscala(escala);
         funcionario.setCargo(cargo);
         funcionario.setEquipe(equipe);
         funcionario.setTurno(turno);
