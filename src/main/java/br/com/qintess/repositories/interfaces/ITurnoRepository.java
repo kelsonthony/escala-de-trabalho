@@ -10,6 +10,7 @@ public interface ITurnoRepository {
     List<Turno> listar();
     Turno listarPorId(long id);
     List<Turno> listaPorSigla(String sigla);
+    List<Turno> listarPorPadraoSistema();
     void atualizar(Turno turno);
     void excluir(long id);
 }
