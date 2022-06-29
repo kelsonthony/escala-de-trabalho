@@ -52,6 +52,9 @@ public class Turno {
     @JoinColumn(name = "TURNO_ALTERNADO_ID")
     private TurnoAlternado turnoAlternado;
 
+    @Column(name = "padrao_sistema")
+    private int padraoSistema;
+
     public long getId() {
         return id;
     }
@@ -131,4 +134,12 @@ public class Turno {
     public void setTurnoAlternado(TurnoAlternado turnoAlternado) {
         this.turnoAlternado = turnoAlternado;
     }
+
+  public int getPadraoSistema() {
+    return padraoSistema;
+  }
+
+  public void setPadraoSistema(int padraoSistema) {
+    this.padraoSistema = padraoSistema;
+  }
 }
