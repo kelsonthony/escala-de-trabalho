@@ -30,13 +30,13 @@ public class Mes {
 
   @ManyToOne
   @JoinColumn(name = "escala_id")
-  private Escala escalaId;
+  private Escala escala;
 
   @ManyToOne
   @JoinColumn(name = "funcionario_id")
-  private Funcionario funcionarioId;
+  private Funcionario funcionario;
 
-  @OneToMany(mappedBy = "mesId",cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "mes",cascade = CascadeType.ALL)
   private List<Dia> dias;
 
   public long getId() {
@@ -95,11 +95,27 @@ public class Mes {
     this.feriadosTrabalhados = feriadosTrabalhados;
   }
 
-  public Escala getEscalaId() {
-    return escalaId;
+  public Escala getEscala() {
+    return escala;
   }
 
-  public void setEscalaId(Escala escalaId) {
-    this.escalaId = escalaId;
+  public void setEscala(Escala escala) {
+    this.escala = escala;
+  }
+
+  public Funcionario getFuncionario() {
+    return funcionario;
+  }
+
+  public void setFuncionario(Funcionario funcionario) {
+    this.funcionario = funcionario;
+  }
+
+  public List<Dia> getDias() {
+    return dias;
+  }
+
+  public void setDias(List<Dia> dias) {
+    this.dias = dias;
   }
 }
