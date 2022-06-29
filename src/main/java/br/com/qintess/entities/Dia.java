@@ -13,12 +13,11 @@ public class Dia {
 
   @ManyToOne
   @JoinColumn(name = "mes_id")
-  private Mes mesId;
+  private Mes mes;
 
   @ManyToOne
   @JoinColumn(name = "turno_id")
-  private Turno turnoId;
-
+  private Turno turno;
 
   public long getId() {
     return id;
@@ -36,19 +35,19 @@ public class Dia {
     this.diaDoMes = diaDoMes;
   }
 
-  public Mes getMesId() {
-    return mesId;
+  public Mes getMes() {
+    return mes;
   }
 
-  public void setMesId(Mes mesId) {
-    this.mesId = mesId;
+  public void setMes(Mes mes) {
+    this.mes = mes;
   }
 
-  public Turno getTurnoId() {
-    return turnoId;
+  public Turno getTurno() {
+    return turno;
   }
 
-  public void setTurnoId(Turno turnoId) {
-    this.turnoId = turnoId;
+  public void setTurno(Turno turno) {
+    this.turno = turno;
   }
 }
