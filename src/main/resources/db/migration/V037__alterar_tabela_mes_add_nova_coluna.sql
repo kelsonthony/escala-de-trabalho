@@ -1,0 +1,2 @@
+ALTER TABLE TB_MES ADD (funcionario_id NUMBER(8) NOT NULL);
+

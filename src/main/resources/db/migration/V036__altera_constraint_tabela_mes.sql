@@ -1,0 +1,2 @@
+ALTER TABLE TB_MES DROP CONSTRAINT fk_escala_trabalho_mes;
+ALTER TABLE TB_MES ADD CONSTRAINT fk_escala_trabalho_mes FOREIGN KEY(escala_id) REFERENCES TB_ESCALA(id);
