@@ -64,7 +64,7 @@ public class MesService implements IMesService {
     LocalDate dataFinal = LocalDate.of(data.getYear(),data.getDayOfMonth(),totalDiasMes);
 
     List<Feriado> feriadosDoMes = this.feriadoService.listaPorPeriodo(dataInicial,dataFinal);
-    List<Turno> turnosPadroesSistema = new ArrayList<>(); // buscar os turnos padões no serviceTurnos;
+    List<Turno> turnosPadroesSistema = this.turnoService.listarPorPadraoSistema();
 
 
     for(int i = 0; i <= totalDiasMes; i++){

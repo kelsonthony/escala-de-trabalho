@@ -9,6 +9,7 @@ public interface ITurnoService {
   void salvar(Turno turno);
   List<Turno> listar();
   Turno listarPorId(long id);
+  List<Turno> listarPorPadraoSistema();
   void atualizar(Turno turno);
   void excluir(long id);
 
