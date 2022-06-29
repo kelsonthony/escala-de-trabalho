@@ -1,0 +1,1 @@
+ALTER TABLE TB_TURNO ADD(padrao_sistema NUMBER(1) );
