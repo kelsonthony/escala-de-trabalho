@@ -39,6 +39,11 @@ public class FeriadoService implements IFeriadoService {
   }
 
   @Override
+  public List<Feriado> listaPorPeriodo(final LocalDate dataInicio, final LocalDate dataFim) {
+    return this.feriadoRepository.listaPorPeriodo(dataInicio,dataFim);
+  }
+
+  @Override
   @Transactional(readOnly = true)
   public Feriado listarPorId(final long id) {
     return this.feriadoRepository.listarPorId(id);

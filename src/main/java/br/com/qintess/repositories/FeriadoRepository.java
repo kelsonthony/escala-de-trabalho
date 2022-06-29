@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -28,6 +29,16 @@ public class FeriadoRepository implements IFeriadoRepository {
   public Feriado listarPorId(final long id) {
     return this.em.find(Feriado.class,id);
   }
+
+  @Override
+  public List<Feriado> listaPorPeriodo(LocalDate dataInicio, LocalDate dataFinal) {
+
+    return this.em.createQuery("SELECT f FROM TB_FERIADO f WHERE f.data BETWEEN :dataInicio and :dataFinal", Feriado.class)
+                              .setParameter("dataInicio",dataInicio)
+                              .setParameter("dataFinal",dataFinal)
+                              .getResultList();
+  }
+
 
   @Override
   public void atualizar(final Feriado feriado) {
