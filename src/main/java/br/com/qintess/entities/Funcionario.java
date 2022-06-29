@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "TB_FUNCIONARIO")
@@ -53,6 +54,9 @@ public class Funcionario {
     @ManyToOne
     @JoinColumn(name = "TURNO_ID")
     private Turno turno;
+
+    @ManyToMany(mappedBy = "funcionarios")
+    private List<Escala> escalas;
 
     public long getFuncionarioId() {
         return funcionarioId;
@@ -132,6 +136,14 @@ public class Funcionario {
 
     public void setTurno(Turno turno) {
         this.turno = turno;
+    }
+
+    public List<Escala> getEscalas() {
+        return escalas;
+    }
+
+    public void setEscalas(List<Escala> escalas) {
+        this.escalas = escalas;
     }
 
 }

@@ -30,6 +30,12 @@ public class Escala {
     @OneToMany(mappedBy = "escala")
     private List<EscalaTipo> tipos;
 
+    @ManyToMany
+    @JoinTable(name = "TB_ESCALA_FUNCIONARIO",
+            joinColumns = @JoinColumn(name = "escala_id"),
+            inverseJoinColumns = @JoinColumn(name = "funcionario_id"))
+    private List<Funcionario> funcionarios;
+
     public long getEscalaId() {
         return escalaId;
     }
@@ -60,5 +66,13 @@ public class Escala {
 
     public void setTipos(List<EscalaTipo> tipos) {
         this.tipos = tipos;
+    }
+
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(List<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
     }
 }
