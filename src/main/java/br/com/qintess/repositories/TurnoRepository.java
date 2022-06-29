@@ -40,6 +40,11 @@ public class TurnoRepository implements ITurnoRepository {
   }
 
   @Override
+  public List<Turno> listarPorPadraoSistema() {
+    return em.createQuery("SELECT t FROM Turno t WHERE t.padraoSistema = 1", Turno.class).getResultList();
+  }
+
+  @Override
     public void atualizar(Turno turno) {
           this.em.merge(turno);
     }
