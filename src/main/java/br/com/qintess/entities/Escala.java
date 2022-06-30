@@ -30,10 +30,7 @@ public class Escala {
     @OneToMany(mappedBy = "escala")
     private List<EscalaTipo> tipos;
 
-    @ManyToMany
-    @JoinTable(name = "TB_ESCALA_FUNCIONARIO",
-            joinColumns = @JoinColumn(name = "escala_id"),
-            inverseJoinColumns = @JoinColumn(name = "funcionario_id"))
+    @ManyToMany(mappedBy = "escalas")
     private List<Funcionario> funcionarios;
 
     public long getEscalaId() {

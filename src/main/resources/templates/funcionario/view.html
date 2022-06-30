@@ -50,6 +50,14 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>Escalas</th>
+                        <td>
+                            <ul>
+                                <li th:each="e : ${funcionario.escalas}" th:text="${e.nome}">escala</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Matrícula</th>
                         <td th:text="${funcionario.matricula}">matricula</td>
                     </tr>

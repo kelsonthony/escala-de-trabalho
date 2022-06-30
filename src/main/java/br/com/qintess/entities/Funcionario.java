@@ -55,7 +55,11 @@ public class Funcionario {
     @JoinColumn(name = "TURNO_ID")
     private Turno turno;
 
-    @ManyToMany(mappedBy = "funcionarios")
+    @ManyToMany
+    @JoinTable(name = "TB_ESCALA_FUNCIONARIO",
+            joinColumns = {@JoinColumn(name = "FUNCIONARIO_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ESCALA_ID")}
+    )
     private List<Escala> escalas;
 
     public long getFuncionarioId() {

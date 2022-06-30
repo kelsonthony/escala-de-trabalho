@@ -3,6 +3,7 @@ package br.com.qintess.controller;
 import br.com.qintess.entities.*;
 import br.com.qintess.exceptions.EscalaException;
 import br.com.qintess.services.interfaces.*;
+import javafx.scene.effect.SepiaTone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,7 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("funcionarios")
@@ -30,6 +34,9 @@ public class FuncionarioController {
     @Autowired
     private ITurnoService turnoService;
 
+    @Autowired
+    private IEscalaService escalaService;
+
     @GetMapping("/listar")
     public ModelAndView listar(ModelMap model) {
         List<Funcionario> funcionarios = funcionarioService.listar();
@@ -40,7 +47,9 @@ public class FuncionarioController {
 
     @GetMapping("/listar/{funcionarioId}")
     public ModelAndView listarPorId(@PathVariable("funcionarioId") long funcionarioId, ModelMap model) {
-        model.addAttribute("funcionario", funcionarioService.listarPorId(funcionarioId));
+        Funcionario funcionario = funcionarioService.listarPorId(funcionarioId);
+        int sizeEscalas = funcionario.getEscalas().size();
+        model.addAttribute("funcionario", funcionario);
         return new ModelAndView("/funcionario/view", model);
     }
 
@@ -92,35 +101,44 @@ public class FuncionarioController {
         model.addAttribute("cargos", cargoService.listar());
         model.addAttribute("equipes", equipeService.listar());
         model.addAttribute("turnos", turnoService.listar());
+        model.addAttribute("escalas", escalaService.listar());
 
         return "/funcionario/add";
     }
 
     @GetMapping("/salvar")
-    public String salvarRedirect(@ModelAttribute("funcionario") Funcionario funcionario){
+    public String salvarRedirect(@ModelAttribute("funcionario") Funcionario funcionario) {
         return "redirect:/funcionarios/cadastrar";
     }
 
     @PostMapping("/salvar")
-    public String salvar(@Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult result,
-                         @ModelAttribute("turno") Turno turno,
-                         @ModelAttribute("equipe") Equipe equipe,
-                         @ModelAttribute("cargo") Cargo cargo,
+    public String salvar(@Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult resultFuncionario,
+                         @ModelAttribute("cargo") Cargo cargo, BindingResult resultCargo,
+                         @ModelAttribute("equipe") Equipe equipe, BindingResult resultEquipe,
+                         @ModelAttribute("turno") Turno turno, BindingResult resultTurno,
+                         @ModelAttribute("escala") Escala escala, BindingResult resultEscala,
                          ModelMap model, RedirectAttributes attr) {
-
-        if (result.hasErrors()) {
+        if (resultFuncionario.hasErrors() || resultCargo.hasErrors() || resultEquipe.hasErrors() || resultTurno.hasErrors() || resultEscala.hasErrors()) {
             model.addAttribute("cargos", cargoService.listar());
             model.addAttribute("equipes", equipeService.listar());
             model.addAttribute("turnos", turnoService.listar());
+            model.addAttribute("escalas", escalaService.listar());
+
             return "/funcionario/add";
         }
+
+        escala = escalaService.listarPorId(escala.getEscalaId());
+        List<Escala> escalas = new ArrayList<>();
+        escalas.add(escala);
 
         funcionario.setCargo(cargo);
         funcionario.setEquipe(equipe);
         funcionario.setTurno(turno);
+        funcionario.setEscalas(escalas);
 
         funcionarioService.salvar(funcionario);
         attr.addFlashAttribute("mensagem", "Funcionário cadastrado com sucesso.");
+
         return "redirect:/funcionarios/listar";
     }
 

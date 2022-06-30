@@ -33,8 +33,7 @@ public class EscalaService implements IEscalaService {
     @Override
     @Transactional(readOnly = true)
     public List<Escala> listar() {
-        List<Escala> escalas = escalaRepository.listar();
-        return escalas;
+        return escalaRepository.listar();
     }
 
     @Override

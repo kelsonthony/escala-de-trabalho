@@ -1,6 +1,7 @@
 package br.com.qintess.services;
 
 import br.com.qintess.entities.Funcionario;
+import br.com.qintess.entities.Turno;
 import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
 import br.com.qintess.services.interfaces.ICargoService;
 import br.com.qintess.services.interfaces.IEquipeService;
@@ -30,7 +31,7 @@ public class FuncionarioService implements IFuncionarioService {
     private ITurnoService turnoService;
 
     @Override
-    public void salvar(Funcionario funcionario) {
+    public void salvar(final Funcionario funcionario) {
         if (funcionario.equals(null)) {
             throw new ConstraintViolationException(
                     "Erro ao tentar salvar o funcionário (#Objeto vazio).", null, null);
