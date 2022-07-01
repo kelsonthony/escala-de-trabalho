@@ -38,11 +38,6 @@ public class Funcionario {
     @Column(nullable = false, length = 255)
     private String email;
 
-    @NotBlank
-    @Size(min = 5, max = 255, message = "Tamanho deve estar entre 6 e 255")
-    @Column(nullable = false, length = 255)
-    private String senha;
-
     @ManyToOne
     @JoinColumn(name = "CARGO_ID")
     private Cargo cargo;
@@ -108,14 +103,6 @@ public class Funcionario {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public Cargo getCargo() {

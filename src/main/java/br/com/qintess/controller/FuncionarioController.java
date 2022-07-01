@@ -97,6 +97,10 @@ public class FuncionarioController {
 
     @GetMapping("/cadastrar")
     public String cadastrar(@ModelAttribute("funcionario") Funcionario funcionario,
+                            @ModelAttribute("cargo") Cargo cargo,
+                            @ModelAttribute("equipe") Equipe equipe,
+                            @ModelAttribute("turno") Turno turno,
+                            @ModelAttribute("escala") Escala escala,
                             ModelMap model) {
         model.addAttribute("cargos", cargoService.listar());
         model.addAttribute("equipes", equipeService.listar());
@@ -127,7 +131,7 @@ public class FuncionarioController {
             return "/funcionario/add";
         }
 
-        escala = escalaService.listarPorId(escala.getEscalaId());
+//        escala = escalaService.listarPorId(escala.getEscalaId());
         List<Escala> escalas = new ArrayList<>();
         escalas.add(escala);
 
@@ -143,51 +147,54 @@ public class FuncionarioController {
     }
 
     @GetMapping("/{funcionarioId}/atualizar")
-    public ModelAndView atualizar(@PathVariable("funcionarioId") long funcionarioId, ModelMap model) {
+    public ModelAndView atualizar(@PathVariable("funcionarioId") long funcionarioId,
+                                  @ModelAttribute("funcionario") Funcionario funcionario,
+                                  @ModelAttribute("cargo") Cargo cargo,
+                                  @ModelAttribute("equipe") Equipe equipe,
+                                  @ModelAttribute("turno") Turno turno,
+                                  @ModelAttribute("escala") Escala escala,
+                                  ModelMap model) {
+        model.addAttribute("cargos", cargoService.listar());
+        model.addAttribute("equipes", equipeService.listar());
+        model.addAttribute("turnos", turnoService.listar());
+        model.addAttribute("escalas", escalaService.listar());
 
-        Funcionario funcionario = funcionarioService.listarPorId(funcionarioId);
+        funcionario = funcionarioService.listarPorId(funcionarioId);
 
         model.addAttribute("funcionario", funcionario);
-        model.addAttribute("selectedCargoId", funcionario.getCargo().getCargoId());
-        model.addAttribute("selectedEquipeId", funcionario.getEquipe().getEquipeId());
-        model.addAttribute("selectedTurnoId", funcionario.getTurno().getId());
+        model.addAttribute("selectedCargo", funcionario.getCargo().getCargoId());
+        model.addAttribute("selectedEquipe", funcionario.getEquipe().getEquipeId());
+        model.addAttribute("selectedTurno", funcionario.getTurno().getId());
+        model.addAttribute("selectedEscala", funcionario.getEscalas());
         model.addAttribute("selectedLocalidade", funcionario.getLocalidade());
 
-        model.addAttribute("cargos", cargoService.listar());
-        model.addAttribute("equipes", equipeService.listar());
-        model.addAttribute("turnos", turnoService.listar());
-
-        return new ModelAndView("/funcionario/update", model);
+        return new ModelAndView("/funcionario/add", model);
     }
 
-    @GetMapping("/atualizar")
-    public String atualizarRedirect(@ModelAttribute("funcionario") Funcionario funcionario, ModelMap model) {
-        Funcionario f = funcionarioService.listarPorId(funcionario.getFuncionarioId());
-        model.addAttribute("cargos", cargoService.listar());
-        model.addAttribute("equipes", equipeService.listar());
-        model.addAttribute("turnos", turnoService.listar());
+    @PutMapping("/salvar")
+    public ModelAndView salvarAtualizacao(@Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult resultFuncionario,
+                                          @ModelAttribute("cargo") Cargo cargo, BindingResult resultCargo,
+                                          @ModelAttribute("equipe") Equipe equipe, BindingResult resultEquipe,
+                                          @ModelAttribute("turno") Turno turno, BindingResult resultTurno,
+                                          @ModelAttribute("escala") Escala escala, BindingResult resultEscala,
+                                          ModelMap model, RedirectAttributes attr) {
 
-        return "/funcionario/update";
-    }
-
-    @PutMapping("/atualizar")
-    public ModelAndView salvarAtualizacao(@Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult result,
-                         @ModelAttribute("turno") Turno turno,
-                         @ModelAttribute("equipe") Equipe equipe,
-                         @ModelAttribute("cargo") Cargo cargo,
-                         ModelMap model, RedirectAttributes attr) {
-
-        if (result.hasErrors()) {
+        if (resultFuncionario.hasErrors() || resultCargo.hasErrors() || resultEquipe.hasErrors() || resultTurno.hasErrors() || resultEscala.hasErrors()) {
             model.addAttribute("cargos", cargoService.listar());
             model.addAttribute("equipes", equipeService.listar());
             model.addAttribute("turnos", turnoService.listar());
+            model.addAttribute("escalas", escalaService.listar());
 
-            return new ModelAndView("/funcionario/update");
+            return new ModelAndView("/funcionario/add");
         }
+
+        List<Escala> escalas = new ArrayList<>();
+        escalas.add(escala);
 
         funcionario.setCargo(cargo);
         funcionario.setEquipe(equipe);
         funcionario.setTurno(turno);
+        funcionario.setEscalas(escalas);
 
         funcionarioService.atualizar(funcionario);
         attr.addFlashAttribute("mensagem", "Funcionário atualizado com sucesso.");

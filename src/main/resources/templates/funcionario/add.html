@@ -17,34 +17,55 @@
     </ol>
     <div class="card mb-4">
       <div class="container">
-        <form th:action="@{/funcionarios/salvar}" th:method="post" th:object="${funcionario}">
-
+        <form th:action="@{/funcionarios/salvar}" th:method="${funcionario.funcionarioId} == 0 ? post : put" th:object="${funcionario}">
+          <input id="funcionarioId" type="hidden" th:field="*{funcionarioId}"/>
           <div class="row">
             <div class="form-group col-md-12" th:object="${cargo}">
               <label for="cargoId">Cargo:</label>
               <select class="form-control"  id="cargoId" name="cargoId" >
-                <option th:each="c : ${cargos}" th:value="${c.cargoId}" th:text="${c.nome + ' (' + c.sigla + ') '}"></option>
+                <option
+                        th:each="cargo : ${cargos}"
+                        th:selected="${cargo.cargoId == selectedCargo}"
+                        th:value="${cargo.cargoId}"
+                        th:text="${cargo.nome + ' (' + cargo.sigla + ') '}">
+                </option>
               </select>
             </div>
 
             <div class="form-group col-md-4" th:object="${equipe}">
               <label for="equipeId">Equipe:</label>
               <select class="form-control" id="equipeId" name="equipeId" >
-                <option th:each="e : ${equipes}" th:value="${e.equipeId}" th:text="${e.nome}"></option>
+                <option
+                        th:each="equipe : ${equipes}"
+                        th:selected="${equipe.equipeId == selectedEquipe}"
+                        th:value="${equipe.equipeId}"
+                        th:text="${equipe.nome}">
+                </option>
               </select>
             </div>
 
             <div class="form-group col-md-4" th:object="${turno}">
               <label for="id">Turno:</label>
               <select class="form-control" id="id" name="id" >
-                <option th:each="t : ${turnos}" th:value="${t.id}" th:text="${t.nome}"></option>
+                <option
+                        th:each="turno : ${turnos}"
+                        th:selected="${turno.id == selectedTurno}"
+                        th:value="${turno.id}"
+                        th:text="${turno.nome}">
+                </option>
               </select>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4" th:object="${escala}">
               <label for="escalaId">Escala:</label>
-              <select class="form-control" id="escalaId" name="escalaId">
-                <option th:each="e : ${escalas}" th:value="${e.escalaId}" th:text="${e.nome}"></option>
+              <select class="form-control selectpicker" th:field="*{escalaId}" id="escalaId" multiple>
+                <option
+                        th:each="e : ${escalas}"
+                        th:selected="${e.escalaId == selectedEscala}"
+                        th:value="${e.escalaId}"
+                        th:text="${e.nome}">
+                  escala
+                </option>
               </select>
             </div>
 
@@ -63,8 +84,8 @@
             <div class="form-group col-md-4">
               <label for="localidade">Localidade:</label>
               <select class="form-control" id="localidade" th:field="*{localidade}"/>
-                <option th:value="'P'" th:text="Presencial"></option>
-                <option th:value="'R'" th:text="Remoto"></option>
+                <option th:selected="${funcionario.localidade == selectedLocalidade}" th:value="'P'">Presencial</option>
+                <option th:selected="${funcionario.localidade == selectedLocalidade}" th:value="'R'">Remoto</option>
               </select>
             </div>
 
@@ -78,11 +99,6 @@
               <label for="email">Email:</label>
               <input class="form-control" id="email" type="text" th:field="*{email}" th:errorclass="is-invalid"/>
               <div class="invalid-feedback" th:errors="*{email}"></div>
-            </div>
-
-            <div class="form-group col-md-4">
-              <label for="senha">Senha:</label>
-              <input class="form-control" id="senha" type="password" th:field="*{senha}" placeholder="*******"/>
             </div>
 
           </div>
