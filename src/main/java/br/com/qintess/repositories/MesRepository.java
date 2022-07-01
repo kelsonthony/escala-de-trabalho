@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -22,12 +23,20 @@ public class MesRepository implements IMesRepository {
 
   @Override
   public List<Mes> listar() {
-    return em.createQuery("SELECT m FROM TB_MES m",Mes.class).getResultList();
+    return this.em.createQuery("SELECT m FROM Mes m", Mes.class).getResultList();
   }
 
   @Override
   public Mes listarPorId(final long id) {
     return this.em.find(Mes.class,id);
+  }
+
+  @Override
+  public Mes listarPorIdFuncionarioEDataInicio(long idFuncionario, LocalDate dateInicio) {
+    return this.em.createQuery("SELECT m FROM Mes m WHERE m.dataInicio = :dataInicio AND m.funcionario.funcionarioId = :id",Mes.class)
+                              .setParameter("dataInicio",dateInicio)
+                              .setParameter("id",idFuncionario)
+                              .getSingleResult();
   }
 
   @Override

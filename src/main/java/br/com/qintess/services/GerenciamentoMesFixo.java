@@ -11,6 +11,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
@@ -26,13 +27,25 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
     this.turnoService = turnoService;
   }
 
-  public void cadastrarMes(Mes mes){
+  public void cadastrarMes(Funcionario funcionario, Escala escala){
 
-    Mes novoMes = this.mesService.salvar(mes);
-    List<Dia> diasDoMes = preencimentoAutomaticoDias(mes);
-    novoMes.setDias(diasDoMes);
+    int totalDiasMes = escala.getData().lengthOfMonth();
+    LocalDate dataInicio = escala.getData().withDayOfMonth(1);
+    LocalDate dataTermino = dataInicio.withDayOfMonth(totalDiasMes);
 
-    this.mesService.atualizar(novoMes);
+    Mes mesSalvo = this.mesService.listarPorIdFuncionarioEDataInicio(funcionario.getFuncionarioId(),dataInicio);
+
+    if(!Objects.isNull(mesSalvo)){
+      throw  new RuntimeException("Mes já esta cadastrado.");
+    }
+
+    Mes novoMes = new Mes(escala.getData().getMonthValue(),dataInicio,dataTermino,escala,funcionario);
+
+    Mes mesCadastrado = this.mesService.salvar(novoMes);
+
+    mesCadastrado.setDias(preencimentoAutomaticoDias(mesCadastrado));
+
+    this.mesService.atualizar(mesCadastrado);
 
   }
 
@@ -61,9 +74,9 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
     List<Turno> turnosPadroesSistema = this.turnoService.listarPorPadraoSistema();
 
 
-    for(int i = 1; i < totalDiasMes; i++){
+    for(int i = 0; i < totalDiasMes; i++){
 
-      int numeroDia = i;
+      int numeroDia = 1 + i;
 
       Dia diaAtual = new Dia();
       diaAtual.setMes(mes);
@@ -126,5 +139,6 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
   private Turno localizaTurnoPadrao(String sigla, List<Turno> turnos){
     return turnos.stream().filter(turno -> turno.getSigla().equals(sigla)).findFirst().get();
   }
+
 
 }

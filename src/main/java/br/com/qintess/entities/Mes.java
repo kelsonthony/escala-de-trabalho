@@ -47,6 +47,33 @@ public class Mes {
   @OneToMany(mappedBy = "mes",cascade = CascadeType.ALL)
   private List<Dia> dias;
 
+  public Mes() {
+  }
+
+  public Mes(long id, int numeroMes, LocalDate dataInicio, LocalDate dataTermino, Timestamp totalHorasNormais, Timestamp totalHorasExtras,
+             int sabadosTrabalhados, int domingosTrabalhados, int feriadosTrabalhados, Escala escala, Funcionario funcionario, List<Dia> dias) {
+    this.id = id;
+    this.numeroMes = numeroMes;
+    this.dataInicio = dataInicio;
+    this.dataTermino = dataTermino;
+    this.totalHorasNormais = totalHorasNormais;
+    this.totalHorasExtras = totalHorasExtras;
+    this.sabadosTrabalhados = sabadosTrabalhados;
+    this.domingosTrabalhados = domingosTrabalhados;
+    this.feriadosTrabalhados = feriadosTrabalhados;
+    this.escala = escala;
+    this.funcionario = funcionario;
+    this.dias = dias;
+  }
+
+  public Mes(int numeroMes, LocalDate dataInicio, LocalDate dataTermino, Escala escala, Funcionario funcionario) {
+    this.numeroMes = numeroMes;
+    this.dataInicio = dataInicio;
+    this.dataTermino = dataTermino;
+    this.escala = escala;
+    this.funcionario = funcionario;
+  }
+
   public long getId() {
     return id;
   }

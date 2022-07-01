@@ -5,10 +5,14 @@ import br.com.qintess.repositories.interfaces.IMesRepository;
 import br.com.qintess.services.interfaces.IMesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Transactional
 public class MesService implements IMesService {
 
   @Autowired
@@ -27,6 +31,11 @@ public class MesService implements IMesService {
   @Override
   public Mes listarPorId(final long id) {
     return this.mesRepository.listarPorId(id);
+  }
+
+  @Override
+  public Mes listarPorIdFuncionarioEDataInicio(long idFuncionario, LocalDate dateInicio) {
+    return this.mesRepository.listarPorIdFuncionarioEDataInicio(idFuncionario,dateInicio);
   }
 
   @Override
