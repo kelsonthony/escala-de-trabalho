@@ -15,8 +15,9 @@ public class MesRepository implements IMesRepository {
   private EntityManager em;
 
   @Override
-  public void salvar(final Mes mes) {
+  public Mes salvar(final Mes mes) {
     this.em.persist(mes);
+    return mes;
   }
 
   @Override
