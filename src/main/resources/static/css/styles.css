@@ -10260,3 +10260,13 @@ body {
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;
 }
+td.cargo {
+  max-width: 37ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+td.cargo a{
+  text-decoration: none;
+  color: #212529;
+}
