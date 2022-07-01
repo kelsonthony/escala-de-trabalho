@@ -6,6 +6,7 @@ import javax.persistence.*;
 public class Dia {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   @Column(name = "dia_do_mes")

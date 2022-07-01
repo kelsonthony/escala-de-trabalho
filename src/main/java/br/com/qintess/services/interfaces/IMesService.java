@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IMesService {
 
-  void salvar(Mes mes);
+  Mes salvar(Mes mes);
   List<Mes> listar();
   Mes listarPorId(long id);
   void atualizar(Mes mes);

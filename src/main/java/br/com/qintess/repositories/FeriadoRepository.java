@@ -33,7 +33,7 @@ public class FeriadoRepository implements IFeriadoRepository {
   @Override
   public List<Feriado> listaPorPeriodo(LocalDate dataInicio, LocalDate dataFinal) {
 
-    return this.em.createQuery("SELECT f FROM TB_FERIADO f WHERE f.data BETWEEN :dataInicio and :dataFinal", Feriado.class)
+    return this.em.createQuery("SELECT f FROM Feriado f WHERE f.data >= :dataInicio and  f.data <= :dataFinal", Feriado.class)
                               .setParameter("dataInicio",dataInicio)
                               .setParameter("dataFinal",dataFinal)
                               .getResultList();

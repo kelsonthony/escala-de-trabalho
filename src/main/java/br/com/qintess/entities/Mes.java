@@ -2,16 +2,24 @@ package br.com.qintess.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity(name = "TB_MES")
 public class Mes {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   @Column(name = "numero_mes",length = 2, nullable = false)
   private int numeroMes;
+
+  @Column(name = "data_inicio")
+  private LocalDate dataInicio;
+
+  @Column(name = "data_termino")
+  private LocalDate dataTermino;
 
   @Column(name = "total_horas_normais")
   private Timestamp totalHorasNormais;
@@ -53,6 +61,22 @@ public class Mes {
 
   public void setNumeroMes(int numeroMes) {
     this.numeroMes = numeroMes;
+  }
+
+  public LocalDate getDataInicio() {
+    return dataInicio;
+  }
+
+  public void setDataInicio(LocalDate dataInicio) {
+    this.dataInicio = dataInicio;
+  }
+
+  public LocalDate getDataTermino() {
+    return dataTermino;
+  }
+
+  public void setDataTermino(LocalDate dataTermino) {
+    this.dataTermino = dataTermino;
   }
 
   public Timestamp getTotalHorasNormais() {
