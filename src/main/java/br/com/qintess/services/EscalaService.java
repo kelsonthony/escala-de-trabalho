@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -34,6 +35,12 @@ public class EscalaService implements IEscalaService {
     @Transactional(readOnly = true)
     public List<Escala> listar() {
         return escalaRepository.listar();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public LocalDate listarUltimaEscala() {
+        return escalaRepository.listarUltimaEscala();
     }
 
     @Override

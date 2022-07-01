@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -22,6 +23,11 @@ public class EscalaRepository implements IEscalaRepository {
     @Override
     public List<Escala> listar() {
         return em.createQuery("SELECT e FROM Escala e", Escala.class).getResultList();
+    }
+
+    @Override
+    public LocalDate listarUltimaEscala(){
+        return em.createQuery("SELECT max(e.data) FROM Escala e", LocalDate.class).getSingleResult();
     }
 
     @Override
