@@ -33,11 +33,11 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
     LocalDate dataInicio = escala.getData().withDayOfMonth(1);
     LocalDate dataTermino = dataInicio.withDayOfMonth(totalDiasMes);
 
-    Mes mesSalvo = this.mesService.listarPorIdFuncionarioEDataInicio(funcionario.getFuncionarioId(),dataInicio);
+    /*Mes mesSalvo = this.mesService.listarPorIdFuncionarioEDataInicio(funcionario.getFuncionarioId(),dataInicio);
 
     if(!Objects.isNull(mesSalvo)){
       throw  new RuntimeException("Mes já esta cadastrado.");
-    }
+    }*/
 
     Mes novoMes = new Mes(escala.getData().getMonthValue(),dataInicio,dataTermino,escala,funcionario);
 
