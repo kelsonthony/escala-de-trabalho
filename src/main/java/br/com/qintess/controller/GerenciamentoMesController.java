@@ -24,13 +24,13 @@ public class GerenciamentoMesController {
   private IGerenciamentoMesFixoService gerenciamentoMesFixoService;
 
   @GetMapping("/cadastrar")
-  public ModelAndView listar(ModelMap model) {
+  public ModelAndView cadastrar(ModelMap model) {
 
-    Funcionario funcionario = this.funcionarioService.listarPorId(2);
-    Escala escala = this.escalaService.listarPorId(2);
+    Funcionario funcionario = this.funcionarioService.listarPorId(1);
+    Escala escala = this.escalaService.listarPorId(1);
     this.gerenciamentoMesFixoService.cadastrarMes(funcionario,escala);
 
-    return new ModelAndView("/escala/list", model);
+    return null;
 
   }
 
