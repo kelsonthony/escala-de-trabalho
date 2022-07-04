@@ -25,64 +25,37 @@
 							<tr>
 								<th>Nome</th>
 								<th>Cargo</th>
-								<th>Office</th>
-								<th>Age</th>
-								<th>Start date</th>
-								<th>Salary</th>
-								<th>Salary</th>
-								<th>Salary</th>
-								<th>Salary</th>
-								<th>Salary</th>
-								<th>Salary</th>
-								<th>Salary</th>
+								<th th:each="dia : ${diasDoMes}" th:text="${#temporals.dayOfWeekNameShort(dia)} +' ('+${#temporals.day(dia)}+')'">dia</th>
 							</tr>
 							</thead>
 							<tfoot>
 							<tr>
+							<tr>
 								<th>Nome</th>
 								<th>Cargo</th>
-								<th>Office</th>
-								<th>Age</th>
-								<th>Start date</th>
-								<th>Salary</th>
-								<th>Salary</th>
-								<th>Salary</th>
-								<th>Salary</th>
-								<th>Salary</th>
-								<th>Salary</th>
-								<th>Salary</th>
+								<th th:each="dia : ${diasDoMes}" th:text="${#temporals.dayOfWeekNameShort(dia)} +' ('+${#temporals.day(dia)}+')'">dia</th>
+							</tr>
 							</tr>
 							</tfoot>
 							<tbody>
-							<tr th:each="funcionario : ${funcionarios}">
-								<td><a th:text="${funcionario.nome}" th:href="@{/funcionarios/listar/{id}(id=${funcionario.funcionarioId})}">nome</a></td>
-
-
-
-								<td class="cargo">
-									<a th:text="${funcionario.cargo.nome}"
-											href="#"
-											data-container="body"
-											data-toggle="popover"
-											data-placement="top"
-											th:data-content="${funcionario.cargo.nome +' ('+ funcionario.cargo.sigla +') '}">
-										cargo
+							<tr th:each="mes : ${meses}">
+								<td>
+									<a th:text="${mes.funcionario.nome}"
+									   th:href="@{/funcionarios/listar/{id}(id=${mes.funcionario.funcionarioId})}">
+									nome
 									</a>
 								</td>
-
-
-
-
-								<td>Edinburgh</td>
-								<td>61</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
-								<td>$320,800</td>
+								<td class="cargo">
+									<a th:text="${mes.funcionario.cargo.nome}"
+										href="#"
+										data-container="body"
+										data-toggle="popover"
+										data-placement="top"
+										th:data-content="${mes.funcionario.cargo.nome +' ('+ mes.funcionario.cargo.sigla +') '}">
+									cargo
+									</a>
+								</td>
+								<td></td>
 							</tr>
 							</tbody>
 						</table>

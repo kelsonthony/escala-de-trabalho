@@ -29,9 +29,10 @@ public class Cargo {
     @Column(nullable = false, length = 10)
     private String permissaoAcesso;
 
+    @NotBlank
     @Range(min = 0, max = 999)
     @Column(nullable = true, length = 999)
-    private int horasExtrasPermitidas;
+    private int horasExtrasPermitidas = 0;
 
     @OneToMany(mappedBy = "cargo")
     private List<Funcionario> funcionarios;

@@ -5,7 +5,8 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity(name = "TB_MES")
+@Entity
+@Table(name = "TB_MES")
 public class Mes {
 
   @Id

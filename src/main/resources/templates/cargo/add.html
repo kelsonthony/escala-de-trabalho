@@ -20,20 +20,20 @@
         <form th:action="@{/cargos/salvar}" th:method="${cargo.cargoId} == 0 ? post : put" th:object="${cargo}">
           <div class="row">
             <input id="cargoId" type="hidden" th:field="*{cargoId}"/>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-8">
               <label for="nome">Nome:</label>
               <input class="form-control" id="nome" type="text" th:field="*{nome}" th:errorclass="is-invalid"/>
               <div class="invalid-feedback" th:errors="*{nome}"></div>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-2">
               <label for="sigla">Sigla:</label>
               <input class="form-control" id="sigla" type="text" th:field="*{sigla}" th:errorclass="is-invalid"/>
               <div class="invalid-feedback" th:errors="*{sigla}"></div>
             </div>
 
-            <div class="form-group col-md-4">
-              <label for="horasExtrasPermitidas">Horas Extras Permitidas:</label>
+            <div class="form-group col-md-2">
+              <label for="horasExtrasPermitidas">Horas Extras:</label>
               <input class="form-control" id="horasExtrasPermitidas" type="text" th:field="*{horasExtrasPermitidas}" th:errorclass="is-invalid"/>
               <div class="invalid-feedback" th:errors="*{horasExtrasPermitidas}"></div>
             </div>

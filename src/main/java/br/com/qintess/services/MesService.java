@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,6 +41,11 @@ public class MesService implements IMesService {
   }
 
   @Override
+  public List<Mes> listarPorData(LocalDate dataInicio) {
+    return this.mesRepository.listarPorData(dataInicio);
+  }
+
+  @Override
   public void atualizar(final Mes mes) {this.mesRepository.atualizar(mes);}
 
   @Override
@@ -46,6 +53,22 @@ public class MesService implements IMesService {
     this.mesRepository.excluir(id);
 
   }
+  @Override
+  public List<LocalDate> dias(LocalDate data) {
+    int ano = data.getYear();
+    int mes = data.getMonthValue();
 
+    List<LocalDate> dias = new ArrayList<>();
+    int totalDiasDoMes = this.totalDiasDoMes(ano, mes);
+    for (int i = 0; i < totalDiasDoMes; i++) {
+      dias.add(data.plusDays(i));
+    }
+
+    return dias;
+  }
+
+  public int totalDiasDoMes(int ano, int mes) {
+    return YearMonth.of(ano, mes).lengthOfMonth();
+  }
 
 }

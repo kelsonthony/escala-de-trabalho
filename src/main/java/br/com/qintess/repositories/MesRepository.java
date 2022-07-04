@@ -23,7 +23,7 @@ public class MesRepository implements IMesRepository {
 
   @Override
   public List<Mes> listar() {
-    return this.em.createQuery("SELECT m FROM Mes m", Mes.class).getResultList();
+    return em.createQuery("SELECT m FROM Mes m", Mes.class).getResultList();
   }
 
   @Override
@@ -37,6 +37,13 @@ public class MesRepository implements IMesRepository {
                               .setParameter("dataInicio",dateInicio)
                               .setParameter("id",idFuncionario)
                               .getSingleResult();
+  }
+
+  @Override
+  public List<Mes> listarPorData(LocalDate dataInicio) {
+    return this.em.createQuery("SELECT m FROM Mes m WHERE m.dataInicio = :dataInicio",Mes.class)
+            .setParameter("dataInicio",dataInicio)
+            .getResultList();
   }
 
   @Override
