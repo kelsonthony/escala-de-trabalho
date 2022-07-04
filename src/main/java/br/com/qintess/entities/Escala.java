@@ -1,5 +1,6 @@
 package br.com.qintess.entities;
 
+import org.hibernate.annotations.IndexColumn;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

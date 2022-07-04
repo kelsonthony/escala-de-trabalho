@@ -63,7 +63,7 @@
                     </tr>
                     <tr>
                         <th>Localidade</th>
-                        <td th:text="${funcionario.localidade}">localidade</td>
+                        <td th:text="${funcionario.localidade} == 'P' ? 'Presencial' : 'Remoto'">localidade</td>
                     </tr>
                     <tr>
                         <th>Código</th>

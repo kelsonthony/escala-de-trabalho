@@ -22,26 +22,20 @@
             <input id="cargoId" type="hidden" th:field="*{cargoId}"/>
             <div class="form-group col-md-12">
               <label for="nome">Nome:</label>
-              <input class="form-control" id="nome" type="text" th:field="*{nome}"/>
-              <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+              <input class="form-control" id="nome" type="text" th:field="*{nome}" th:errorclass="is-invalid"/>
+              <div class="invalid-feedback" th:errors="*{nome}"></div>
             </div>
 
             <div class="form-group col-md-4">
               <label for="sigla">Sigla:</label>
-              <input class="form-control" id="sigla" type="text" th:field="*{sigla}"/>
-              <div th:if="${#fields.hasErrors('sigla')}" th:errors="*{sigla}"></div>
-            </div>
-
-            <div class="form-group col-md-4">
-              <label for="permissaoAcesso">Permissão:</label>
-              <input class="form-control" id="permissaoAcesso" type="text" th:field="*{permissaoAcesso}"/>
-              <div th:if="${#fields.hasErrors('permissaoAcesso')}" th:errors="*{permissaoAcesso}"></div>
+              <input class="form-control" id="sigla" type="text" th:field="*{sigla}" th:errorclass="is-invalid"/>
+              <div class="invalid-feedback" th:errors="*{sigla}"></div>
             </div>
 
             <div class="form-group col-md-4">
               <label for="horasExtrasPermitidas">Horas Extras Permitidas:</label>
-              <input class="form-control" id="horasExtrasPermitidas" type="text" th:field="*{horasExtrasPermitidas}"/>
-              <div th:if="${#fields.hasErrors('horasExtrasPermitidas')}" th:errors="*{horasExtrasPermitidas}"></div>
+              <input class="form-control" id="horasExtrasPermitidas" type="text" th:field="*{horasExtrasPermitidas}" th:errorclass="is-invalid"/>
+              <div class="invalid-feedback" th:errors="*{horasExtrasPermitidas}"></div>
             </div>
 
           </div>

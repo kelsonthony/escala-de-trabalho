@@ -50,6 +50,7 @@ public class CargoController {
     @GetMapping("/{id}/atualizar")
     public ModelAndView atualizar(@PathVariable("id") long id, ModelMap model) {
         Cargo cargo = cargoService.listarPorId(id);
+
         model.addAttribute("cargo", cargo);
         return new ModelAndView("/cargo/add", model);
     }

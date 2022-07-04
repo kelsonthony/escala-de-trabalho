@@ -15,12 +15,10 @@ public class Funcionario {
     @Column(name = "ID")
     private long funcionarioId;
 
-    @NotBlank
     @Size(min = 2, max = 8, message = "Tamanho deve estar entre 2 e 8")
     @Column(nullable = false, length = 8)
     private String matricula;
 
-    @NotBlank
     @Size(min = 2, max = 125 , message = "Tamanho deve estar entre 2 e 125")
     @Column(nullable = false, length = 125)
     private String nome;

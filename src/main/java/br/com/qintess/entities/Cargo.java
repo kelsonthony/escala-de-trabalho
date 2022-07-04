@@ -17,18 +17,15 @@ public class Cargo {
     @Column(name = "ID")
     private long cargoId;
 
-    @NotBlank
-    @Size(min = 2, max = 125)
+    @Size(min = 2, max = 125, message = "Tamanho deve estar entre 2 e 125")
     @Column(nullable = false, length = 125)
     private String nome;
 
-    @NotBlank
-    @Size(min = 2, max = 10)
+    @Size(min = 2, max = 10, message = "Tamanho deve estar entre 2 e 10")
     @Column(nullable = false, length = 10)
     private String sigla;
 
-    @NotBlank
-    @Size(min = 2, max = 10)
+    @Size(min = 2, max = 10, message = "Tamanho deve estar entre 2 e 10")
     @Column(nullable = false, length = 10)
     private String permissaoAcesso;
 

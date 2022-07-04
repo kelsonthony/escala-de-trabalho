@@ -58,7 +58,7 @@
 
             <div class="form-group col-md-4" th:object="${escala}">
               <label for="escalaId">Escala:</label>
-              <select class="form-control selectpicker" th:field="*{escalaId}" id="escalaId" multiple>
+              <select class="form-control" id="escalaId" name="escalaId">
                 <option
                         th:each="e : ${escalas}"
                         th:selected="${e.escalaId == selectedEscala}"

@@ -3,7 +3,6 @@ package br.com.qintess.controller;
 import br.com.qintess.entities.*;
 import br.com.qintess.exceptions.EscalaException;
 import br.com.qintess.services.interfaces.*;
-import javafx.scene.effect.SepiaTone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,10 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("funcionarios")
@@ -48,7 +44,7 @@ public class FuncionarioController {
     @GetMapping("/listar/{funcionarioId}")
     public ModelAndView listarPorId(@PathVariable("funcionarioId") long funcionarioId, ModelMap model) {
         Funcionario funcionario = funcionarioService.listarPorId(funcionarioId);
-        int sizeEscalas = funcionario.getEscalas().size();
+
         model.addAttribute("funcionario", funcionario);
         return new ModelAndView("/funcionario/view", model);
     }
@@ -122,6 +118,7 @@ public class FuncionarioController {
                          @ModelAttribute("turno") Turno turno, BindingResult resultTurno,
                          @ModelAttribute("escala") Escala escala, BindingResult resultEscala,
                          ModelMap model, RedirectAttributes attr) {
+
         if (resultFuncionario.hasErrors() || resultCargo.hasErrors() || resultEquipe.hasErrors() || resultTurno.hasErrors() || resultEscala.hasErrors()) {
             model.addAttribute("cargos", cargoService.listar());
             model.addAttribute("equipes", equipeService.listar());
@@ -131,7 +128,6 @@ public class FuncionarioController {
             return "/funcionario/add";
         }
 
-//        escala = escalaService.listarPorId(escala.getEscalaId());
         List<Escala> escalas = new ArrayList<>();
         escalas.add(escala);
 
