@@ -26,7 +26,7 @@ public class GerenciamentoMesController {
   @GetMapping("/cadastrar")
   public ModelAndView cadastrar(ModelMap model) {
 
-    Funcionario funcionario = this.funcionarioService.listarPorId(1);
+    Funcionario funcionario = this.funcionarioService.listarPorId(2);
     Escala escala = this.escalaService.listarPorId(1);
     this.gerenciamentoMesFixoService.cadastrarMes(funcionario,escala);
 
