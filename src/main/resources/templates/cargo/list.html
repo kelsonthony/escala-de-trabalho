@@ -35,7 +35,6 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Sigla</th>
-                                <th>Permissão</th>
                                 <th>Horas Extras Permitidas</th>
                                 <th>Ações</th>
                             </tr>
@@ -44,7 +43,6 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Sigla</th>
-                                <th>Permissão</th>
                                 <th>Horas Extras Permitidas</th>
                                 <th>Ações</th>
                             </tr>
@@ -55,7 +53,6 @@
                                     <a th:text="${cargo.nome}" th:href="@{/funcionarios/listar/cargo/{id}(id=${cargo.cargoId})}">nome</a>
                                 </td>
                                 <td th:text="${cargo.sigla}">sigla</td>
-                                <td th:text="${cargo.permissaoAcesso}">Permissão de acesso</td>
                                 <td th:text="${cargo.horasExtrasPermitidas}">Horas Extras Permitidas</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Actions">
