@@ -13,6 +13,7 @@ public interface IFeriadoRepository {
   List<Feriado> listar();
   Feriado listarPorId(long id);
   List<Feriado> listaPorPeriodo(LocalDate dataInicio, LocalDate dataFim);
+  List<Feriado> listarPorNomeEData(String nome,LocalDate data);
   void atualizar(Feriado feriado);
   void excluir(long id);
 

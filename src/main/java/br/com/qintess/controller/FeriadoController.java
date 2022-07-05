@@ -44,8 +44,13 @@ public class FeriadoController {
       return "/feriado/add";
     }
 
-    feriadoService.salvar(feriado);
-    attr.addFlashAttribute("mensagem", "Feriado criado com sucesso.");
+    try {
+      feriadoService.salvar(feriado);
+      attr.addFlashAttribute("mensagem", "Feriado criado com sucesso.");
+    }catch (Exception e){
+      attr.addFlashAttribute("mensagem", e.getMessage());
+    }
+
     return "redirect:/feriados/listar";
   }
 
@@ -70,13 +75,13 @@ public class FeriadoController {
   @GetMapping("{id}/remover")
   public String remover(@PathVariable("id") long id, RedirectAttributes attr){
 
-    if(feriadoService.listarPorId(id) == null){
-      attr.addFlashAttribute("mensagem", "Feriado informado não existe");
-      return "redirect:/feriados/listar";
+    try {
+      this.feriadoService.excluir(id);
+      attr.addFlashAttribute("mensagem", "Feriado excluido com sucesso.");
+    }catch (Exception e){
+      attr.addFlashAttribute("mensagem", e.getMessage());
     }
 
-    feriadoService.excluir(id);
-    attr.addFlashAttribute("mensagem", "Feriado removido com sucesso");
     return "redirect:/feriados/listar";
 
   }

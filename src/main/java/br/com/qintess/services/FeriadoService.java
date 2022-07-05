@@ -1,6 +1,5 @@
 package br.com.qintess.services;
 
-import br.com.qintess.entities.Equipe;
 import br.com.qintess.entities.Feriado;
 import br.com.qintess.repositories.interfaces.IFeriadoRepository;
 import br.com.qintess.services.interfaces.IFeriadoService;
@@ -24,10 +23,13 @@ public class FeriadoService implements IFeriadoService {
   @Override
   @Transactional
   public void salvar(Feriado feriado) {
-    if (feriado.equals(null)) {
-      throw new ConstraintViolationException(
-              "Erro ao tentar salvar o feriado (#Objeto vazio).", null, null);
-    }
+
+    if (feriado.equals(null)) { throw new ConstraintViolationException("Erro ao tentar salvar o feriado (#Objeto vazio).", null, null);}
+
+    List<Feriado> listaFeriados = this.feriadoRepository.listarPorNomeEData(feriado.getNome(),feriado.getData());
+
+    if(!listaFeriados.isEmpty()){throw new ConstraintViolationException("Erro ao tentar salvar o feriado (#Feriado já cadastrado).", null, null);}
+
     feriado.setDiaSemana(retornaDiaDaSemana(feriado.getData()));
     this.feriadoRepository.salvar(feriado);
   }

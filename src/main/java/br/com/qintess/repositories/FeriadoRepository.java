@@ -39,6 +39,14 @@ public class FeriadoRepository implements IFeriadoRepository {
                               .getResultList();
   }
 
+  @Override
+  public List<Feriado> listarPorNomeEData(String nome, LocalDate data) {
+    return this.em.createQuery("SELECT f FROM Feriado f WHERE f.nome LIKE :nome AND f.data = :data",Feriado.class)
+      .setParameter("nome",nome)
+      .setParameter("data",data)
+      .getResultList();
+  }
+
 
   @Override
   public void atualizar(final Feriado feriado) {
