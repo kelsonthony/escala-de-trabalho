@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("gerenciamento")
@@ -26,14 +27,21 @@ public class GerenciamentoMesController {
 
   @GetMapping("/{funcionarioId}/{escalaId}/cadastrar")
   public String cadastrar(
-          @PathVariable("funcionarioId") long funcionarioId,
-          @PathVariable("escalaId") long escalaId) {
+    @PathVariable("funcionarioId") long funcionarioId,
+    @PathVariable("escalaId") long escalaId,
+    RedirectAttributes attr) {
 
     Funcionario funcionario = this.funcionarioService.listarPorId(funcionarioId);
     Escala escala = this.escalaService.listarPorId(escalaId);
-    this.gerenciamentoMesFixoService.cadastrarMes(funcionario,escala);
 
-    return "/gerenciamento/add";
+    try{
+      this.gerenciamentoMesFixoService.cadastrarMes(funcionario,escala);
+      attr.addFlashAttribute("Mês cadastrado com sucesso.");
+    }catch (Exception e){
+      attr.addFlashAttribute("mensagem",e.getMessage());
+    }
+
+    return "redirect:/";
 
   }
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,11 +34,11 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
     LocalDate dataInicio = escala.getData().withDayOfMonth(1);
     LocalDate dataTermino = dataInicio.withDayOfMonth(totalDiasMes);
 
-    /*Mes mesSalvo = this.mesService.listarPorIdFuncionarioEDataInicio(funcionario.getFuncionarioId(),dataInicio);
+    Mes mesExiste = this.mesService.listarPorIdFuncionarioEDataInicio(funcionario.getFuncionarioId(),dataInicio);
 
-    if(!Objects.isNull(mesSalvo)){
-      throw  new RuntimeException("Mes já esta cadastrado.");
-    }*/
+    if(!Objects.isNull(mesExiste)){
+      throw new RuntimeException("Erro ao tentar salvar mês (#Mês já cadastrado).");
+    }
 
     Mes novoMes = new Mes(escala.getData().getMonthValue(),dataInicio,dataTermino,escala,funcionario);
 
@@ -140,5 +141,20 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
     return turnos.stream().filter(turno -> turno.getSigla().equals(sigla)).findFirst().get();
   }
 
+  private long calculaTotalHorasTrabalhadas(List<Dia> dias){
+
+    int totalHorasEmSegundos = 0;
+
+    for (Dia dia: dias) {
+
+      LocalTime horaTurno = LocalTime.parse(dia.getTurno().getTotalHoras());
+
+      int totalSegundos = horaTurno.toSecondOfDay();
+      totalHorasEmSegundos += totalSegundos;
+    }
+
+    return (totalHorasEmSegundos * 60) * 60;
+
+  }
 
 }
