@@ -1,6 +1,5 @@
 package br.com.qintess.services;
 
-import br.com.qintess.entities.Equipe;
 import br.com.qintess.entities.Feriado;
 import br.com.qintess.repositories.interfaces.IFeriadoRepository;
 import br.com.qintess.services.interfaces.IFeriadoService;

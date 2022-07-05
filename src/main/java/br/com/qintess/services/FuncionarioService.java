@@ -1,7 +1,6 @@
 package br.com.qintess.services;
 
 import br.com.qintess.entities.Funcionario;
-import br.com.qintess.entities.Turno;
 import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
 import br.com.qintess.services.interfaces.ICargoService;
 import br.com.qintess.services.interfaces.IEquipeService;

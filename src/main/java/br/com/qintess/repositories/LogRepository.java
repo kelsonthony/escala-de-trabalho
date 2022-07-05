@@ -1,6 +1,5 @@
 package br.com.qintess.repositories;
 
-import br.com.qintess.entities.Feriado;
 import br.com.qintess.entities.Log;
 import br.com.qintess.repositories.interfaces.ILogRepository;
 import org.springframework.stereotype.Repository;

@@ -44,6 +44,9 @@ public class Turno {
     @OneToMany(mappedBy = "turno")
     private List<Funcionario> funcionarios;
 
+    @OneToMany(mappedBy = "turno")
+    public List<Dia> dias;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TURNO_FIXO_ID")
     private TurnoFixo turnoFixo;
@@ -117,6 +120,14 @@ public class Turno {
 
     public void setFuncionarios(List<Funcionario> funcionarios) {
         this.funcionarios = funcionarios;
+    }
+
+    public List<Dia> getDias() {
+        return dias;
+    }
+
+    public void setDias(List<Dia> dias) {
+        this.dias = dias;
     }
 
     public TurnoFixo getTurnoFixo() {

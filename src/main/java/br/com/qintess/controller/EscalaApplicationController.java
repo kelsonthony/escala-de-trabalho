@@ -1,7 +1,6 @@
 package br.com.qintess.controller;
 
-import br.com.qintess.entities.Escala;
-import br.com.qintess.entities.Funcionario;
+import br.com.qintess.entities.DashboardDto;
 import br.com.qintess.entities.Mes;
 import br.com.qintess.services.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
 public class EscalaApplicationController {
@@ -29,19 +21,22 @@ public class EscalaApplicationController {
     @Autowired
     private IMesService mesService;
 
+    @Autowired
+    private IDiaService diaService;
+
+    @Autowired
+    private IDashboardService dashboardService;
+
 
     @GetMapping("/")
     public ModelAndView home(ModelMap model) {
 
-        List<Mes> meses  = mesService.listar();
-        LocalDate dataInicio = meses.get(0).getDataInicio();
-        List<LocalDate> diasDoMes = mesService.dias(meses.get(0).getDataInicio());
+        List<Mes> meses = mesService.listar();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM/yyyy");
-
-        model.addAttribute("titulo", dataInicio.format(formatter));
-        model.addAttribute("meses", meses);
-        model.addAttribute("diasDoMes", diasDoMes);
+        List<DashboardDto> dtos = dashboardService.listar(meses);
+        model.addAttribute("dtos", dtos);
+        model.addAttribute("titulo", dashboardService.titulo(meses.get(0).getDataInicio()));
+        model.addAttribute("diasDoMes", dashboardService.dias(meses.get(0).getDataInicio()));
 
         return new ModelAndView("home", model);
     }

@@ -14,6 +14,6 @@ public interface IMesService {
   List<Mes> listarPorData(LocalDate dataInicio);
   void atualizar(Mes mes);
   void excluir(long id);
-  List<LocalDate> dias(LocalDate data);
+  List<String> dias(LocalDate data);
   int totalDiasDoMes(int ano, int mes);
 }
