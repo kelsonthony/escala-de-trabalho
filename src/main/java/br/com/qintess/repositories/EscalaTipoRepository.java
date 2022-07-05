@@ -1,7 +1,6 @@
 package br.com.qintess.repositories;
 
 import br.com.qintess.entities.EscalaTipo;
-import br.com.qintess.entities.Funcionario;
 import br.com.qintess.repositories.interfaces.IEscalaTipoRepository;
 import org.springframework.stereotype.Repository;
 

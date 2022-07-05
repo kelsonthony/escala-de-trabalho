@@ -16,7 +16,7 @@
 				</div>
 				<div class="card-header">
 					<i class="fas fa-user-clock mr-1"></i>
-					<span style="text-transform: uppercase" th:text="'Escala de ' + ${titulo}">titulo</span>
+					<span style="text-transform: uppercase" th:text="${titulo}">titulo</span>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
@@ -30,32 +30,30 @@
 							</thead>
 							<tfoot>
 							<tr>
-							<tr>
 								<th>Nome</th>
 								<th>Cargo</th>
 								<th th:each="dia : ${diasDoMes}" th:text="${#temporals.dayOfWeekNameShort(dia)} +' ('+${#temporals.day(dia)}+')'">dia</th>
 							</tr>
-							</tr>
 							</tfoot>
 							<tbody>
-							<tr th:each="mes : ${meses}">
+							<tr th:each="dto : ${dtos}">
 								<td>
-									<a th:text="${mes.funcionario.nome}"
-									   th:href="@{/funcionarios/listar/{id}(id=${mes.funcionario.funcionarioId})}">
-									nome
+									<a th:text="${dto.funcionario}"
+									   th:href="@{/funcionarios/listar/{id}(id=${dto.funcionarioId})}">
+										nome
 									</a>
 								</td>
 								<td class="cargo">
-									<a th:text="${mes.funcionario.cargo.nome}"
-										href="#"
-										data-container="body"
-										data-toggle="popover"
-										data-placement="top"
-										th:data-content="${mes.funcionario.cargo.nome +' ('+ mes.funcionario.cargo.sigla +') '}">
-									cargo
+									<a th:text="${dto.cargo}"
+									   href="#"
+									   data-container="body"
+									   data-toggle="popover"
+									   data-placement="top"
+									   th:data-content="${dto.cargo} + ' (' + ${dto.cargoSigla} + ')'">
+										cargo
 									</a>
 								</td>
-								<td></td>
+								<td th:each="dias : ${dto.dias}" th:text="${dias.turno.sigla}">dia</td>
 							</tr>
 							</tbody>
 						</table>

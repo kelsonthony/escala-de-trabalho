@@ -34,7 +34,7 @@
 
             <div class="form-group col-md-2">
               <label for="horasExtrasPermitidas">Horas Extras:</label>
-              <input class="form-control" id="horasExtrasPermitidas" type="text" th:field="*{horasExtrasPermitidas}" th:errorclass="is-invalid"/>
+              <input class="form-control" id="horasExtrasPermitidas" value="0" type="text" th:field="*{horasExtrasPermitidas}" th:errorclass="is-invalid"/>
               <div class="invalid-feedback" th:errors="*{horasExtrasPermitidas}"></div>
             </div>
 

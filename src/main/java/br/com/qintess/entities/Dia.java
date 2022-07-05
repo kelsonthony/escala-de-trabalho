@@ -2,7 +2,8 @@ package br.com.qintess.entities;
 
 import javax.persistence.*;
 
-@Entity(name = "TB_DIA")
+@Entity
+@Table(name = "TB_DIA")
 public class Dia {
 
   @Id
