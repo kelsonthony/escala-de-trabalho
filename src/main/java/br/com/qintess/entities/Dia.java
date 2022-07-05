@@ -1,10 +1,11 @@
 package br.com.qintess.entities;
 
 import javax.persistence.*;
+import java.util.Collections;
 
 @Entity
 @Table(name = "TB_DIA")
-public class Dia {
+public class Dia implements Comparable<Dia>{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,5 +52,16 @@ public class Dia {
 
   public void setTurno(Turno turno) {
     this.turno = turno;
+  }
+
+  @Override
+  public int compareTo(Dia dia) {
+    if(this.getDiaDoMes() > dia.getDiaDoMes()){
+      return 1;
+    }
+    if(this.getDiaDoMes() < dia.getDiaDoMes()){
+      return -1;
+    }
+    return 0;
   }
 }

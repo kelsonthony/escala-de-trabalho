@@ -1,6 +1,7 @@
 package br.com.qintess.entities;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +18,7 @@ public class DashboardDto implements Serializable {
         this.funcionario = mes.getFuncionario().getNome();
         this.cargo = mes.getFuncionario().getCargo().getNome();
         this.cargoSigla = mes.getFuncionario().getCargo().getSigla();
+        Collections.sort(mes.getDias());
         this.dias = mes.getDias();
     }
 
