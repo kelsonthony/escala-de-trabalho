@@ -54,6 +54,7 @@ public class MesService implements IMesService {
   @Transactional(readOnly = true)
   public List<Mes> listarPorEscala(final long id) {
     return this.mesRepository.listarPorEscala(id);
+  }
 
   @Override
   public List<Mes> listarPorEscalaEData(long idEscala, String data) {

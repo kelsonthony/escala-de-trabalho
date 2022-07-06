@@ -54,7 +54,8 @@ public class MesRepository implements IMesRepository {
     return em.createQuery("SELECT m FROM Mes m WHERE m.escala.escalaId = :id", Mes.class)
             .setParameter("id", id)
             .getResultList();
-
+  }
+  
   @Override
   public List<Mes> listarPorEscalaEData(long idEscala, String data) {
     return em.createQuery("SELECT m FROM Mes m WHERE m.dataInicio = :data AND m.escala = :idEscala",Mes.class)
