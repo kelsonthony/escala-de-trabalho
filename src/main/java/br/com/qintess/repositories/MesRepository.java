@@ -48,10 +48,10 @@ public class MesRepository implements IMesRepository {
   }
 
   @Override
-  public List<Mes> listarPorEscalaData(Escala escala, LocalDate data) {
-    return em.createQuery("SELECT m FROM Mes m WHERE m.dataInicio = :data AND m.escala = :escalaId",Mes.class)
+  public List<Mes> listarPorEscalaEData(long idEscala, String data) {
+    return em.createQuery("SELECT m FROM Mes m WHERE m.dataInicio = :data AND m.escala = :idEscala",Mes.class)
       .setParameter("data",data)
-      .setParameter("escalaId",escala.getEscalaId())
+      .setParameter("idEscala",idEscala)
       .getResultList();
   }
 

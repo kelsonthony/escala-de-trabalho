@@ -13,7 +13,7 @@ public interface IMesService {
   Mes listarPorId(long id);
   List<Mes> listarPorIdFuncionarioEDataInicio(long idFuncionario, LocalDate dateInicio);
   List<Mes> listarPorData(LocalDate dataInicio);
-  List<Mes> listarPorEscalaData(Escala escala, LocalDate data);
+  List<Mes> listarPorEscalaEData(long idEscala, String data);
   void atualizar(Mes mes);
   void excluir(long id);
   List<String> dias(LocalDate data);
