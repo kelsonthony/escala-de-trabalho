@@ -10,6 +10,6 @@ import java.util.List;
 public interface IGerenciamentoMesFixoService {
 
   void cadastrarMes(Funcionario funcionario, Escala escala);
-  void cadastrarListaMeses(List<Mes> meses);
+  void cadastrarListaMeses(Escala escala);
 
 }

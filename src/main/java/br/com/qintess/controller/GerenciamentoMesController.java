@@ -46,6 +46,16 @@ public class GerenciamentoMesController {
 
   }
 
+  @GetMapping("/lista/cadastrar")
+  public String listaCadastrar() {
+
+    Escala escala = this.escalaService.listarPorId(1);
+    gerenciamentoMesFixoService.cadastrarListaMeses(escala);
+
+    return "redirect:/";
+
+  }
+
 
 
 }

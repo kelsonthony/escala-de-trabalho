@@ -28,6 +28,7 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
     this.turnoService = turnoService;
   }
 
+  @Override
   public void cadastrarMes(Funcionario funcionario, Escala escala){
 
     int totalDiasMes = escala.getData().lengthOfMonth();
@@ -44,7 +45,7 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
 
     Mes mesCadastrado = this.mesService.salvar(novoMes);
 
-    List<Dia> dias = preencimentoAutomaticoDias(mesCadastrado);
+    List<Dia> dias = preenchimentoAutomaticoDias(mesCadastrado);
     mesCadastrado.setTotalHorasNormais(calculaTotalHorasNormais(dias));
     mesCadastrado.setDias(dias);
 
@@ -52,22 +53,111 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
 
   }
 
-  public void cadastrarListaMeses(List<Mes> meses){
+  @Override
+  public void cadastrarListaMeses(Escala escala) {
 
-    for (Mes mes : meses) {
+    List<Funcionario> funcionarios = escala.getFuncionarios();
 
-      Mes novoMes = this.mesService.salvar(mes);
-      List<Dia> diasDoMes = preencimentoAutomaticoDias(mes);
-      novoMes.setDias(diasDoMes);
+    for(Funcionario funcionario: funcionarios) {
 
-      this.mesService.atualizar(novoMes);
+      if(verificaTipoTurnoFuncionario(funcionario) == 1){
+
+        int totalDiasMes = escala.getData().lengthOfMonth();
+        LocalDate dataInicio = escala.getData().withDayOfMonth(1);
+        LocalDate dataTermino = dataInicio.withDayOfMonth(totalDiasMes);
+
+        List<Mes> mesExiste = this.mesService.listarPorIdFuncionarioEDataInicio(funcionario.getFuncionarioId(),dataInicio);
+
+        if(!mesExiste.isEmpty()){
+          continue;
+        }
+
+        Mes novoMes = new Mes(escala.getData().getMonthValue(),dataInicio,dataTermino,escala,funcionario);
+
+        Mes mesCadastrado = this.mesService.salvar(novoMes);
+
+        List<Dia> dias = preenchimentoAutomaticoDias(mesCadastrado);
+        mesCadastrado.setTotalHorasNormais(calculaTotalHorasNormais(dias));
+        mesCadastrado.setDias(dias);
+
+        this.mesService.atualizar(mesCadastrado);
+
+      }
+
+      if(verificaTipoTurnoFuncionario(funcionario) == 0){
+        List<Mes> meses = this.mesService.listarPorIdFuncionarioEDataInicio(funcionario.getFuncionarioId(),escala.getData().withDayOfMonth(1));
+
+        if(meses.isEmpty()){
+
+          Mes mes = new Mes();
+          mes.setDataInicio(escala.getData().withDayOfMonth(1));
+          mes.setDataTermino(mes.getDataInicio().withDayOfMonth(escala.getData().lengthOfMonth()));
+          mes.setFuncionario(funcionario);
+          mes.setEscala(escala);
+
+          Mes mesCadastrado = this.mesService.salvar(mes);
+
+          List<Dia> dias = preenchimentoAutomaticoDiasAlternado(mes);
+          mesCadastrado.setDias(dias);
+          this.mesService.atualizar(mesCadastrado);
+
+        }
+
+      }
 
     }
 
 
   }
 
-  private List<Dia> preencimentoAutomaticoDias(Mes mes){
+  public List<Dia> preenchimentoAutomaticoDiasAlternado(Mes mes){
+
+    Turno turnoFuncionario = mes.getFuncionario().getTurno();
+    int totalDiasMes = mes.getDataInicio().lengthOfMonth();
+    Funcionario funcionario = mes.getFuncionario();
+
+    List<Dia> listaDias = new ArrayList<>();
+    List<Feriado> feriados = this.feriadoService.listaPorPeriodo(mes.getDataInicio(),mes.getDataTermino());
+    List<Turno> turnosPadroesSistema = this.turnoService.listarPorPadraoSistema();
+
+    int diasTrabalhados = 0;
+
+    for(int i = 0; i < mes.getDataInicio().lengthOfMonth(); i++){
+
+      int diaDoMes = 1 + i;
+      LocalDate data = mes.getDataInicio().withDayOfMonth(diaDoMes);
+
+      Dia dia = new Dia();
+      dia.setDiaDoMes(diaDoMes);
+      dia.setMes(mes);
+
+      if(existeFeriadoNoData(feriados,data) && turnoFuncionario.getTrabalhaNoFeriado() == 0){
+
+        dia.setTurno(localizaTurnoPadrao("FR",turnosPadroesSistema));
+        listaDias.add(dia);
+        continue;
+      }
+
+      if(diasTrabalhados == turnoFuncionario.getTurnoAlternado().getQuantDiasConsecutivosTrabalho()){
+
+        dia.setTurno(localizaTurnoPadrao("FG",turnosPadroesSistema));
+        listaDias.add(dia);
+        diasTrabalhados = 0;
+        continue;
+
+      }
+
+      dia.setTurno(turnoFuncionario);
+      listaDias.add(dia);
+      diasTrabalhados = diasTrabalhados + 1;
+
+
+    }
+
+    return listaDias;
+  }
+
+  private List<Dia> preenchimentoAutomaticoDias(Mes mes){
 
     Turno turnoFuncionario = mes.getFuncionario().getTurno();
     int totalDiasMes = mes.getEscala().getData().lengthOfMonth();
@@ -173,5 +263,19 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
     return (TotalHorasEmSegundos / 60)/60;
 
   }
+
+  private int verificaTipoTurnoFuncionario(Funcionario funcionario){
+
+    TurnoFixo turnoFixo = funcionario.getTurno().getTurnoFixo();
+    TurnoAlternado turnoAlternado = funcionario.getTurno().getTurnoAlternado();
+
+    if(!Objects.isNull(turnoFixo)){
+      return 1;
+    }else {
+      return 0;
+    }
+
+  }
+
 
 }
