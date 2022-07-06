@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,6 +25,16 @@ public class GerenciamentoMesController {
   private IEscalaService escalaService;
   @Autowired
   private IGerenciamentoMesFixoService gerenciamentoMesFixoService;
+
+  @GetMapping("/cadastrar")
+  public String cadastrar() {
+    return "/gerenciamento/add";
+  }
+
+  @GetMapping("/cadastrar/funcionario")
+  public String cadastrarFuncionario() {
+    return "/gerenciamento/add-funcionario";
+  }
 
   @GetMapping("/{funcionarioId}/{escalaId}/cadastrar")
   public String cadastrar(
@@ -55,7 +66,5 @@ public class GerenciamentoMesController {
     return "redirect:/";
 
   }
-
-
 
 }

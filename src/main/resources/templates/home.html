@@ -13,86 +13,88 @@
 			<div class="mb-4"></div>
 			<div class="card mb-4">
 				<div class="container">
-					<form th:action="@{/home}" th:method="get" th:object="${funcionario}">
+					<form th:action="@{/filtrar}" th:method="post">
 						<div class="row">
-							<div class="form-group col-md-5" th:object="${escala}">
-								<label for="escalaId">Escala:</label>
+							<div class="form-group col-md-8" th:object="${escala}">
+								<label for="escalaId">Filtros:</label>
 								<select class="form-control" id="escalaId" name="escalaId" aria-describedby="escalaHelp">
-									<option value="0">Selecione uma Escala</option>
+									<option value="0">Selecione uma Escala...</option>
 									<option
 											th:each="e : ${escalas}"
 											th:selected="${e.escalaId == selectedEscala}"
 											th:value="${e.escalaId}"
-											th:text="${e.nome}">
+											th:text="${'Escala ' + e.nome + ' de ' + #temporals.format(e.data, 'MMMM/yyyy', new java.util.Locale('pt', 'PT'))}">
 										escala
 									</option>
 								</select>
-								<small id="escalaHelp" class="form-text text-muted">Selecione uma Escala na lista.</small>
+								<small id="escalaHelp" class="form-text text-muted">Selecione a escala desejada na lista acima segundo o nome e o mês de cadastro.</small>
 							</div>
-							<div class="form-group col-md-5">
-								<label for="data">Data:</label>
-								<input type="month" class="form-control" id="data" name="data" aria-describedby="dataHelp">
-								<small id="dataHelp" class="form-text text-muted">Selecione o mês e o ano para exibir a Escala.</small>
-							</div>
-							<div class="form-group col-md-2">
+							<div class="form-group col-md-4">
 								<button class="btn btn-primary" style="margin-top:30px" type="submit">Selecionar</button>
+								<a class="btn btn-secondary" style="margin-top:30px" th:href="@{/}">Limpar Filtros</a>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
-			<div class="card mb-4">
-				<div class="col-md-12">
-				</div>
-				<div class="card-header">
-					<i class="fas fa-user-clock mr-1"></i>
-					<span style="text-transform: uppercase" th:text="${titulo}">titulo</span>
-				</div>
-				<div class="card-body">
-          <div th:if="${mensagem != null}">
-            <div class="alert alert-info" role="alert">
-              <span th:text="${mensagem}">mensagem</span>
-            </div>
-          </div>
-					<div class="table-responsive">
-						<table class="table table-striped table-bordered nowrap" id="dashboardTable" style="width:100%" width="100%" cellspacing="0">
-							<thead>
-							<tr>
-								<th>Nome</th>
-								<th>Cargo</th>
-								<th th:each="dia : ${diasDoMes}" th:text="${#temporals.dayOfWeekNameShort(dia)} +' ('+${#temporals.day(dia)}+')'">dia</th>
-							</tr>
-							</thead>
-							<tfoot>
-							<tr>
-								<th>Nome</th>
-								<th>Cargo</th>
-								<th th:each="dia : ${diasDoMes}" th:text="${#temporals.dayOfWeekNameShort(dia)} +' ('+${#temporals.day(dia)}+')'">dia</th>
-							</tr>
-							</tfoot>
-							<tbody>
-							<tr th:each="dto : ${dtos}">
-								<td>
-									<a th:text="${dto.funcionario}"
-									   th:href="@{/funcionarios/listar/{id}(id=${dto.funcionarioId})}">
-										nome
-									</a>
-								</td>
-								<td class="cargo">
-									<a th:text="${dto.cargo}"
-									   href="#"
-									   data-container="body"
-									   data-toggle="popover"
-									   data-placement="top"
-									   th:data-content="${dto.cargo} + ' (' + ${dto.cargoSigla} + ')'">
-										cargo
-									</a>
-								</td>
-								<td th:each="dias : ${dto.dias}" th:text="${dias.turno.sigla}">dia</td>
-							</tr>
-							</tbody>
-						</table>
+			<div class="card mb-4" th:if="${dtos != null}">
+					<div class="card-header">
+						<i class="fas fa-user-clock mr-1"></i>
+						<span style="text-transform: uppercase" th:text="${titulo}">titulo</span>
 					</div>
+					<div class="card-body">
+						<div th:if="${dtos != null}">
+							<div th:if="${mensagem != null}">
+								<div class="alert alert-info" role="alert">
+									<span th:text="${mensagem == null ? '&nbsp;' : mensagem}">mensagem</span>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered nowrap" id="dashboardTable" style="width:100%" width="100%" cellspacing="0">
+									<thead>
+									<tr>
+										<th>Nome</th>
+										<th>Cargo</th>
+										<th th:each="dia : ${diasDoMes}" th:text="${#temporals.dayOfWeekNameShort(dia)} +' ('+${#temporals.day(dia)}+')'">dia</th>
+									</tr>
+									</thead>
+									<tfoot>
+									<tr>
+										<th>Nome</th>
+										<th>Cargo</th>
+										<th th:each="dia : ${diasDoMes}" th:text="${#temporals.dayOfWeekNameShort(dia)} +' ('+${#temporals.day(dia)}+')'">dia</th>
+									</tr>
+									</tfoot>
+									<tbody>
+									<tr th:each="dto : ${dtos}">
+										<td>
+											<a th:text="${dto.funcionario}"
+											   th:href="@{/funcionarios/listar/{id}(id=${dto.funcionarioId})}">
+												nome
+											</a>
+										</td>
+										<td class="cargo">
+											<a th:text="${dto.cargo}"
+											   href="#"
+											   data-container="body"
+											   data-toggle="popover"
+											   data-placement="top"
+											   th:data-content="${dto.cargo} + ' (' + ${dto.cargoSigla} + ')'">
+												cargo
+											</a>
+										</td>
+										<td th:each="dias : ${dto.dias}" th:text="${dias.turno.sigla}">dia</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div th:if="${#lists.isEmpty(dtos)}">
+				<div class="alert alert-info" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign"></span>
+					Esta escala ainda não possui funcionários com turnos gerados para exibir.
 				</div>
 			</div>
 		</div>

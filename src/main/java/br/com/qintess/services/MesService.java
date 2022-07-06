@@ -32,7 +32,12 @@ public class MesService implements IMesService {
 
   @Override
   public Mes listarPorId(final long id) {
-    return this.mesRepository.listarPorId(id);
+    Mes mes = this.mesRepository.listarPorId(id);
+    if (mes.equals(null)) {
+      throw new NullPointerException("Esta escala ainda não possui funcionários cadastrados.");
+    }
+
+    return mes;
   }
 
   @Override
@@ -46,8 +51,9 @@ public class MesService implements IMesService {
   }
 
   @Override
-  public List<Mes> listarPorEscalaData(Escala escala, LocalDate data) {
-    return this.mesRepository.listarPorEscalaData(escala,data);
+  @Transactional(readOnly = true)
+  public List<Mes> listarPorEscala(final long id) {
+    return this.mesRepository.listarPorEscala(id);
   }
 
   @Override

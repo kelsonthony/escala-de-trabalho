@@ -31,20 +31,21 @@ public class DashboardService implements IDashboardService {
     }
 
     @Override
-    public String titulo(LocalDate data) {
+    public String titulo(Mes mes) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM/yyyy");
-        return "Escala de " + data.format(formatter);
+        return "Escala " + mes.getEscala().getNome() + " de " + mes.getEscala().getData().format(formatter);
+
     }
 
     @Override
-    public List<LocalDate> dias(LocalDate data) {
-        int ano = data.getYear();
-        int mes = data.getMonthValue();
+    public List<LocalDate> dias(Mes m) {
+        int ano = m.getDataInicio().getYear();
+        int mes = m.getDataInicio().getMonthValue();
 
         List<LocalDate> dias = new ArrayList<>();
         int totalDiasDoMes = this.totalDiasDoMes(ano, mes);
         for (int i = 0; i < totalDiasDoMes; i++) {
-            dias.add(data.plusDays(i));
+            dias.add(m.getDataInicio().plusDays(i));
         }
 
         return dias;

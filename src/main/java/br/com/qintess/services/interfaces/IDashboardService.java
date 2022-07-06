@@ -10,9 +10,9 @@ public interface IDashboardService {
 
     List<DashboardDto> listar(List<Mes> meses);
 
-    String titulo(LocalDate data);
+    String titulo(Mes mes);
 
-    List<LocalDate> dias(LocalDate data);
+    List<LocalDate> dias(Mes mes);
 
     int totalDiasDoMes(int ano, int mes);
 }
