@@ -39,6 +39,7 @@ public class GerenciamentoMesController {
       attr.addFlashAttribute("Mês cadastrado com sucesso.");
     }catch (Exception e){
       attr.addFlashAttribute("mensagem",e.getMessage());
+      return "redirect:/";
     }
 
     return "redirect:/";

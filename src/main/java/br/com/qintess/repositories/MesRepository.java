@@ -32,11 +32,11 @@ public class MesRepository implements IMesRepository {
   }
 
   @Override
-  public Mes listarPorIdFuncionarioEDataInicio(long idFuncionario, LocalDate dateInicio) {
+  public List<Mes> listarPorIdFuncionarioEDataInicio(long idFuncionario, LocalDate dateInicio) {
     return this.em.createQuery("SELECT m FROM Mes m WHERE m.dataInicio = :dataInicio AND m.funcionario.funcionarioId = :id",Mes.class)
                               .setParameter("dataInicio",dateInicio)
                               .setParameter("id",idFuncionario)
-                              .getSingleResult();
+                              .getResultList();
   }
 
   @Override

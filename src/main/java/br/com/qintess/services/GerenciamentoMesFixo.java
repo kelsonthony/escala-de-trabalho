@@ -34,9 +34,9 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
     LocalDate dataInicio = escala.getData().withDayOfMonth(1);
     LocalDate dataTermino = dataInicio.withDayOfMonth(totalDiasMes);
 
-    Mes mesExiste = this.mesService.listarPorIdFuncionarioEDataInicio(funcionario.getFuncionarioId(),dataInicio);
+    List<Mes> mesExiste = this.mesService.listarPorIdFuncionarioEDataInicio(funcionario.getFuncionarioId(),dataInicio);
 
-    if(!Objects.isNull(mesExiste)){
+    if(!mesExiste.isEmpty()){
       throw new RuntimeException("Erro ao tentar salvar mês (#Mês já cadastrado).");
     }
 
@@ -44,7 +44,9 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
 
     Mes mesCadastrado = this.mesService.salvar(novoMes);
 
-    mesCadastrado.setDias(preencimentoAutomaticoDias(mesCadastrado));
+    List<Dia> dias = preencimentoAutomaticoDias(mesCadastrado);
+    mesCadastrado.setTotalHorasNormais(calculaTotalHorasNormais(dias));
+    mesCadastrado.setDias(dias);
 
     this.mesService.atualizar(mesCadastrado);
 
@@ -154,6 +156,21 @@ public class GerenciamentoMesFixo implements IGerenciamentoMesFixoService {
     }
 
     return (totalHorasEmSegundos * 60) * 60;
+
+  }
+
+  private long calculaTotalHorasNormais(List<Dia> dias){
+
+    int TotalHorasEmSegundos = 0;
+
+    for (Dia dia: dias) {
+
+      int segundosDia = LocalTime.parse(dia.getTurno().getTotalHoras()).toSecondOfDay();
+      TotalHorasEmSegundos += segundosDia;
+
+    }
+
+    return (TotalHorasEmSegundos / 60)/60;
 
   }
 

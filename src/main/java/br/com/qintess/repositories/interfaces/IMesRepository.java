@@ -10,7 +10,7 @@ public interface IMesRepository {
   Mes salvar(Mes mes);
   List<Mes> listar();
   Mes listarPorId(long id);
-  Mes listarPorIdFuncionarioEDataInicio(long idFuncionario, LocalDate dateInicio);
+  List<Mes> listarPorIdFuncionarioEDataInicio(long idFuncionario, LocalDate dateInicio);
   List<Mes> listarPorData(LocalDate dataInicio);
   void atualizar(Mes mes);
   void excluir(long id);

@@ -23,10 +23,10 @@ public class Mes {
   private LocalDate dataTermino;
 
   @Column(name = "total_horas_normais")
-  private Timestamp totalHorasNormais;
+  private long totalHorasNormais;
 
   @Column(name = "total_horas_extras")
-  private Timestamp totalHorasExtras;
+  private long totalHorasExtras;
 
   @Column(name = "sabados_trabalhados")
   private int sabadosTrabalhados;
@@ -51,7 +51,7 @@ public class Mes {
   public Mes() {
   }
 
-  public Mes(long id, int numeroMes, LocalDate dataInicio, LocalDate dataTermino, Timestamp totalHorasNormais, Timestamp totalHorasExtras,
+  public Mes(long id, int numeroMes, LocalDate dataInicio, LocalDate dataTermino, long totalHorasNormais, long totalHorasExtras,
              int sabadosTrabalhados, int domingosTrabalhados, int feriadosTrabalhados, Escala escala, Funcionario funcionario, List<Dia> dias) {
     this.id = id;
     this.numeroMes = numeroMes;
@@ -107,19 +107,19 @@ public class Mes {
     this.dataTermino = dataTermino;
   }
 
-  public Timestamp getTotalHorasNormais() {
+  public long getTotalHorasNormais() {
     return totalHorasNormais;
   }
 
-  public void setTotalHorasNormais(Timestamp totalHorasNormais) {
+  public void setTotalHorasNormais(long totalHorasNormais) {
     this.totalHorasNormais = totalHorasNormais;
   }
 
-  public Timestamp getTotalHorasExtras() {
+  public long getTotalHorasExtras() {
     return totalHorasExtras;
   }
 
-  public void setTotalHorasExtras(Timestamp totalHorasExtras) {
+  public void setTotalHorasExtras(long totalHorasExtras) {
     this.totalHorasExtras = totalHorasExtras;
   }
 

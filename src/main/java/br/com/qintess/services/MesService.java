@@ -36,7 +36,7 @@ public class MesService implements IMesService {
   }
 
   @Override
-  public Mes listarPorIdFuncionarioEDataInicio(long idFuncionario, LocalDate dateInicio) {
+  public List<Mes> listarPorIdFuncionarioEDataInicio(long idFuncionario, LocalDate dateInicio) {
     return this.mesRepository.listarPorIdFuncionarioEDataInicio(idFuncionario,dateInicio);
   }
 
