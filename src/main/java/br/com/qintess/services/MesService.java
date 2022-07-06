@@ -46,6 +46,11 @@ public class MesService implements IMesService {
   }
 
   @Override
+  public List<Mes> listarPorEscalaData(Escala escala, LocalDate data) {
+    return this.mesRepository.listarPorEscalaData(escala,data);
+  }
+
+  @Override
   public void atualizar(final Mes mes) {this.mesRepository.atualizar(mes);}
 
   @Override

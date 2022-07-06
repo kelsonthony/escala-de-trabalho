@@ -1,5 +1,6 @@
 package br.com.qintess.repositories;
 
+import br.com.qintess.entities.Escala;
 import br.com.qintess.entities.Mes;
 import br.com.qintess.repositories.interfaces.IMesRepository;
 import org.springframework.stereotype.Repository;
@@ -44,6 +45,14 @@ public class MesRepository implements IMesRepository {
     return this.em.createQuery("SELECT m FROM Mes m WHERE m.dataInicio = :dataInicio",Mes.class)
             .setParameter("dataInicio",dataInicio)
             .getResultList();
+  }
+
+  @Override
+  public List<Mes> listarPorEscalaData(Escala escala, LocalDate data) {
+    return em.createQuery("SELECT m FROM Mes m WHERE m.dataInicio = :data AND m.escala = :escalaId",Mes.class)
+      .setParameter("data",data)
+      .setParameter("escalaId",escala.getEscalaId())
+      .getResultList();
   }
 
   @Override
