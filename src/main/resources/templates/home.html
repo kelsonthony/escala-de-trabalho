@@ -10,8 +10,37 @@
 	</head>
 	<body>
 		<div layout:fragment="content">
-
 			<div class="mb-4"></div>
+			<div class="card mb-4">
+				<div class="container">
+					<form th:action="@{/home}" th:method="get" th:object="${funcionario}">
+						<div class="row">
+							<div class="form-group col-md-5" th:object="${escala}">
+								<label for="escalaId">Escala:</label>
+								<select class="form-control" id="escalaId" name="escalaId" aria-describedby="escalaHelp">
+									<option value="0">Selecione uma Escala</option>
+									<option
+											th:each="e : ${escalas}"
+											th:selected="${e.escalaId == selectedEscala}"
+											th:value="${e.escalaId}"
+											th:text="${e.nome}">
+										escala
+									</option>
+								</select>
+								<small id="escalaHelp" class="form-text text-muted">Selecione uma Escala na lista.</small>
+							</div>
+							<div class="form-group col-md-5">
+								<label for="data">Data:</label>
+								<input type="month" class="form-control" id="data" name="data" aria-describedby="dataHelp">
+								<small id="dataHelp" class="form-text text-muted">Selecione o mês e o ano para exibir a Escala.</small>
+							</div>
+							<div class="form-group col-md-2">
+								<button class="btn btn-primary" style="margin-top:30px" type="submit">Selecionar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 			<div class="card mb-4">
 				<div class="col-md-12">
 				</div>

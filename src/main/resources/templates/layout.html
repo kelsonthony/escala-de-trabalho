@@ -27,9 +27,8 @@
 					<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 						<a class="dropdown-item" th:href="@{/users}">Usuários</a>
-						<a class="dropdown-item" th:href="@{/configs}">Configurações</a>
-						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" th:href="@{/account}">Conta</a>
+						<div class="dropdown-divider"></div>
 						<form th:action="@{/logout}" method="post">
 							<button type="submit" class="btn btn-default dropdown-item">Sair</button>
 						</form>
@@ -43,7 +42,25 @@
 					<div class="sb-sidenav-menu">
 						<div class="nav">
 
-							<div class="sb-sidenav-menu-heading">Gerenciamento</div>
+							<div class="sb-sidenav-menu-heading">[BNB] Banco do Nordeste</div>
+							<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#gerenciamentoCollapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+								<div class="sb-nav-link-icon"><i class="fas fa-tasks"></i></div>
+								Gerenciamento
+								<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+							</a>
+							<div class="collapse" id="gerenciamentoCollapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+								<nav class="sb-sidenav-menu-nested nav">
+									<a class="nav-link" th:href="@{/gerenciamento/cadastrar}">
+										<div class="fas fa-angle-right mr-2"> </div>
+										Gerar Escala
+									</a>
+									<a class="nav-link" th:href="@{/gerenciamento/listar}">
+										<div class="fas fa-angle-right mr-2"> </div>
+										Gerar por Funcionário
+									</a>
+								</nav>
+							</div>
+
 							<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#funcionarioCollapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
 								<div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
 								Funcionários

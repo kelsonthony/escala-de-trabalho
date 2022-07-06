@@ -1,6 +1,7 @@
 package br.com.qintess.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
@@ -22,9 +23,11 @@ public class Mes {
   @Column(name = "data_termino")
   private LocalDate dataTermino;
 
+  @NotNull
   @Column(name = "total_horas_normais")
   private long totalHorasNormais;
 
+  @NotNull
   @Column(name = "total_horas_extras")
   private long totalHorasExtras;
 
