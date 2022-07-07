@@ -8,10 +8,7 @@ import br.com.qintess.services.interfaces.IGerenciamentoMesFixoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,29 +29,40 @@ public class GerenciamentoMesController {
   }
 
   @GetMapping("/cadastrar/funcionario")
-  public String cadastrarFuncionario() {
-    return "/gerenciamento/add-funcionario";
+  public ModelAndView cadastrarFuncionario(@ModelAttribute("escala") Escala escala,
+                                           @ModelAttribute("funcionario") Funcionario funcionario,
+                                           ModelMap model) {
+    model.addAttribute("escalas", escalaService.listar());
+    model.addAttribute("funcionarios", funcionarioService.listar());
+    return new ModelAndView("/gerenciamento/add-funcionario");
   }
 
-  @GetMapping("/{funcionarioId}/{escalaId}/cadastrar")
-  public String cadastrar(
-    @PathVariable("funcionarioId") long funcionarioId,
-    @PathVariable("escalaId") long escalaId,
-    RedirectAttributes attr) {
+  @ResponseBody
+  @PostMapping("/gerar/funcionario/escala")
+  public ModelAndView cadastrar(@RequestParam(name = "funcionarioId") Long funcionarioId,
+                                @RequestParam(name = "escalaId") Long escalaId,
+                                RedirectAttributes attr) {
+    if (funcionarioId.longValue() == 0
+        || funcionarioId.equals(null)
+        || escalaId.longValue() == 0
+        || escalaId.equals(null)) {
 
-    Funcionario funcionario = this.funcionarioService.listarPorId(funcionarioId);
-    Escala escala = this.escalaService.listarPorId(escalaId);
-
-    try{
-      this.gerenciamentoMesFixoService.cadastrarMes(funcionario,escala);
-      attr.addFlashAttribute("Mês cadastrado com sucesso.");
-    }catch (Exception e){
-      attr.addFlashAttribute("mensagem",e.getMessage());
-      return "redirect:/";
+      attr.addFlashAttribute("mensagem", "As listas não podem estar em branco. Selecione as opções desejadas.");
+      return new ModelAndView("redirect:/gerenciamento/cadastrar/funcionario");
     }
 
-    return "redirect:/";
+    Funcionario funcionario = this.funcionarioService.listarPorId(funcionarioId.longValue());
+    Escala escala = this.escalaService.listarPorId(escalaId.longValue());
 
+    try {
+      this.gerenciamentoMesFixoService.cadastrarMes(funcionario, escala);
+      attr.addFlashAttribute("mensagem", "Escala x Mês gerados com sucesso.");
+    } catch (Exception e) {
+      attr.addFlashAttribute("mensagem", e.getMessage());
+      return new ModelAndView("redirect:/gerenciamento/cadastrar/funcionario");
+    }
+
+    return new ModelAndView("redirect:/gerenciamento/cadastrar/funcionario");
   }
 
   @GetMapping("/lista/cadastrar")

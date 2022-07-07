@@ -5,7 +5,7 @@ $(document).ready(function() {
         scrollCollapse: true,
         paging:         true,
         fixedColumns:   {
-            leftColumns: 2
+            leftColumns: 3
         },
         language: {
             lengthMenu: "Exibir _MENU_ registros por página.",

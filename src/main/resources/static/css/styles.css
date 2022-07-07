@@ -10261,7 +10261,7 @@ body {
   background-color: #e9ecef;
 }
 td.cargo {
-  max-width: 37ch;
+  max-width: 30ch;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

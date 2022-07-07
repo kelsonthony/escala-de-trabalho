@@ -63,7 +63,7 @@
                         th:each="e : ${escalas}"
                         th:selected="${e.escalaId == selectedEscala}"
                         th:value="${e.escalaId}"
-                        th:text="${e.nome}">
+                        th:text="${'Escala ' + e.nome + ' (' + #temporals.format(e.data, 'MMMM/yyyy', new java.util.Locale('pt', 'PT')) + ')'}">
                   escala
                 </option>
               </select>
