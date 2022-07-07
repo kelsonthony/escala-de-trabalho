@@ -15,6 +15,7 @@ public interface IMesRepository {
   List<Mes> listarPorData(LocalDate dataInicio);
   List<Mes> listarPorEscala(long id);
   List<Mes> listarPorEscalaEData(long idEscala, String data);
+  boolean existeMesPorIdFuncionarioIdEscalaEData(long idFuncionario, long idEscala, LocalDate dataInicio);
   void atualizar(Mes mes);
   void excluir(long id);
 

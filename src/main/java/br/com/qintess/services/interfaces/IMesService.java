@@ -12,6 +12,7 @@ public interface IMesService {
   List<Mes> listar();
   Mes listarPorId(long id);
   List<Mes> listarPorIdFuncionarioEDataInicio(long idFuncionario, LocalDate dateInicio);
+  boolean existeMesPorIdFuncionarioIdEscalaEData(long idFuncionario, long idEscala, LocalDate dataInicio);
   List<Mes> listarPorData(LocalDate dataInicio);
   List<Mes> listarPorEscala(long id);
   List<Mes> listarPorEscalaEData(long idEscala, String data);

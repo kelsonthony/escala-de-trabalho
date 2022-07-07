@@ -46,6 +46,11 @@ public class MesService implements IMesService {
   }
 
   @Override
+  public boolean existeMesPorIdFuncionarioIdEscalaEData(long idFuncionario, long idEscala, LocalDate dataInicio) {
+    return this.mesRepository.existeMesPorIdFuncionarioIdEscalaEData(idFuncionario,idEscala,dataInicio);
+  }
+
+  @Override
   public List<Mes> listarPorData(LocalDate dataInicio) {
     return this.mesRepository.listarPorData(dataInicio);
   }

@@ -43,6 +43,21 @@ public class MesRepository implements IMesRepository {
   }
 
   @Override
+  public boolean existeMesPorIdFuncionarioIdEscalaEData(long idFuncionario, long idEscala, LocalDate dataInicio) {
+
+    String query = "SELECT COUNT(m) FROM Mes m WHERE m.funcionario.funcionarioId = :idFuncionario AND m.escala.escalaId = :idEscala AND m.dataInicio = :dataInicio";
+
+    long contador = (long) this.em.createQuery(query).setParameter("idFuncionario",idFuncionario)
+                                                   .setParameter("idEscala",idEscala)
+                                                   .setParameter("dataInicio",dataInicio)
+                                                   .getSingleResult();
+
+
+    return (contador == 1) ? true : false;
+
+  }
+
+  @Override
   public List<Mes> listarPorData(LocalDate dataInicio) {
     return this.em.createQuery("SELECT m FROM Mes m WHERE m.dataInicio = :dataInicio",Mes.class)
             .setParameter("dataInicio",dataInicio)
@@ -63,6 +78,8 @@ public class MesRepository implements IMesRepository {
       .setParameter("idEscala",idEscala)
       .getResultList();
   }
+
+
 
   @Override
   public void atualizar(final Mes mes) {

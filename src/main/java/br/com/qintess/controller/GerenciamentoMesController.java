@@ -5,6 +5,7 @@ import br.com.qintess.entities.Funcionario;
 import br.com.qintess.services.interfaces.IEscalaService;
 import br.com.qintess.services.interfaces.IFuncionarioService;
 import br.com.qintess.services.interfaces.IGerenciamentoMesFixoService;
+import br.com.qintess.services.interfaces.IGerenciamentoMesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,6 +23,8 @@ public class GerenciamentoMesController {
   private IEscalaService escalaService;
   @Autowired
   private IGerenciamentoMesFixoService gerenciamentoMesFixoService;
+  @Autowired
+  private IGerenciamentoMesService gerenciamentoMesService;
 
   @GetMapping("/cadastrar/funcionario")
   public ModelAndView cadastrarPorFuncionario(@ModelAttribute("escala") Escala escala,
@@ -50,7 +53,7 @@ public class GerenciamentoMesController {
     Escala escala = this.escalaService.listarPorId(escalaId.longValue());
 
     try {
-      this.gerenciamentoMesFixoService.cadastrarMes(funcionario, escala);
+      this.gerenciamentoMesService.gerarMesPorFuncionario(funcionario, escala);
       attr.addFlashAttribute("mensagem", "Escala x Mês gerados com sucesso.");
     } catch (Exception e) {
       attr.addFlashAttribute("mensagem", e.getMessage());
