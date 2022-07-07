@@ -17,33 +17,27 @@
     </ol>
     <div class="card mb-4">
       <div class="container">
-        <form th:action="@{/escalas/salvar}" th:method="${escala.escalaId} == 0 ? post : put" th:object="${escala}">
+        <form id="escala" th:action="@{/escalas/salvar}" th:method="${escala.escalaId} == 0 ? post : put" th:object="${escala}">
           <div class="row">
-
             <input id="escalaId" type="hidden" th:field="*{escalaId}"/>
-
             <div class="form-group col-md-8">
               <label for="nome">Nome:</label>
               <input class="form-control" id="nome" type="text" th:field="*{nome}" th:errorclass="is-invalid"/>
               <div class="invalid-feedback" th:errors="*{nome}"></div>
             </div>
-
             <div class="form-group col-md-4">
               <label for="data">Data:</label>
-              <input class="form-control" id="data" type="date" th:field="*{data}" th:errorclass="is-invalid"/>
+              <input class="form-control" id="data" type="month" th:field="*{data}" th:errorclass="is-invalid"/>
               <div class="invalid-feedback" th:errors="*{data}"></div>
             </div>
-
           </div>
           <div class="form-group">
-            <button class="btn btn-primary" type="submit">&nbsp; Salvar &nbsp;</button>
+            <button class="btn btn-primary" id="btnSalvar" type="submit">&nbsp; Salvar &nbsp;</button>
             <a class="btn btn-danger" th:href="@{/escalas/listar}">Cancelar</a>
           </div>
-
         </form>
       </div>
     </div>
-
   </div>
 </body>
 </html>

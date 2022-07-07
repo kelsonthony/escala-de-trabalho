@@ -13,4 +13,5 @@ public interface IEscalaRepository {
     Escala listarPorId(long id);
     void atualizar(Escala escala);
     void excluir(long id);
+    void excluirTipo(long id);
 }

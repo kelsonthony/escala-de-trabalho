@@ -46,8 +46,8 @@ public class EscalaApplicationController {
         return new ModelAndView("home", model);
     }
 
-    @PostMapping("/filtrar")
     @ResponseBody
+    @PostMapping("/filtrar")
     public ModelAndView homeFiltered(@RequestParam(name = "escalaId") Long escalaId,
                                ModelMap model,
                                RedirectAttributes attr) {

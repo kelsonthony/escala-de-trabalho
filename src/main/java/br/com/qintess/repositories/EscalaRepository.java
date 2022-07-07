@@ -1,6 +1,7 @@
 package br.com.qintess.repositories;
 
 import br.com.qintess.entities.Escala;
+import br.com.qintess.entities.EscalaTipo;
 import br.com.qintess.repositories.interfaces.IEscalaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +32,7 @@ public class EscalaRepository implements IEscalaRepository {
     }
 
     @Override
-    public Escala listarPorId(long id) {
+    public Escala listarPorId(final long id) {
         return em.find(Escala.class, id);
     }
 
@@ -41,7 +42,12 @@ public class EscalaRepository implements IEscalaRepository {
     }
 
     @Override
-    public void excluir(long id) {
+    public void excluir(final long id) {
         em.remove(em.getReference(Escala.class, id));
+    }
+
+    @Override
+    public void excluirTipo(final long id) {
+        em.remove(em.getReference(EscalaTipo.class, id));
     }
 }

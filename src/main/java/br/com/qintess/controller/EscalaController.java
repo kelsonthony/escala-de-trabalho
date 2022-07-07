@@ -7,6 +7,7 @@ import br.com.qintess.services.interfaces.IEscalaService;
 import br.com.qintess.services.interfaces.IEscalaTipoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -49,14 +52,18 @@ public class EscalaController {
     }
 
     @PostMapping("/salvar")
-    public String salvar(@Valid @ModelAttribute("escala") Escala escala, BindingResult result, RedirectAttributes attr) {
+    public ModelAndView salvar(@Valid @ModelAttribute("escala") Escala escala,
+                        BindingResult result,
+                        RedirectAttributes attr) {
+
         if(result.hasErrors()) {
-            return "/escala/add";
+            return new ModelAndView("/escala/add");
         }
 
         escalaService.salvar(escala);
+
         attr.addFlashAttribute("mensagem", "Escala criada com sucesso.");
-        return "redirect:/escalas/listar";
+        return new ModelAndView("redirect:/escalas/listar");
     }
 
     @GetMapping("/cadastrar/tipo")
@@ -143,5 +150,20 @@ public class EscalaController {
         }
         attr.addFlashAttribute("mensagem", mensagem);
         return "redirect:/escalas/listar";
+    }
+
+    @GetMapping("tipo/{id}/remover")
+    public String removerTipo(@PathVariable("id") long id, RedirectAttributes attr) {
+        String mensagem = "Mensagem do sistema: ";
+        try {
+            escalaService.excluirTipo(id);
+            mensagem +=  "Tipo de escala excluído com sucesso.";
+        } catch (EscalaException e) {
+            mensagem += e.getMessage() + " - Código: " + e.getCodigo();
+        } catch (RuntimeException e ) {
+            mensagem += e.getMessage();
+        }
+        attr.addFlashAttribute("mensagem", mensagem);
+        return "redirect:/escalas/listar/tipo";
     }
 }

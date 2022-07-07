@@ -19,4 +19,19 @@
         e.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
     });
+
+    // Toggle the input type and value to month field
+    $("#btnSalvar").on("click", function(e){
+        e.preventDefault();
+        var data = document.getElementById("data").value;
+        if (typeof data === 'undefined' || data === null || data === '') {
+            data = null;
+        } else {
+            data += "-01";
+        }
+        document.getElementById("data").type = "text";
+        document.getElementById("data").value = data;
+        $( "#escala" ).submit();
+    });
+
 })(jQuery);

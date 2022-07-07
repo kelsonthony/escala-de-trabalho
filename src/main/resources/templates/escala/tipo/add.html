@@ -30,9 +30,9 @@
 
 
             <div class="form-group col-md-4" th:object="${escala}">
-              <label for="escalaId">Escala:</label>
+              <label for="escalaId">Pertence à:</label>
               <select class="form-control"  id="escalaId" name="escalaId" >
-                <option th:each="e : ${escalas}" th:value="${e.escalaId}" th:text="${e.nome}"></option>
+                <option th:each="e : ${escalas}" th:value="${e.escalaId}" th:text="${'Escala ' + e.nome + ' de ' + #temporals.format(e.data, 'MMM/yyyy') + '. '}"></option>
               </select>
             </div>
 

@@ -52,7 +52,7 @@ public class FuncionarioRepository implements IFuncionarioRepository {
 
     @Override
     public List<Funcionario> listarPorEscala(long escalaId) {
-        return em.createQuery("SELECT f FROM Funcionario f WHERE f.escala.escalaId = :escalaId", Funcionario.class)
+        return em.createQuery("SELECT f FROM Funcionario f WHERE f.escalas.escalaId = :escalaId", Funcionario.class)
                 .setParameter("escalaId", escalaId)
                 .getResultList();
     }

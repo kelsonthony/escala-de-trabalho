@@ -34,23 +34,29 @@
                             <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>Data</th>
+                                <th>Mês</th>
+                                <th>Ano</th>
+                                <th>Tipos Cadastrados</th>
                                 <th>Ações</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th>Nome</th>
-                                <th>Data</th>
+                                <th>Mês</th>
+                                <th>Ano</th>
+                                <th>Tipos Cadastrados</th>
                                 <th>Ações</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             <tr th:each="escala : ${escalas}">
-                                <td >
-                                    <a th:text="${escala.nome + ' (' + #temporals.format(escala.data, 'MMM/yyyy') + ') '}" th:href="@{/escalas/listar/tipo/{id}(id=${escala.escalaId})}">nome</a>
+                                <td th:text="${'Escala '+ escala.nome}" th:href="@{/escalas/listar/tipo/{id}(id=${escala.escalaId})}">nome</td>
+                                <td th:text="${#temporals.monthName(escala.data)}">mes</td>
+                                <td th:text="${#temporals.year(escala.data)}">ano</td>
+                                <td>
+                                    <span th:each="tipo : ${escala.tipos}" th:text="${tipo.nome} + ' '">tipo</span>
                                 </td>
-                                <td th:text="${#temporals.format(escala.data, 'MM/yyyy')}">data</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Actions">
                                         <a class="btn btn-sm btn-info" th:href="@{/escalas/{id}/atualizar(id=${escala.escalaId})}">Atualizar</a>
