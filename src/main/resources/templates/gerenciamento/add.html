@@ -13,36 +13,35 @@
     <div class="card mb-4"></div>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a th:href="@{/}">Gerenciamento</a></li>
-        <li class="breadcrumb-item active">Gerar Escala por Funcionário</li>
+        <li class="breadcrumb-item active">Gerar Escala</li>
     </ol>
+    <div th:if="${mensagem != null}">
+        <div class="alert alert-info" role="alert">
+            <span th:text="${mensagem == null ? '&nbsp;' : mensagem}">mensagem</span>
+        </div>
+    </div>
     <div class="card mb-4">
         <div class="container">
-            <form th:action="@{/cargos/salvar}" th:method="post">
+            <form th:action="@{/gerenciamento/gerar/escala}" th:method="post">
                 <div class="row">
-                    <div class="form-group col-md-8">
-                        <label for="nome">Nome:</label>
-                        <input class="form-control" id="nome" type="text" th:field="*{nome}" th:errorclass="is-invalid"/>
-                        <div class="invalid-feedback" th:errors="*{nome}"></div>
+                    <div class="form-group col-md-9" th:object="${escala}">
+                        <label for="escalaId">Escalas:</label>
+                        <select class="form-control" id="escalaId" name="escalaId" aria-describedby="escalaHelp">
+                            <option value="0">Selecione uma Escala...</option>
+                            <option
+                                    th:each="e : ${escalas}"
+                                    th:value="${e.escalaId}"
+                                    th:text="${'Escala ' + e.nome + ' (' + #temporals.format(e.data, 'MMMM/yyyy', new java.util.Locale('pt', 'PT')) + ')'}">
+                                escala
+                            </option>
+                        </select>
+                        <small id="escalaHelp" class="form-text text-muted">Selecione a escala desejada na lista acima segundo o nome e o mês de cadastro.</small>
                     </div>
-
-                    <div class="form-group col-md-2">
-                        <label for="sigla">Sigla:</label>
-                        <input class="form-control" id="sigla" type="text" th:field="*{sigla}" th:errorclass="is-invalid"/>
-                        <div class="invalid-feedback" th:errors="*{sigla}"></div>
+                    <div class="form-group col-md-3">
+                        <button class="btn btn-primary" style="margin-top:30px" type="submit">&nbsp; Salvar &nbsp;</button>
+                        <a class="btn btn-danger" style="margin-top:30px" th:href="@{/gerenciamento/cadastrar}">Cancelar</a>
                     </div>
-
-                    <div class="form-group col-md-2">
-                        <label for="horasExtrasPermitidas">Horas Extras:</label>
-                        <input class="form-control" id="horasExtrasPermitidas" value="0" type="text" th:field="*{horasExtrasPermitidas}" th:errorclass="is-invalid"/>
-                        <div class="invalid-feedback" th:errors="*{horasExtrasPermitidas}"></div>
-                    </div>
-
                 </div>
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit">&nbsp; Salvar &nbsp;</button>
-                    <a class="btn btn-danger" th:href="@{/cargos/listar}">Cancelar</a>
-                </div>
-
             </form>
         </div>
     </div>

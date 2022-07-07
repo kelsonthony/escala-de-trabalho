@@ -23,13 +23,8 @@ public class GerenciamentoMesController {
   @Autowired
   private IGerenciamentoMesFixoService gerenciamentoMesFixoService;
 
-  @GetMapping("/cadastrar")
-  public String cadastrar() {
-    return "/gerenciamento/add";
-  }
-
   @GetMapping("/cadastrar/funcionario")
-  public ModelAndView cadastrarFuncionario(@ModelAttribute("escala") Escala escala,
+  public ModelAndView cadastrarPorFuncionario(@ModelAttribute("escala") Escala escala,
                                            @ModelAttribute("funcionario") Funcionario funcionario,
                                            ModelMap model) {
     model.addAttribute("escalas", escalaService.listar());
@@ -39,7 +34,7 @@ public class GerenciamentoMesController {
 
   @ResponseBody
   @PostMapping("/gerar/funcionario/escala")
-  public ModelAndView cadastrar(@RequestParam(name = "funcionarioId") Long funcionarioId,
+  public ModelAndView gerarPorFuncionario(@RequestParam(name = "funcionarioId") Long funcionarioId,
                                 @RequestParam(name = "escalaId") Long escalaId,
                                 RedirectAttributes attr) {
     if (funcionarioId.longValue() == 0
@@ -65,14 +60,33 @@ public class GerenciamentoMesController {
     return new ModelAndView("redirect:/gerenciamento/cadastrar/funcionario");
   }
 
-  @GetMapping("/lista/cadastrar")
-  public String listaCadastrar() {
+  @GetMapping("/cadastrar")
+  public ModelAndView cadastrar(@ModelAttribute("escala") Escala escala,
+                                              ModelMap model) {
+    model.addAttribute("escalas", escalaService.listar());
+    return new ModelAndView("/gerenciamento/add");
+  }
 
-    Escala escala = this.escalaService.listarPorId(1);
-    gerenciamentoMesFixoService.cadastrarListaMeses(escala);
+  @ResponseBody
+  @PostMapping("/gerar/escala")
+  public ModelAndView gerar(@RequestParam(name = "escalaId") Long escalaId,
+                            RedirectAttributes attr) {
+    if (escalaId.longValue() == 0 || escalaId.equals(null)) {
+      attr.addFlashAttribute("mensagem", "A lista não podem estar em branco. Selecione a opção desejada.");
+      return new ModelAndView("redirect:/gerenciamento/cadastrar");
+    }
 
-    return "redirect:/";
+    Escala escala = this.escalaService.listarPorId(escalaId.longValue());
 
+    try {
+      this.gerenciamentoMesFixoService.cadastrarListaMeses(escala);
+      attr.addFlashAttribute("mensagem", "Escalas geradas com sucesso.");
+    } catch (Exception e) {
+      attr.addFlashAttribute("mensagem", e.getMessage());
+      return new ModelAndView("redirect:/gerenciamento/cadastrar");
+    }
+
+    return new ModelAndView("redirect:/gerenciamento/cadastrar");
   }
 
 }
