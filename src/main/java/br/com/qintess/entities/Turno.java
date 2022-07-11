@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "TB_TURNO")
@@ -20,6 +21,10 @@ public class Turno {
     @Size(min = 2, max = 125 , message = "Tamanho deve estar entre 2 e 125")
     @Column(nullable = false, length = 125)
     private String nome;
+
+    @NotBlank
+    @Column(nullable = true,length = 7, unique = true)
+    private String cor;
 
     @NotBlank
     @Size(min = 1, max = 5 , message = "Tamanho deve estar entre 1 e 5")
@@ -58,93 +63,122 @@ public class Turno {
     @Column(name = "padrao_sistema")
     private int padraoSistema;
 
-    public long getId() {
-        return id;
-    }
+  public Turno(long id, String nome, String cor, String sigla, int trabalhaNoFeriado, String horaInicio,
+               String horaTermino, String totalHoras, List<Funcionario> funcionarios, List<Dia> dias,
+               TurnoFixo turnoFixo, TurnoAlternado turnoAlternado, int padraoSistema) {
+    this.id = id;
+    this.nome = nome;
+    this.cor = cor;
+    this.sigla = sigla;
+    this.trabalhaNoFeriado = trabalhaNoFeriado;
+    this.horaInicio = horaInicio;
+    this.horaTermino = horaTermino;
+    this.totalHoras = totalHoras;
+    this.funcionarios = funcionarios;
+    this.dias = dias;
+    this.turnoFixo = turnoFixo;
+    this.turnoAlternado = turnoAlternado;
+    this.padraoSistema = padraoSistema;
+  }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public Turno() {
+  }
 
-    public String getNome() {
-        return nome;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-    public String getSigla() {
-        return sigla;
-    }
+  public String getNome() {
+    return nome;
+  }
 
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
-    }
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 
-    public int getTrabalhaNoFeriado() {
-        return trabalhaNoFeriado;
-    }
+  public String getCor() {
+    return cor;
+  }
 
-    public void setTrabalhaNoFeriado(int trabalhaNoFeriado) {
-        this.trabalhaNoFeriado = trabalhaNoFeriado;
-    }
+  public void setCor(String cor) {
+    this.cor = cor;
+  }
 
-    public String getHoraInicio() {
-        return horaInicio;
-    }
+  public String getSigla() {
+    return sigla;
+  }
 
-    public void setHoraInicio(String horaInicio) {
-        this.horaInicio = horaInicio;
-    }
+  public void setSigla(String sigla) {
+    this.sigla = sigla;
+  }
 
-    public String getHoraTermino() {
-        return horaTermino;
-    }
+  public int getTrabalhaNoFeriado() {
+    return trabalhaNoFeriado;
+  }
 
-    public void setHoraTermino(String horaTermino) {
-        this.horaTermino = horaTermino;
-    }
+  public void setTrabalhaNoFeriado(int trabalhaNoFeriado) {
+    this.trabalhaNoFeriado = trabalhaNoFeriado;
+  }
 
-    public String getTotalHoras() {
-        return totalHoras;
-    }
+  public String getHoraInicio() {
+    return horaInicio;
+  }
 
-    public void setTotalHoras(String totalHoras) {
-        this.totalHoras = totalHoras;
-    }
+  public void setHoraInicio(String horaInicio) {
+    this.horaInicio = horaInicio;
+  }
 
-    public List<Funcionario> getFuncionarios() {
-        return funcionarios;
-    }
+  public String getHoraTermino() {
+    return horaTermino;
+  }
 
-    public void setFuncionarios(List<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
-    }
+  public void setHoraTermino(String horaTermino) {
+    this.horaTermino = horaTermino;
+  }
 
-    public List<Dia> getDias() {
-        return dias;
-    }
+  public String getTotalHoras() {
+    return totalHoras;
+  }
 
-    public void setDias(List<Dia> dias) {
-        this.dias = dias;
-    }
+  public void setTotalHoras(String totalHoras) {
+    this.totalHoras = totalHoras;
+  }
 
-    public TurnoFixo getTurnoFixo() {
-        return turnoFixo;
-    }
+  public List<Funcionario> getFuncionarios() {
+    return funcionarios;
+  }
 
-    public void setTurnoFixo(TurnoFixo turnoFixo) {
-        this.turnoFixo = turnoFixo;
-    }
+  public void setFuncionarios(List<Funcionario> funcionarios) {
+    this.funcionarios = funcionarios;
+  }
 
-    public TurnoAlternado getTurnoAlternado() {
-        return turnoAlternado;
-    }
+  public List<Dia> getDias() {
+    return dias;
+  }
 
-    public void setTurnoAlternado(TurnoAlternado turnoAlternado) {
-        this.turnoAlternado = turnoAlternado;
-    }
+  public void setDias(List<Dia> dias) {
+    this.dias = dias;
+  }
+
+  public TurnoFixo getTurnoFixo() {
+    return turnoFixo;
+  }
+
+  public void setTurnoFixo(TurnoFixo turnoFixo) {
+    this.turnoFixo = turnoFixo;
+  }
+
+  public TurnoAlternado getTurnoAlternado() {
+    return turnoAlternado;
+  }
+
+  public void setTurnoAlternado(TurnoAlternado turnoAlternado) {
+    this.turnoAlternado = turnoAlternado;
+  }
 
   public int getPadraoSistema() {
     return padraoSistema;
@@ -152,5 +186,18 @@ public class Turno {
 
   public void setPadraoSistema(int padraoSistema) {
     this.padraoSistema = padraoSistema;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Turno turno = (Turno) o;
+    return id == turno.id && trabalhaNoFeriado == turno.trabalhaNoFeriado && padraoSistema == turno.padraoSistema && Objects.equals(nome, turno.nome) && Objects.equals(cor, turno.cor) && Objects.equals(sigla, turno.sigla) && Objects.equals(horaInicio, turno.horaInicio) && Objects.equals(horaTermino, turno.horaTermino) && Objects.equals(totalHoras, turno.totalHoras) && Objects.equals(funcionarios, turno.funcionarios) && Objects.equals(dias, turno.dias) && Objects.equals(turnoFixo, turno.turnoFixo) && Objects.equals(turnoAlternado, turno.turnoAlternado);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, nome, cor, sigla, trabalhaNoFeriado, horaInicio, horaTermino, totalHoras, funcionarios, dias, turnoFixo, turnoAlternado, padraoSistema);
   }
 }

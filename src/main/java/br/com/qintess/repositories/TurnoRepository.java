@@ -45,6 +45,11 @@ public class TurnoRepository implements ITurnoRepository {
   }
 
   @Override
+  public List<Turno> litarPorCor(final String cor) {
+    return em.createQuery("SELECT t FROM Turno t WHERE t.cor Like :cor", Turno.class).setParameter("cor",cor).getResultList();
+  }
+
+  @Override
     public void atualizar(Turno turno) {
           this.em.merge(turno);
     }

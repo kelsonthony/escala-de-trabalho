@@ -34,6 +34,13 @@ public class TurnoService implements ITurnoService {
       throw new ConstraintViolationException("Erro ao tentar salvar o turno(#Sigla já cadastrada).",null,null);
     }
 
+    List<Turno> turnosCor = this.turnoRepository.litarPorCor(turno.getCor());
+
+    if(!turnosCor.isEmpty()){
+      throw  new ConstraintViolationException("Erro ao tentar salvar o turno(#Cor já cadastrada).",null,null);
+    }
+
+
     turno.setTotalHoras(calculaTotalHoras(turno.getHoraInicio(),turno.getHoraTermino()));
     this.turnoRepository.salvar(turno);
   }

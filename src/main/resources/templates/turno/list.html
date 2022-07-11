@@ -41,6 +41,7 @@
                           <th>Horário do Início</th>
                           <th>Horário do Termino</th>
                           <th>Total de horas</th>
+                          <th>Cor</th>
                           <th>Ações</th>
 
                         </tr>
@@ -53,6 +54,7 @@
                           <th>Horário do Início</th>
                           <th>Horário do Termino</th>
                           <th>Total de horas</th>
+                          <th>Cor</th>
                           <th>Ações</th>
                         </tr>
                         </tfoot>
@@ -67,6 +69,7 @@
                           <td th:text="${turno.horaInicio}">Horário do Início</td>
                           <td th:text="${turno.horaTermino}">Horário do Termino</td>
                           <td th:text="${turno.totalHoras}">Total de horas</td>
+                          <td><input type="color" disabled th:value="${turno.cor}"></td>
                           <td>
                             <div class="btn-group" role="group" aria-label="Actions">
                               <a class="btn btn-sm btn-info" th:href="@{/turnos/{id}/atualizar(id=${turno.id})}">Atualizar</a>

@@ -86,7 +86,7 @@
 											</a>
 										</td>
 										<td th:text="${dto.escala + ' (' + #temporals.format(dto.escalaData, 'MMM/yyyy', new java.util.Locale('pt', 'PT')) + ')'}">escala</td>
-										<td th:each="dias : ${dto.dias}" th:text="${dias.turno.sigla}">dia</td>
+										<td th:each="dias : ${dto.dias}" th:text="${dias.turno.sigla}" th:style="'background-color:'+${dias.turno.cor}">dia</td>
 									</tr>
 									</tbody>
 								</table>

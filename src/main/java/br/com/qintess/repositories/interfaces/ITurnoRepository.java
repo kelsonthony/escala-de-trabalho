@@ -11,6 +11,7 @@ public interface ITurnoRepository {
     Turno listarPorId(long id);
     List<Turno> listaPorSigla(String sigla);
     List<Turno> listarPorPadraoSistema();
+    List<Turno> litarPorCor(String cor);
     void atualizar(Turno turno);
     void excluir(long id);
 }

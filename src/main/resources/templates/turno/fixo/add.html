@@ -26,10 +26,15 @@
         <form th:action="@{/turnos/salvar/fixo}" th:method="${turno.id} == 0 ? post : put" th:object="${turno}">
           <div class="row">
             <input id="id" type="hidden" th:field="*{id}"/>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-10">
               <label for="nome">Nome:</label>
               <input class="form-control" id="nome" type="text" th:field="*{nome}" th:errorclass="is-invalid"/>
               <div class="invalid-feedback" th:errors="*{nome}"></div>
+            </div>
+            <div class="form-group col-md-1">
+              <label for="cor">Cor:</label>
+              <input class="form-control" id="cor" type="color" th:field="*{cor}" th:errorclass="is-invalid">
+              <div class="invalid-feedback" th:errors="*{cor}"></div>
             </div>
 
             <div class="form-group col-md-4">
@@ -55,7 +60,6 @@
               <input class="form-control" id="horaTermino" type="time" th:field="*{horaTermino}" th:errorclass="is-invalid"/>
               <div class="invalid-feedback" th:errors="*{horaTermino}"></div>
             </div>
-
           </div>
 
             <div th:object="${turnofixo}">
