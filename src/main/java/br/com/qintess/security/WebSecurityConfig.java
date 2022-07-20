@@ -41,9 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
         builder
                 .inMemoryAuthentication()
-                .withUser("admin").password("$2a$10$Z3ZMCO65/.b4p6yZA23eP.8Pt/5sz0IdoiqICYCbfw7V.FNzX554e").roles("EDITOR", "ADMIN")
+                .withUser("admin").password("$2a$10$Z3ZMCO65/.b4p6yZA23eP.8Pt/5sz0IdoiqICYCbfw7V.FNzX554e").roles("USER", "EDITOR", "ADMIN")
                 .and()
-                .withUser("user").password("$2a$10$RkTVD0vVnTO9PcU2VbSOButxB3bavOmic/.cuhp4.0a9uml5Vg.bm").roles("EDITOR");
+                .withUser("editor").password("$2a$10$Z3ZMCO65/.b4p6yZA23eP.8Pt/5sz0IdoiqICYCbfw7V.FNzX554e").roles("USER", "EDITOR")
+                .and()
+                .withUser("user").password("$2a$10$RkTVD0vVnTO9PcU2VbSOButxB3bavOmic/.cuhp4.0a9uml5Vg.bm").roles("USER");
     }
 
     @Bean
