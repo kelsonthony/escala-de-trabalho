@@ -1,8 +1,10 @@
 package br.com.qintess.services;
 
 import br.com.qintess.entities.Escala;
+import br.com.qintess.entities.Mes;
 import br.com.qintess.repositories.interfaces.IEscalaRepository;
 import br.com.qintess.repositories.interfaces.IFuncionarioRepository;
+import br.com.qintess.repositories.interfaces.IMesRepository;
 import br.com.qintess.services.interfaces.IEscalaService;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class EscalaService implements IEscalaService {
 
     @Autowired
     private IFuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private IMesRepository mesRepository;
 
     @Override
     public void salvar(Escala escala) {
@@ -57,9 +62,13 @@ public class EscalaService implements IEscalaService {
     @Override
     public void excluir(final long id) {
         Escala escala = escalaRepository.listarPorId(id);
+        List<Mes> mes = mesRepository.listarPorEscala(id);
 
         if (escala.equals(null))
             throw new ConstraintViolationException("Erro ao tentar remover a escala (#Id não existe).", null, null);
+
+        if (!mes.isEmpty())
+            throw new ConstraintViolationException("Não é possível remover uma escala que possui meses associados.", null, null);
 
         escalaRepository.excluir(id);
     }
