@@ -57,13 +57,9 @@ public class EscalaService implements IEscalaService {
     @Override
     public void excluir(final long id) {
         Escala escala = escalaRepository.listarPorId(id);
-        boolean temFuncionarios = funcionarioRepository.temFuncionarios("escala", id);
 
         if (escala.equals(null))
             throw new ConstraintViolationException("Erro ao tentar remover a escala (#Id não existe).", null, null);
-
-        if (temFuncionarios)
-            throw new ConstraintViolationException("Não é possível remover uma escala que possui funcionários cadastrados.", null, null);
 
         escalaRepository.excluir(id);
     }
