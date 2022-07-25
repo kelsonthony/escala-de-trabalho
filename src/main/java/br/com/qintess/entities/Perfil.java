@@ -5,6 +5,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "TB_PERFIL")
@@ -13,7 +15,7 @@ public class Perfil implements Serializable {
     /**
      * Serial Version UID
      */
-    private static final long serialVersionUID = -4187201805156095411L;
+    private static final long serialVersionUID = -4127301875156085916L;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
