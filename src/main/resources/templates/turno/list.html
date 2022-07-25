@@ -71,10 +71,11 @@
                           <td th:text="${turno.totalHoras}">Total de horas</td>
                           <td><input type="color" disabled th:value="${turno.cor}"></td>
                           <td>
-                            <div th:replace = "fragmentos/turno/removerModal :: modal"></div>
                             <div class="btn-group" role="group" aria-label="Actions">
                               <a class="btn btn-sm btn-info" th:href="@{/turnos/{id}/atualizar(id=${turno.id})}">Atualizar</a>
-                              <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#removerTurno" >Remover</button>
+                              <a class="btn btn-sm btn-danger" th:href="@{/turnos/{id}/remover(id=${turno.id})}" onclick="return confirm('Deseja remover este turno?');">
+                                Remover
+                              </a>
                             </div>
                           </td>
                         </tr>
