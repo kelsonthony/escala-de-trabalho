@@ -1,6 +1,7 @@
 package br.com.qintess.controller;
 
 import br.com.qintess.entities.DashboardDto;
+import br.com.qintess.entities.Dia;
 import br.com.qintess.entities.Escala;
 import br.com.qintess.entities.Mes;
 import br.com.qintess.exceptions.EscalaException;
@@ -41,7 +42,10 @@ public class EscalaApplicationController {
         model.addAttribute("escalas", escalaService.listar());
         model.addAttribute("dtos", dtos);
         model.addAttribute("titulo", "Lista de Escalas Cadastradas");
-        model.addAttribute("diasDoMes", dashboardService.dias(meses.get(0)));
+
+        if(!meses.isEmpty()){
+          model.addAttribute("diasDoMes", dashboardService.dias(meses.get(0)));
+        }
 
         return new ModelAndView("home", model);
     }

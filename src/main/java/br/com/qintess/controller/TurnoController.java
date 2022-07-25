@@ -19,7 +19,9 @@ import javax.validation.Valid;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("turnos")
@@ -146,7 +148,10 @@ public class TurnoController {
 
   @GetMapping("/listar")
   public ModelAndView listar(ModelMap model){
-    model.addAttribute("turnos",this.turnoService.listar());
+
+    List<Turno> listaTurnos = this.turnoService.listar().stream().filter(turno -> turno.getPadraoSistema() != 1).collect(Collectors.toList());
+
+    model.addAttribute("turnos",listaTurnos);
     return new ModelAndView("/turno/list",model);
   }
 

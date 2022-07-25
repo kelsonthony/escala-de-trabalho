@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("funcionarios")
@@ -98,9 +99,12 @@ public class FuncionarioController {
                             @ModelAttribute("turno") Turno turno,
                             @ModelAttribute("escala") Escala escala,
                             ModelMap model) {
+
+        List<Turno> listaTurnos = this.turnoService.listar().stream().filter(t -> t.getPadraoSistema() != 1).collect(Collectors.toList());
+
         model.addAttribute("cargos", cargoService.listar());
         model.addAttribute("equipes", equipeService.listar());
-        model.addAttribute("turnos", turnoService.listar());
+        model.addAttribute("turnos", listaTurnos);
         model.addAttribute("escalas", escalaService.listar());
 
         return "/funcionario/add";
