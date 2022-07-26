@@ -9,25 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-//public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
-//
-//    /**
-//     * Busca usuario com nome especificado
-//     * @param nome Nome
-//     * @return Usuario
-//     */
-////    public Usuario findByNome(String nome);
-//
-//
-//    /**
-//     * Busca usuarios com nome similiar ao especificado
-//     * @param nome Nome
-//     * @return List<Usuario>
-//     */
-//    public List<Usuario> findByNomeContainingIgnoreCase(String nome);
-//
-//}
-
 @Repository
 public class UsuarioRepository implements IUsuarioRepository {
 
