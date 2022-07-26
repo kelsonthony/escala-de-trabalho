@@ -37,7 +37,7 @@
                                 <th>Mês</th>
                                 <th>Ano</th>
                                 <th>Tipos Cadastrados</th>
-                                <th>Ações</th>
+                                <th sec:authorize="hasRole('ROLE_ESCALA')">Ações</th>
                             </tr>
                             </thead>
                             <tfoot>
@@ -46,7 +46,7 @@
                                 <th>Mês</th>
                                 <th>Ano</th>
                                 <th>Tipos Cadastrados</th>
-                                <th>Ações</th>
+                                <th sec:authorize="hasRole('ROLE_ESCALA')">Ações</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -57,7 +57,7 @@
                                 <td>
                                     <span th:each="tipo : ${escala.tipos}" th:text="${tipo.nome} + ' '">tipo</span>
                                 </td>
-                                <td>
+                                <td sec:authorize="hasRole('ROLE_ESCALA')">
                                     <div class="btn-group" role="group" aria-label="Actions">
                                         <a class="btn btn-sm btn-info" th:href="@{/escalas/{id}/atualizar(id=${escala.escalaId})}">Atualizar</a>
                                         <a class="btn btn-sm btn-danger" th:href="@{/escalas/{id}/remover(id=${escala.escalaId})}">Remover</a>

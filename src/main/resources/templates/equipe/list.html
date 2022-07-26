@@ -35,14 +35,14 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Descrição</th>
-                                <th>Ações</th>
+                                <th sec:authorize="hasRole('ROLE_EQUIPE')">Ações</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th>Nome</th>
                                 <th>Descrição</th>
-                                <th>Ações</th>
+                                <th sec:authorize="hasRole('ROLE_EQUIPE')">Ações</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -51,7 +51,7 @@
                                     <a th:text="${equipe.nome}" th:href="@{/funcionarios/listar/equipe/{id}(id=${equipe.equipeId})}">nome</a>
                                 </td>
                                 <td th:text="${equipe.descricao}">descricao</td>
-                                <td>
+                                <td sec:authorize="hasRole('ROLE_EQUIPE')">
                                     <div class="btn-group" role="group" aria-label="Actions">
                                         <a class="btn btn-sm btn-info" th:href="@{/equipes/{id}/atualizar(id=${equipe.equipeId})}">Atualizar</a>
                                         <a class="btn btn-sm btn-danger" th:href="@{/equipes/{id}/remover(id=${equipe.equipeId})}">Remover</a>

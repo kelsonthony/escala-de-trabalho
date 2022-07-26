@@ -42,7 +42,7 @@
                           <th>Horário do Termino</th>
                           <th>Total de horas</th>
                           <th>Cor</th>
-                          <th>Ações</th>
+                          <th sec:authorize="hasRole('ROLE_TURNO')">Ações</th>
 
                         </tr>
                         </thead>
@@ -55,7 +55,7 @@
                           <th>Horário do Termino</th>
                           <th>Total de horas</th>
                           <th>Cor</th>
-                          <th>Ações</th>
+                          <th sec:authorize="hasRole('ROLE_TURNO')">Ações</th>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -70,7 +70,7 @@
                           <td th:text="${turno.horaTermino}">Horário do Termino</td>
                           <td th:text="${turno.totalHoras}">Total de horas</td>
                           <td><input type="color" disabled th:value="${turno.cor}"></td>
-                          <td>
+                          <td sec:authorize="hasRole('ROLE_TURNO')">
                             <div class="btn-group" role="group" aria-label="Actions">
                               <a class="btn btn-sm btn-info" th:href="@{/turnos/{id}/atualizar(id=${turno.id})}">Atualizar</a>
                               <a class="btn btn-sm btn-danger" th:href="@{/turnos/{id}/remover(id=${turno.id})}" onclick="return confirm('Deseja remover este turno?');">

@@ -36,7 +36,7 @@
                                 <th>Nome</th>
                                 <th>Sigla</th>
                                 <th>Horas Extras Permitidas</th>
-                                <th>Ações</th>
+                                <th sec:authorize="hasRole('ROLE_CARGO')">Ações</th>
                             </tr>
                             </thead>
                             <tfoot>
@@ -44,7 +44,7 @@
                                 <th>Nome</th>
                                 <th>Sigla</th>
                                 <th>Horas Extras Permitidas</th>
-                                <th>Ações</th>
+                                <th sec:authorize="hasRole('ROLE_CARGO')">Ações</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -54,7 +54,7 @@
                                 </td>
                                 <td th:text="${cargo.sigla}">sigla</td>
                                 <td th:text="${cargo.horasExtrasPermitidas}">Horas Extras Permitidas</td>
-                                <td>
+                                <td sec:authorize="hasRole('ROLE_CARGO')">
                                     <div class="btn-group" role="group" aria-label="Actions">
                                         <a class="btn btn-sm btn-info" th:href="@{/cargos/{id}/atualizar(id=${cargo.cargoId})}">Atualizar</a>
                                         <a class="btn btn-sm btn-danger" th:href="@{/cargos/{id}/remover(id=${cargo.cargoId})}">Remover</a>

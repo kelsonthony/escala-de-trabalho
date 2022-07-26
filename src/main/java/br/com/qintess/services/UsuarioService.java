@@ -3,12 +3,13 @@ package br.com.qintess.services;
 import br.com.qintess.entities.Usuario;
 import br.com.qintess.repositories.UsuarioRepository;
 import br.com.qintess.services.interfaces.IUsuarioService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service("usuarioService")
 public class UsuarioService implements IUsuarioService {
@@ -21,29 +22,50 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public Usuario salvar(Usuario usuario) {
+    public void salvar(Usuario usuario) {
         try {
+            if (usuario.equals(null)) {
+                throw new ConstraintViolationException(
+                        "Erro ao tentar salvar o usuario (#Objeto vazio).", null, null);
+            }
             String encoded = new BCryptPasswordEncoder().encode(usuario.getSenha());
             usuario.setSenha(encoded);
         }
         catch (RuntimeException e) {
             e.printStackTrace();
         }
-        return usuarioRepository.save(usuario);
+        usuarioRepository.salvar(usuario);
     }
 
     @Override
-    public void excluir(Long id) {
-        usuarioRepository.deleteById(id);
+    @Transactional(readOnly = true)
+    public List<Usuario> listar() {
+        return usuarioRepository.listar();
     }
 
     @Override
-    public Optional<Usuario> listarPorId(Long id) {
-        return usuarioRepository.findById(id);
+    @Transactional(readOnly = true)
+    public Usuario listarPorId(final long id) {
+        return usuarioRepository.listarPorId(id);
     }
 
     @Override
-    public List<Usuario> listarPorNome(String nome) {
-        return usuarioRepository.findByNomeContainingIgnoreCase(nome);
+    public Usuario listarPorNome(String nome){
+        return usuarioRepository.listarPorNome(nome);
     }
+
+    @Override
+    public void atualizar(Usuario usuario) {
+        usuarioRepository.atualizar(usuario);
+    }
+
+    @Override
+    public void excluir(final long id) {
+        Usuario usuario = usuarioRepository.listarPorId(id);
+        if (usuario.equals(null))
+            throw new ConstraintViolationException("Erro ao tentar remover o usuário (#Id não existe).", null, null);
+
+        usuarioRepository.excluir(id);
+    }
+
 }

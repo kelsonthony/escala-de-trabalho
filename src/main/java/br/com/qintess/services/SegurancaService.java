@@ -20,8 +20,8 @@ public class SegurancaService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String nome) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByNome(nome);
-        if (usuario.equals(null))
+        Usuario usuario = usuarioRepository.listarPorNome(nome);
+        if (usuario == null)
             throw new UsernameNotFoundException("Usuário não encontrado!");
 
         return usuario;

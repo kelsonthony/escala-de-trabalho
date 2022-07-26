@@ -1,17 +1,15 @@
-package br.com.qintess.services.interfaces;
+package br.com.qintess.repositories.interfaces;
 
-import br.com.qintess.entities.Cargo;
 import br.com.qintess.entities.Usuario;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface IUsuarioService {
+public interface IUsuarioRepository {
 
     void salvar(Usuario usuario);
     List<Usuario> listar();
     Usuario listarPorId(long id);
-    Usuario listarPorNome(String nome);
+    Usuario listarPorNome(String login);
     void atualizar(Usuario usuario);
     void excluir(long id);
 

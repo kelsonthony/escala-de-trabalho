@@ -35,21 +35,21 @@
                             <tr>
                                 <th>Tipo de escala</th>
                                 <th>Pertence à</th>
-                                <th>Ações</th>
+                                <th sec:authorize="hasRole('ROLE_ESCALA')">Ações</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th>Tipo de escala</th>
                                 <th>Pertence à</th>
-                                <th>Ações</th>
+                                <th sec:authorize="hasRole('ROLE_ESCALA')">Ações</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             <tr th:each="tipo : ${tipos}">
                                 <td th:text="${tipo.nome}">nome</td>
                                 <td th:text="${'Escala ' + tipo.escala.nome + ' de ' + #temporals.format(tipo.escala.data, 'MMM/yyyy') + '. '}">escala</td>
-                                <td>
+                                <td sec:authorize="hasRole('ROLE_ESCALA')">
                                     <div class="btn-group" role="group" aria-label="Actions">
                                         <a class="btn btn-sm btn-info" th:href="@{/escalas/atualizar/{id}/tipo(id=${tipo.escalaTipoId})}">Atualizar</a>
                                         <a class="btn btn-sm btn-danger" th:href="@{/escalas/tipo/{id}/remover(id=${tipo.escalaTipoId})}">Remover</a>

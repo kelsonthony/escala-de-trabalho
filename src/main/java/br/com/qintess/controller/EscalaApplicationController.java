@@ -1,18 +1,17 @@
 package br.com.qintess.controller;
 
-import br.com.qintess.entities.DashboardDto;
-import br.com.qintess.entities.Dia;
-import br.com.qintess.entities.Escala;
-import br.com.qintess.entities.Mes;
+import br.com.qintess.entities.*;
 import br.com.qintess.exceptions.EscalaException;
 import br.com.qintess.services.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -35,10 +34,13 @@ public class EscalaApplicationController {
 
     @GetMapping("/")
     public ModelAndView home(@ModelAttribute("escala") Escala escala,
+                             Authentication authentication,
                              ModelMap model) {
 
         List<Mes> meses = mesService.listar();
         List<DashboardDto> dtos = dashboardService.listar(meses);
+        Usuario usuario = (Usuario) authentication.getPrincipal();
+        model.addAttribute("usuarioId", usuario.getId());
         model.addAttribute("escalas", escalaService.listar());
         model.addAttribute("dtos", dtos);
         model.addAttribute("titulo", "Lista de Escalas Cadastradas");

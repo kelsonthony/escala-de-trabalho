@@ -4,6 +4,7 @@ import br.com.qintess.entities.*;
 import br.com.qintess.exceptions.EscalaException;
 import br.com.qintess.services.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -92,6 +93,7 @@ public class FuncionarioController {
         return new ModelAndView("/funcionario/list", model);
     }
 
+    @PreAuthorize("hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/cadastrar")
     public String cadastrar(@ModelAttribute("funcionario") Funcionario funcionario,
                             @ModelAttribute("cargo") Cargo cargo,

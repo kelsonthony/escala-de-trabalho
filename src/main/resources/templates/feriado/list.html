@@ -37,7 +37,7 @@
                                 <th>Data</th>
                                 <th>Tipo</th>
                                 <th>Dia da Semana</th>
-                                <th>Ação</th>
+                                <th sec:authorize="hasRole('ROLE_FERIADO')">Ação</th>
                             </tr>
                             </thead>
                             <tfoot>
@@ -46,7 +46,7 @@
                                 <th>Data</th>
                                 <th>Tipo</th>
                                 <th>Dia da Semana</th>
-                                <th>Ação</th>
+                                <th sec:authorize="hasRole('ROLE_FERIADO')">Ação</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -57,7 +57,7 @@
                                 <td th:text="${#temporals.format(feriado.data, 'dd/MM/yyyy')}">Data</td>
                                 <td th:text="${feriado.tipo}">Tipo</td>
                                 <td th:text="${feriado.diaSemana}">Dia da Semana</td>
-                                <td>
+                                <td sec:authorize="hasRole('ROLE_FERIADO')">
                                     <div class="btn-group" role="group" aria-label="Actions">
                                         <a class="btn btn-sm btn-info" th:href="@{/feriados/{id}/atualizar(id=${feriado.id})}">Atualizar</a>
                                         <a class="btn btn-sm btn-danger" th:href="@{/feriados/{id}/remover(id=${feriado.id})}" >Remover</a>
