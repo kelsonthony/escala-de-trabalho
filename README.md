@@ -77,7 +77,6 @@ Sistema de escala de trabalho automática 1.0
 
 - Java 1.8
 - Oracle Database 21c
-- Spring Framework
 - Spring Boot
 - Spring MVC
 - Spring Data JPA
@@ -86,6 +85,7 @@ Sistema de escala de trabalho automática 1.0
 - Flyway
 - Thymeleaf
 - HTML5
+- jQuery
 - Bootstrap
 
 ### - Maven
