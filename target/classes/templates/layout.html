@@ -28,7 +28,7 @@
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 						<a class="dropdown-item" th:href="@{/meu-perfil/{id}(id=${usuarioId})}">Meu Perfil</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/usuario/listar}">Usuários</a>
+						<a class="dropdown-item" sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/templates/perfil/listar}">Usuários</a>
 						<a class="dropdown-item" sec:authorize="hasRole('ROLE_PERFIL')" th:href="@{/perfil/listar}">Perfis</a>
 						<a class="dropdown-item" sec:authorize="hasRole('ROLE_LOG')" th:href="@{/log/listar}">Logs</a>
 						<div class="dropdown-divider"></div>
