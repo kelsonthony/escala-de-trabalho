@@ -1,7 +1,9 @@
 package br.com.qintess.services;
 
 import br.com.qintess.entities.Perfil;
+import br.com.qintess.entities.Usuario;
 import br.com.qintess.repositories.PerfilRepository;
+import br.com.qintess.repositories.UsuarioRepository;
 import br.com.qintess.services.interfaces.IPerfilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class PerfilService implements IPerfilService {
     @Autowired
     private PerfilRepository perfilRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     public void setPerfilRepository(PerfilRepository perfilRepository) {
         this.perfilRepository = perfilRepository;
     }
@@ -27,7 +32,14 @@ public class PerfilService implements IPerfilService {
 
     @Override
     public void excluir(Long id) {
+
+      List<Optional<Usuario>> usuarios = this.usuarioRepository.listaPorIdPerfil(id);
+
+      if(usuarios.isEmpty()){
         perfilRepository.deleteById(id);
+      }else {
+        throw new RuntimeException("Perfil possui usuários vinculados");
+      }
     }
 
     @Override

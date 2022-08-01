@@ -6,8 +6,9 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, user-scalable=no"/>
 
-
   <title>Perfil - Escala de Trabalho Automática</title>
+  <link rel="stylesheet" href="../../static/css/dual-listbox.css">
+
 </head>
 <body>
 <div layout:fragment="content">
@@ -17,19 +18,30 @@
     <li class="breadcrumb-item active">Atualizar Perfil</li>
   </ol>
   <div class="card mb-4">
-    <div class="container">
+    <div class="container-fluid">
       <form th:action="@{/perfil/salvar}" th:method="${perfil.id} == 0 ? post : put" th:object="${perfil}">
 
         <div class="row">
           <input id="id" type="hidden" th:field="*{id}"/>
-          <div class="form-group col-md-11">
+          <div class="form-group col-md-8">
             <label for="nome">Nome:</label>
             <input class="form-control" id="nome" type="text" th:field="*{nome}"/>
             <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
           </div>
         </div>
 
+
+        <!--th:if="${iStat.count % 5 == 0 || iStat.count == iStat.size}"-->
+        <div class="row" th:each="auto, iStat : ${perfil.autorizacoes}" th:if="${iStat.count % 5 == 0}" th:with="contador=${iStat.count}">
+          <div class="col" th:each="i : ${#numbers.sequence(contador - 5, contador)}" >
+            <a href="#" th:text="${autorizacoesList[i].nome}"></a>
+            <p  th:text="${i}"></p>
+          </div>
+        </div>
+
+
         <div class="form-group">
+          <button class="btn btn-primary">Adicionar permissães</button>
           <button class="btn btn-primary" type="submit">Salvar</button>
           <a class="btn btn-danger" th:href="@{/perfil/listar}">Cancelar</a>
         </div>
@@ -39,6 +51,7 @@
   </div>
 
 </div>
+
 </body>
 </html>
 

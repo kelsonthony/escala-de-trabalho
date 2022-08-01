@@ -60,7 +60,8 @@
               <td sec:authorize="hasRole('ROLE_PERFIL')">
                 <div class="btn-group" role="group" aria-label="Actions">
                   <a class="btn btn-sm btn-info" th:href="@{/perfil/{id}/atualizar(id=${perfil.id})}">Atualizar</a>
-                  <a class="btn btn-sm btn-danger" href="#">Remover</a>
+                  <button class="btn btn-sm btn-danger" data-toggle="modal" th:attr="data-target='#modalRemover'+${perfil.nome}">Remover</button>
+                  <div th:replace="~{perfil/fragmentos :: modalRemover(${perfil})}"></div>
                 </div>
               </td>
             </tr>

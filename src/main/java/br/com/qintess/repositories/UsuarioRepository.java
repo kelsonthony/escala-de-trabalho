@@ -2,7 +2,6 @@ package br.com.qintess.repositories;
 
 import br.com.qintess.entities.Usuario;
 import br.com.qintess.repositories.interfaces.IUsuarioRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -30,7 +29,13 @@ public class UsuarioRepository implements IUsuarioRepository {
         return em.find(Usuario.class, id);
     }
 
-    @Override
+  @Override
+  public List listaPorIdPerfil(Long idPerfil) {
+
+    return em.createQuery("SELECT U FROM Usuario u INNER JOIN u.perfis p ON  p.perfilId = :idPerfil AND p.perfilId = u.usuarioId").setParameter("idPerfil",idPerfil).getResultList();
+  }
+
+  @Override
     public Usuario listarPorNome(String login) {
         return em.createQuery("SELECT u FROM Usuario u WHERE u.login = :login", Usuario.class)
                 .setParameter("login", login)
