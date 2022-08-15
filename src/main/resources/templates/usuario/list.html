@@ -49,12 +49,11 @@
             <tr th:each="usuario : ${usuarios}">
               <td >
                 <button type="button" class="btn btn-link" data-toggle="modal"
-                        th:attr="data-target='#inforUsuarioModal'+${usuario.nome}" th:text="${usuario.nome} + ' ' + ${usuario.sobrenome}">Nome</button>
-                <div th:replace="~{usuario/fragmentos :: modalList(${usuario})}"></div>
+                        th:attr="data-target='#modalUsuarioInfo'+${usuario.nome}" th:text="${usuario.nome} + ' ' + ${usuario.sobrenome}">Nome</button>
+                <div th:replace="~{usuario/fragmentos :: modalUsuarioInfo(${usuario})}"></div>
               </td>
               <td th:text="${usuario.login}">Login</td>
-
-              <td sec:authorize="hasRole('ROLE_USUARIO')">
+              <td>
                 <div class="btn-group" role="group" aria-label="Actions">
                   <a class="btn btn-sm btn-info" href="#">Atualizar</a>
                   <a class="btn btn-sm btn-danger" href="#" >Remover</a>
