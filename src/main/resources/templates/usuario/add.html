@@ -7,47 +7,81 @@
   <meta name="viewport" content="width=device-width, user-scalable=no"/>
 
   <title>Feriado - Escala de Trabalho Automática</title>
+
 </head>
 <body>
 <div layout:fragment="content">
   <div class="card mb-4"></div>
   <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a th:href="@{/usuarios/listar}">Usuarios</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/usuario/listar}">Usuarios</a></li>
     <li class="breadcrumb-item active">Cadastro usuarios</li>
   </ol>
   <div class="card mb-4">
     <div class="container">
-      <form th:action="@{/usuarios/salvar}" th:method="${usuario.id} == 0 ? post : put" th:object="${usuario}">
+      <form th:action="@{/usuario/salvar}" th:method="${usuario.id} == 0 ? post : put" th:object="${usuario}">
         <div class="row">
           <input id="id" type="hidden" th:field="*{id}"/>
-          <div class="form-group col-md-12">
+
+          <div class="form-group col-md-6">
             <label for="nome">Nome:</label>
             <input class="form-control" id="nome" type="text" th:field="*{nome}" th:errorClass="is-invalid"/>
             <div class="invalid-feedback" th:errors="*{nome}"></div>
           </div>
 
-          <div class="form-group col-md-4">
-            <label for="sobreNome">Data:</label>
+          <div class="form-group col-md-6">
+            <label for="sobreNome">Sobre Nome:</label>
             <input class="form-control" id="sobreNome" type="text" th:field="*{sobrenome}"  th:errorclass="is-invalid"/>
             <div class="invalid-feedback" th:errors="*{sobrenome}"></div>
           </div>
+        </div>
+
+        <div class="row">
 
           <div class="form-group col-md-4">
-            <label for="login">Data:</label>
+            <label for="login">Login:</label>
             <input class="form-control" id="login" type="text" th:field="*{login}"  th:errorclass="is-invalid"/>
             <div class="invalid-feedback" th:errors="*{login}"></div>
           </div>
 
+          <div class="form-group col-4">
+
+            <fieldset id="items">
+              <label for="perfilSelect">Perfil:</label>
+              <select class="form-control" id="perfilSelect">
+                <option th:each="perfilItem : ${perfis}" th:text="${perfilItem.nome}" th:value="${perfilItem}">Nome do perfil</option>
+              </select>
+              <button class="btn btn-primary" type="button" name="addPerfil">Adicionar Perfil</button>
+            </fieldset>
+
+          </div>
+
+       <!-- <div class="form-group col-md-2 mt-3">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAddPerfil">Adicionar Perfil</button>
+            <div th:replace="~{usuario/fragmentos :: modalAddPerfil(${perfis},${usuario})}"></div>
+        </div>-->
+
         </div>
+
+        <div class="row">
+          <li class="list-group list-group-horizontal">
+            <ul class="list-group-item" th:each="perfil : ${usuario.perfis}" th:text="${perfil.nome}"></ul>
+          </li>
+        </div>
+
+
         <div class="form-group">
           <button class="btn btn-primary" type="submit">Salvar</button>
           <a class="btn btn-danger" href="#">Cancelar</a>
         </div>
 
       </form>
+
     </div>
   </div>
 
 </div>
+
+
+
 </body>
 </html>

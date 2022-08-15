@@ -50,9 +50,9 @@ public class PerfilController {
         mv.addObject("autorizacoesList",autorizacaoList);
         return mv;
       }else{
-        return "redirect:";
+        return mv;
       }
-       return mv;
+
     }
 
   @GetMapping("{id}/remover")

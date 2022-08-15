@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no"/>
+
+  <title>Feriado - Escala de Trabalho Automática</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="card mb-4"></div>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="/usuarios/listar">Usuarios</a></li>
+    <li class="breadcrumb-item active">Listar todos</li>
+  </ol>
+
+  <div class="card mb-4">
+    <div th:if="${usuarios != null}">
+
+      <div th:if="${mensagem != null}">
+        <div class="alert alert-info" role="alert">
+          <span th:text="${mensagem}">mensagem</span>
+        </div>
+      </div>
+      <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        Usuarios
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Login</th>
+              <th sec:authorize="hasRole('ROLE_USUARIO')">Ação</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+              <th>Nome</th>
+              <th>Login</th>
+              <th sec:authorize="hasRole('ROLE_USUARIO')">Ação</th>
+            </tr>
+            </tfoot>
+            <tbody>
+            <tr th:each="usuario : ${usuarios}">
+              <td >
+                <button type="button" class="btn btn-link" data-toggle="modal"
+                        th:attr="data-target='#inforUsuarioModal'+${usuario.nome}" th:text="${usuario.nome} + ' ' + ${usuario.sobrenome}">Nome</button>
+                <div th:replace="~{usuario/fragmentos :: modalList(${usuario})}"></div>
+              </td>
+              <td th:text="${usuario.login}">Login</td>
+
+              <td sec:authorize="hasRole('ROLE_USUARIO')">
+                <div class="btn-group" role="group" aria-label="Actions">
+                  <a class="btn btn-sm btn-info" href="#">Atualizar</a>
+                  <a class="btn btn-sm btn-danger" href="#" >Remover</a>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div th:if="${#lists.isEmpty(feriados)}">
+      <div class="alert alert-info" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign"></span>
+        0 feriados cadastrados!
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
