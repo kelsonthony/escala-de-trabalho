@@ -26,8 +26,8 @@
                                                 <div class="form-group">
                                                     <label class="small mb-1" for="selectTipoSolicitacao">Escolha sua solicitação</label>
                                                     <select class="form-control" id="selectTipoSolicitacao" name="tipo">
-                                                        <option>Recuperar senha</option>
-                                                        <option>Criar conta</option>
+                                                        <option th:selected="${param.recuperar}">Recuperar senha</option>
+                                                        <option th:selected="${param.criar}">Criar conta</option>
                                                     </select>
                                                 </div>
                                             </div>
