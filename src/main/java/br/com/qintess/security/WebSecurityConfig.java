@@ -1,7 +1,6 @@
 package br.com.qintess.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,7 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/js/**").permitAll()
                     .antMatchers("/assets/**").permitAll()
-                    .antMatchers("/contato-suporte").permitAll()
+                    .antMatchers("/suporte/cadastrar").permitAll()
+                    .antMatchers("/suporte/salvar").permitAll()
                     .antMatchers("/gerenciamento/**").hasRole("GERENCIAMENTO")
                     .antMatchers("/funcionarios/cadastrar").hasRole("FUNCIONARIO")
                     .antMatchers("/funcionarios/listar").hasRole("FUNCIONARIO_LISTAR")

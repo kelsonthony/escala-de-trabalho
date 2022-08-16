@@ -3,6 +3,7 @@ package br.com.qintess.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -13,18 +14,18 @@ public class Suporte {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
-    @Column(nullable = false, length = 6)
+    @NotBlank(message = "O RE não pode estar em branco.")
+    @Size(min = 8, max = 8, message = "O RE deve ter 8 caracteres e seguir o padrão.")
+    @Column(nullable = false, length = 8)
     private String re;
 
-    @NotBlank
-    @Size(min = 5, max = 255, message = "Tamanho deve estar entre 5 e 255")
+    @NotBlank(message = "O e-mail não pode estar em branco.")
+    @Size(min = 5, max = 250, message = "O e-mail deve ter entre 5 e 250 caracteres.")
     @Email
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 250)
     private String email;
 
     @NotBlank
-    @Size(min = 5, max = 25, message = "Tamanho deve estar entre 5 e 25")
     @Column(nullable = false, length = 25)
     private String solicitacao;
 
