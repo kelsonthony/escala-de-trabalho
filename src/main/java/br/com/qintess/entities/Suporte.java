@@ -29,6 +29,14 @@ public class Suporte {
     @Column(nullable = false, length = 25)
     private String solicitacao;
 
+    @NotBlank
+    @Column(nullable = false, length = 48)
+    private String userIp;
+
+    @NotNull
+    @Column(nullable = false, length = 1)
+    private char status;
+
     public long getId() {
         return id;
     }
@@ -59,5 +67,21 @@ public class Suporte {
 
     public void setSolicitacao(String solicitacao) {
         this.solicitacao = solicitacao;
+    }
+
+    public String getUserIp() {
+        return userIp;
+    }
+
+    public void setUserIp(String userIp) {
+        this.userIp = userIp;
+    }
+
+    public char getStatus() {
+        return status;
+    }
+
+    public void setStatus(char status) {
+        this.status = status;
     }
 }

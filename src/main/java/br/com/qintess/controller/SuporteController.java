@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -31,7 +32,10 @@ public class SuporteController {
     }
 
     @GetMapping("/cadastrar")
-    public String cadastrar(@ModelAttribute("suporte") Suporte suporte) {
+    public String cadastrar(@ModelAttribute("suporte") Suporte suporte,
+                            ModelMap model,
+                            HttpServletRequest request) {
+        model.addAttribute("userIp", request.getRemoteAddr());
         return "/suporte/add";
     }
 
@@ -43,9 +47,13 @@ public class SuporteController {
     @PostMapping("/salvar")
     public String salvar(@Valid @ModelAttribute("suporte") Suporte suporte,
                          BindingResult result,
-                         RedirectAttributes attr) {
-        if (result.hasErrors())
+                         RedirectAttributes attr,
+                         ModelMap model,
+                         HttpServletRequest request) {
+        if (result.hasErrors()) {
+            model.addAttribute("userIp", request.getRemoteAddr());
             return "/suporte/add";
+        }
 
         this.suporteService.salvar(suporte);
         attr.addFlashAttribute("mensagem", "Solicitação inserida com sucesso: Logo retornaremos o contato.");
