@@ -6,17 +6,32 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, user-scalable=no"/>
 
-  <title>Feriado - Escala de Trabalho Automática</title>
+  <title>Usuarios - Escala de Trabalho Automática</title>
 </head>
 <body>
 <div layout:fragment="content">
+
+  <div class="row mt-5">
+    <div class="col">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/templates/perfil/listar}">Listar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/usuarios/cadastrar}">Cadastrar</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
   <div class="card mb-4"></div>
   <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="/usuarios/listar">Usuarios</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/}">Dashboard</a></li>
     <li class="breadcrumb-item active">Listar todos</li>
   </ol>
 
-  <div class="card mb-4">
+  <div class="card mb-4 mt-3">
     <div th:if="${usuarios != null}">
 
       <div th:if="${mensagem != null}">
@@ -68,10 +83,10 @@
   </div>
 
   <div class="card mb-4">
-    <div th:if="${#lists.isEmpty(feriados)}">
+    <div th:if="${#lists.isEmpty(usuarios)}">
       <div class="alert alert-info" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign"></span>
-        0 feriados cadastrados!
+        0 usuarios cadastrados!
       </div>
     </div>
   </div>

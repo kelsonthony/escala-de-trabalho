@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.*;
 
 @Entity
@@ -25,14 +26,24 @@ public class Usuario implements UserDetails {
     @Column(name = "LOGIN", unique=true, length = 125, nullable = false)
     private String login;
 
+    @NotBlank
+    @Column(length = 8, nullable = false, unique = true)
+    private String matricula;
+
     @Column(name = "SENHA", length = 255, nullable = false)
     private String senha;
 
+    @NotBlank
     @Column(name = "NOME", length = 125, nullable = false)
     private String nome;
 
+    @NotBlank
     @Column(name = "SOBRENOME", length = 255, nullable = false)
     private String sobrenome;
+
+    @NotBlank
+    @Column(length = 255,nullable = false)
+    private String email;
 
     @ManyToMany
     @JoinTable(name = "TB_PERFIL_USUARIO",
@@ -114,15 +125,39 @@ public class Usuario implements UserDetails {
         this.nome = nome;
     }
 
-    public String getSobrenome() {
-        return sobrenome;
-    }
+  public String getSobrenome() {
+    return sobrenome;
+  }
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
+  public void setSobrenome(String sobrenome) {
+    this.sobrenome = sobrenome;
+  }
 
-    public List<Perfil> getPerfis() {
+  public Long getUsuarioId() {
+    return usuarioId;
+  }
+
+  public void setUsuarioId(Long usuarioId) {
+    this.usuarioId = usuarioId;
+  }
+
+  public String getMatricula() {
+    return matricula;
+  }
+
+  public void setMatricula(String matricula) {
+    this.matricula = matricula;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public List<Perfil> getPerfis() {
         return perfis;
     }
 

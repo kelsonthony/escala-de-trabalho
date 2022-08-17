@@ -16,7 +16,8 @@
 		<link rel="stylesheet" href="/assets/datatables/media/css/dataTables.bootstrap4.min.css">
 		<link rel="stylesheet" href="/assets/datatables/extensions/FixedColumns/css/fixedColumns.bootstrap4.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-	</head>
+
+  </head>
 	<body class="sb-nav-fixed">
 		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 			<a class="navbar-brand" href="/">Escala de Trabalho</a>
@@ -28,7 +29,7 @@
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 						<a class="dropdown-item" th:href="@{/meu-perfil/{id}(id=${usuarioId})}">Meu Perfil</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/templates/perfil/listar}">Usuários</a>
+						<a class="dropdown-item" sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/usuarios/listar}">Usuários</a>
 						<a class="dropdown-item" sec:authorize="hasRole('ROLE_PERFIL')" th:href="@{/perfil/listar}">Perfis</a>
 						<a class="dropdown-item" sec:authorize="hasRole('ROLE_LOG')" th:href="@{/log/listar}">Logs</a>
 						<div class="dropdown-divider"></div>
