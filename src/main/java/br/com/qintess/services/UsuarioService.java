@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service("usuarioService")
+@Transactional
 public class UsuarioService implements IUsuarioService {
 
     @Autowired
@@ -22,6 +23,7 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void salvar(Usuario usuario) {
         try {
             if (usuario.equals(null)) {

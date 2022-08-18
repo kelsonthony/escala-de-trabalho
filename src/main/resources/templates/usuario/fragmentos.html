@@ -23,3 +23,32 @@
 </div>
 
 
+<div th:fragment="modalUsuarioCadastrado(usuario)" xmlns="http://www.w3.org/1999/html">
+
+  <div class="modal fade" th:id="modalUsuarioCadastrado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitulo" th:text="${usuario.nome} + ' ' + ${usuario.sobrenome}">Perfil Título</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <ul>
+            <li th:text="'Nome:' + ${usuario.nome} + ' ' + ${usuario.sobrenome}">Nome completo</li>
+            <li th:text="'Login: ' + ${usuario.login}">Login</li>
+            <li th:text="'Senha: ' + ${usuario.senha}">Senha</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

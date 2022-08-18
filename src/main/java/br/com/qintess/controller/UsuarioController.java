@@ -1,22 +1,26 @@
 package br.com.qintess.controller;
 
+import br.com.qintess.entities.GeradorDeSenha;
 import br.com.qintess.entities.Perfil;
 import br.com.qintess.entities.Usuario;
 import br.com.qintess.services.interfaces.IPerfilService;
 import br.com.qintess.services.interfaces.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("usuario")
+@RequestMapping("usuarios")
 public class UsuarioController {
 
   @Autowired
@@ -32,23 +36,45 @@ public class UsuarioController {
     ModelAndView mv = new ModelAndView("usuario/add");
     mv.addObject("opcoes",opcoes);
     mv.addObject("usuario",usuario);
-    mv.addObject("perfis",this.perfilService.listar());
+    mv.addObject("perfisCadastrados",this.perfilService.listar());
     mv.addObject("perfisAdicionado",perfisAdicionado);
 
     return mv;
   }
 
-  @GetMapping("/cadastrar/adicionarperfil")
-  public String adicionarPerfil(@ModelAttribute("usuario") Usuario usuario, @ModelAttribute("perfisAdicionado") Perfil perfisAdicionado, RedirectAttributes attr){
+  @PostMapping("/salvar")
+  public ModelAndView adicionarPerfil(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, RedirectAttributes attr){
 
-      List<Perfil> listaPerfis = usuario.getPerfis();
+    Usuario novoUsuario = usuario;
+    novoUsuario.setLogin(usuario.getMatricula());
 
-      listaPerfis.add(perfisAdicionado);
-      usuario.setPerfis(listaPerfis);
+    GeradorDeSenha geradorDeSenha = new GeradorDeSenha();
+    String senha = geradorDeSenha.gerarSenha(8);
+    novoUsuario.setSenha(new BCryptPasswordEncoder().encode(senha));
 
-      attr.addFlashAttribute("usuario",usuario);
+    attr.addFlashAttribute("perfisCadastrados",this.perfilService.listar());
 
-      return "redirect:/usuario/cadastrar";
+    if(result.hasErrors()){
+      attr.addFlashAttribute("mensagem",result.getAllErrors());
+      return new ModelAndView("redirect:/usuario/cadastrar");
+    }
+
+    try{
+
+      this.usuarioService.salvar(novoUsuario);
+      usuario.setSenha(senha);
+
+      attr.addFlashAttribute("mensagem","Usuario cadastrado com sucesso");
+      attr.addFlashAttribute("usuarioCadastrado",usuario);
+
+
+
+    }catch (Exception e){
+      attr.addFlashAttribute("mensagem",e.getMessage());
+    }
+
+
+      return new ModelAndView("redirect:/usuarios/cadastrar");
 
   }
 
