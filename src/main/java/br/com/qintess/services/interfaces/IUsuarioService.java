@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface IUsuarioService {
 
-    void salvar(Usuario usuario, Perfil perfil);
+    void salvar(Usuario usuario);
     List<Usuario> listar();
     Usuario listarPorId(long id);
     Usuario listarPorNome(String nome);
