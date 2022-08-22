@@ -1,12 +1,9 @@
 package br.com.qintess.controller;
 
-
-import br.com.qintess.entities.dtos.CadastroUsuarioDto;
 import br.com.qintess.entities.Perfil;
 import br.com.qintess.entities.Usuario;
 import br.com.qintess.services.interfaces.IPerfilService;
 import br.com.qintess.services.interfaces.IUsuarioService;
-import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,8 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
+import java.util.List;;
 
 @Controller
 @RequestMapping("usuarios")
@@ -30,11 +26,11 @@ public class UsuarioController {
 
 
   @GetMapping("/cadastrar")
-  public ModelAndView cadastrar(@ModelAttribute("usuario") CadastroUsuarioDto usuarioDto, @ModelAttribute("perfil") Perfil perfil) {
+  public ModelAndView cadastrar(@ModelAttribute("usuario") Usuario usuario) {
 
     ModelAndView mv = new ModelAndView("usuario/add");
 
-    //mv.addObject("usuario",usuarioDto);
+
     mv.addObject("perfis",this.perfilService.listar());
     return mv;
   }
@@ -49,8 +45,12 @@ public class UsuarioController {
 
     try{
 
+      Usuario novoUsuario = usuario;
       Perfil perfil = this.perfilService.listarPorId(perfilId).get();
-      this.usuarioService.salvar(usuario,perfil);
+
+      novoUsuario.getPerfis().add(perfil);
+      this.usuarioService.salvar(usuario);
+
       attr.addFlashAttribute("mensagem","Usuário cadastrado com sucesso");
 
     }catch (Exception e){
@@ -137,11 +137,10 @@ public class UsuarioController {
       Usuario usuario = this.usuarioService.listarPorId(idUsuario);
       Perfil perfil = this.perfilService.listarPorId(idPerfil).get();
 
-      List<Perfil> perfilUsuario = usuario.getPerfis();
-      perfilUsuario.remove(perfil);
-      usuario.setPerfis(perfilUsuario);
 
-      //this.usuarioService.salvar(usuario);
+      usuario.getPerfis().remove(perfil);
+
+      this.usuarioService.salvar(usuario);
 
       model.addAttribute("usuario",usuario);
       model.addAttribute("perfis",this.perfilService.listar());

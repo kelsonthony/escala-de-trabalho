@@ -24,14 +24,13 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public void salvar(Usuario usuario, Perfil perfil) {
+    public void salvar(Usuario usuario) {
         try {
             if (usuario.equals(null)) {
                 throw new ConstraintViolationException(
                         "Erro ao tentar salvar o usuario (#Objeto vazio).", null, null);
             }
 
-            usuario.getPerfis().add(perfil);
             String encoded = new BCryptPasswordEncoder().encode(usuario.getSenha());
             usuario.setSenha(encoded);
         }
