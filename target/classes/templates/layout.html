@@ -31,6 +31,8 @@
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/usuarios/listar}">Usuários</a>
 						<a class="dropdown-item" sec:authorize="hasRole('ROLE_PERFIL')" th:href="@{/perfil/listar}">Perfis</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" sec:authorize="hasRole('ROLE_SUPORTE')" th:href="@{/suporte/listar}">Chamados</a>
 						<a class="dropdown-item" sec:authorize="hasRole('ROLE_LOG')" th:href="@{/log/listar}">Logs</a>
 						<div class="dropdown-divider"></div>
 						<form th:action="@{/logout}" method="post">
