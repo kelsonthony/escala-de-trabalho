@@ -15,9 +15,9 @@
     <div class="col">
       <ul class="nav nav-pills">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" th:href="@{/templates/perfil/listar}">Listar</a>
+          <a class="nav-link active" aria-current="page" th:href="@{/usuarios/listar}">Listar</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasRole('ROLE_USUARIO')">
           <a class="nav-link" th:href="@{/usuarios/cadastrar}">Cadastrar</a>
         </li>
       </ul>
@@ -36,9 +36,10 @@
 
       <div th:if="${mensagem != null}">
         <div class="alert alert-info" role="alert">
-          <span th:text="${mensagem}">mensagem</span>
+          <span th:text="${mensagem == null ? '&nbsp;' : mensagem}">mensagem</span>
         </div>
       </div>
+
       <div class="card-header">
         <i class="fas fa-table mr-1"></i>
         Usuarios
@@ -64,14 +65,15 @@
             <tr th:each="usuario : ${usuarios}">
               <td >
                 <button type="button" class="btn btn-link" data-toggle="modal"
-                        th:attr="data-target='#modalUsuarioInfo'+${usuario.nome}" th:text="${usuario.nome} + ' ' + ${usuario.sobrenome}">Nome</button>
+                        th:attr="data-target='#modalUsuarioInfo'+${usuario.login}" th:text="${usuario.nome} + ' ' + ${usuario.sobrenome}">Nome</button>
                 <div th:replace="~{usuario/fragmentos :: modalUsuarioInfo(${usuario})}"></div>
               </td>
               <td th:text="${usuario.login}">Login</td>
               <td>
                 <div class="btn-group" role="group" aria-label="Actions">
-                  <a class="btn btn-sm btn-info" href="#">Atualizar</a>
-                  <a class="btn btn-sm btn-danger" href="#" >Remover</a>
+                  <a class="btn btn-sm btn-info" th:href="@{/usuarios/{id}/atualizar(id=${usuario.id})}">Atualizar</a>
+                  <button class="btn btn-sm btn-danger" data-toggle="modal" th:attr="data-target='#modalRemover'+${usuario.login}">Remover</button>
+                  <div th:replace="~{usuario/fragmentos :: modalRemover(${usuario})}"></div>
                 </div>
               </td>
             </tr>

@@ -18,7 +18,7 @@
           <a class="nav-link" aria-current="page" th:href="@{/usuarios/listar}">Listar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" th:href="@{/usuarios/cadastrar}">Cadastrar</a>
+          <a class="nav-link" th:href="@{/usuarios/cadastrar}">Cadastrar</a>
         </li>
       </ul>
     </div>
@@ -26,8 +26,8 @@
 
   <div class="card mb-4"></div>
   <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a th:href="@{/}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Cadastro usuarios</li>
+    <li class="breadcrumb-item"><a th:href="@{/usuarios/listar}">Listar</a></li>
+    <li class="breadcrumb-item active">Atualizar usuario</li>
   </ol>
 
   <div th:if="${mensagem != null}">
@@ -38,9 +38,9 @@
 
   <div class="card mb-4">
     <div class="container">
-      <form th:action="@{/usuarios/salvar}" th:method="post" th:object="${usuario}">
+      <form th:action="@{/usuarios/atualizar/salvar}" th:method="put" th:object="${usuario}">
         <div class="row">
-
+          <input id="id" type="hidden" th:field="*{id}"/>
           <div class="form-group col-md-4">
             <label for="nome">Nome:</label>
             <input class="form-control" id="nome" type="text" th:field="*{nome}" th:errorClass="is-invalid"/>
@@ -74,25 +74,30 @@
             <div class="invalid-feedback" th:errors="*{login}"></div>
           </div>
 
-          <div class="form-group col-4" >
-            <label for="senha">Senha:</label>
-            <input class="form-control" id="senha" type="text" th:field="*{senha}"  th:errorclass="is-invalid"/>
-            <div class="invalid-feedback" th:errors="*{senha}"></div>
+          <div class="form-group col-4" th:object="${perfilId}">
+            <label for="perfis">Perfil:</label>
+            <select class="form-control" id="perfis" title="Selecione o perfil..." name="perfilId" >
+              <option th:each="perfilItem : ${perfis}" th:text="${perfilItem.nome}" th:value="${perfilItem.id}">Nome do perfil</option>
+            </select>
           </div>
-
         </div>
 
-        <div class="form-group col-4">
-          <label for="perfis">Perfil:</label>
-          <select class="form-control" id="perfis" title="Selecione o perfil..." name="perfilId">
-            <option th:each="perfilItem : ${perfis}" th:text="${perfilItem.nome}" th:value="${perfilItem.id}">Nome do perfil</option>
-          </select>
+        <div class="row">
+          <div class="col">
+            <table class="table table-bordered">
+              <tbody>
+              <tr th:each="perfilUsuario : ${usuario.perfis}">
+                <td th:text="${perfilUsuario.nome}"></td>
+                <td><a th:href="@{/usuarios/remover/{idUsuario}/perfil/{idPerfil}(idUsuario=${usuario.id},idPerfil=${perfilUsuario.id})}">Remover</a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-
 
         <div class="form-group">
           <button class="btn btn-primary" type="submit">Salvar</button>
-          <a class="btn btn-danger" href="#">Cancelar</a>
+          <a class="btn btn-danger" th:href="@{/usuarios/listar}">Voltar</a>
         </div>
 
       </form>
