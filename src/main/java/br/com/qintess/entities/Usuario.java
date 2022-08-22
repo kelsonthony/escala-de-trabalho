@@ -23,10 +23,10 @@ public class Usuario implements UserDetails {
     @Column(name = "ID")
     private Long usuarioId;
 
+    @NotBlank
     @Column(name = "LOGIN", unique=true, length = 125, nullable = false)
     private String login;
 
-    @NotBlank
     @Column(length = 8, nullable = false, unique = true)
     private String matricula;
 
@@ -45,7 +45,7 @@ public class Usuario implements UserDetails {
     @Column(length = 255,nullable = false)
     private String email;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(name = "TB_PERFIL_USUARIO",
             joinColumns = { @JoinColumn(name = "USUARIO_ID") },
             inverseJoinColumns = { @JoinColumn(name = "PERFIL_ID") })
