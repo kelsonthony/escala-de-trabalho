@@ -6,27 +6,50 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, user-scalable=no"/>
 
-    <title>Cargos - Escala de Trabalho Automática</title>
+    <title>Chamados para Suporte - Escala de Trabalho Automática</title>
 </head>
 <body>
     <div layout:fragment="content">
-        <div class="card mb-4"></div>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="/cargos/listar">Cargos</a></li>
-            <li class="breadcrumb-item active">Listar todos</li>
-        </ol>
-
+        <div class="mb-4"></div>
         <div class="card mb-4">
-            <div th:if="${cargos != null}">
-
+            <div class="container">
                 <div th:if="${mensagem != null}">
                     <div class="alert alert-info" role="alert">
-                        <span th:text="${mensagem}">mensagem</span>
+                        <span th:text="${mensagem == null ? '&nbsp;' : mensagem}">mensagem</span>
                     </div>
                 </div>
+                <form th:method="get">
+                    <div class="row">
+                        <div class="form-group col-md-5">
+                            <label for="solicitacao">Tipo da solicitação:</label>
+                            <select class="form-control" id="solicitacao" name="rt" aria-describedby="solicitacaoHelp">
+                                <option value="T">Todos</option>
+                                <option value="R">Recuperar senha</option>
+                                <option value="C">Criar conta</option>
+                            </select>
+                            <small id="solicitacaoHelp" class="form-text text-muted">Selecione o tipo de chamado ou todos para ver a lista completa.</small>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="status">Status da solicitação:</label>
+                            <select class="form-control" id="status" name="st" aria-describedby="statusHelp">
+                                <option value="T">Todos</option>
+                                <option value="A">Atendido</option>
+                                <option value="N">Não Atendido</option>
+                            </select>
+                            <small id="statusHelp" class="form-text text-muted">Selecione o status do chamado ou todos para ver a lista completa.</small>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <button class="btn btn-primary" style="margin-top:30px" type="submit">Selecionar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div th:if="${chamados != null}">
                 <div class="card-header">
                     <i class="fas fa-table mr-1"></i>
-                    Cargos dos Funcionários
+                    Chamados para Suporte
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -67,13 +90,10 @@
                 </div>
             </div>
         </div>
-
-        <div class="card mb-4">
-            <div th:if="${#lists.isEmpty(cargos)}">
-                <div class="alert alert-info" role="alert">
-                    <span class="glyphicon glyphicon-exclamation-sign"></span>
-                    0 cargos cadastrados!
-                </div>
+        <div th:if="${#lists.isEmpty(chamados)}">
+            <div class="alert alert-info" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                0 chamados cadastrados!
             </div>
         </div>
     </div>
