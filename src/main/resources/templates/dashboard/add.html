@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no"/>
+
+  <title>Dashboard Cliente - Escala de Trabalho Automática</title>
+</head>
+<body>
+  <div layout:fragment="content">
+    <div class="card mb-4"></div>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a th:href="@{/}">Dashboard</a></li>
+      <li class="breadcrumb-item active">Dashboard Cliente</li>
+    </ol>
+    <div th:if="${mensagem != null}">
+      <div class="alert alert-info" role="alert">
+        <span th:text="${mensagem}">mensagem</span>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <div class="container">
+
+        <form th:action="@{/dashboards/adicionar/cargo}" th:method="post" th:object="${especialidadeDto}">
+          <div class="row">
+
+            <div class="input-group col-4">
+              <span for="cargo" class="input-group-text">Cargo</span>
+              <select class="form-control" aria-label="Selecione um cargo" id="cargo" name="cargo">
+                <option value="0" selected>Selecione um cargo</option>
+                <option th:each="cargo : ${cargos}" th:text="${cargo.nome}" th:value="${cargo.cargoId}">Nome do cargo</option>
+              </select>
+            </div>
+
+            <div class="input-group col-3">
+              <span for="turno" class="input-group-text">Turno</span>
+              <select class="form-control" aria-label="Selecione um turno" id="turno" name="turno">
+                <option value="0" selected>Selecione um turno</option>
+                <option th:each="turno : ${turnos}" th:text="${turno.nome}" th:value="${turno.id}">Nome do turno</option>
+              </select>
+            </div>
+
+            <div class="input-group col-2">
+              <span class="input-group-text" for="quantidade">Quantidade</span>
+              <input type="number" min="1" class="form-control" id="quantidade" name="quantidade">
+            </div>
+
+            <div class="col-2">
+              <button type="submit" class="btn btn-primary">Adicionar</button>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <table class="table" name="dashboard">
+              <thead>
+              <tr>
+                <th scope="col">Cargo</th>
+                <th scope="col">Turno</th>
+                <th scope="col">Funcionario</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="especialidade : ${dashboard.especialidades}">
+                <td th:text="${especialidade.cargo.nome}">Nome do cargo</td>
+                <td th:text="${especialidade.turno.nome}">Nome do Turno</td>
+                <td th:if="${especialidade.funcionario != null}" th:text="${especialidade.funcionario.nome}"> Nome do Funcionário </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+
+
+  </div>
+</body>
+</html>

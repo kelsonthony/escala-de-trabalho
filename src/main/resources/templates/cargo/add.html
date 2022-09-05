@@ -39,6 +39,18 @@
             </div>
 
           </div>
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label for="cargaHorariaDia">Carga horária por dia :</label>
+              <input class="form-control" id="cargaHorariaDia" type="number" th:field="*{cargaHorariaDia}" th:errorclass="is-invalid"/>
+              <div class="invalid-feedback" th:errors="*{cargaHorariaDia}"></div>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="cargaHorariaMes">Carga horária por mês:</label>
+              <input class="form-control" id="cargaHorariaMes" type="text" th:field="*{cargaHorariaMes}" th:errorclass="is-invalid"/>
+              <div class="invalid-feedback" th:errors="*{cargaHorariaMes}"></div>
+            </div>
+          </div>
           <div class="form-group">
             <button class="btn btn-primary" type="submit">&nbsp; Salvar &nbsp;</button>
             <a class="btn btn-danger" th:href="@{/cargos/listar}">Cancelar</a>

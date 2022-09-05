@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -172,5 +173,20 @@ public class Mes {
 
   public void setDias(List<Dia> dias) {
     this.dias = dias;
+  }
+
+  public void calculaTotalHorasNormais(){
+
+    int TotalHorasEmSegundos = 0;
+
+    for (Dia dia: this.dias) {
+
+      int segundosDia = LocalTime.parse(dia.getTurno().getTotalHoras()).toSecondOfDay();
+      TotalHorasEmSegundos += segundosDia;
+
+    }
+
+    this.totalHorasNormais = (TotalHorasEmSegundos / 60)/60;
+
   }
 }

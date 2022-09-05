@@ -46,6 +46,7 @@ public class GerenciamentoMes implements IGerenciamentoMesService {
       mes.setDias(diasDoMes);
       mes.setTotalHorasNormais(calculaTotalHoras(diasDoMes));
 
+      mes.calculaTotalHorasNormais();
       this.mesService.atualizar(mes);
 
     }
@@ -57,6 +58,7 @@ public class GerenciamentoMes implements IGerenciamentoMesService {
       mes.setDias(diasDoMes);
       mes.setTotalHorasNormais(calculaTotalHoras(diasDoMes));
 
+      mes.calculaTotalHorasNormais();
       this.mesService.atualizar(mes);
 
     }

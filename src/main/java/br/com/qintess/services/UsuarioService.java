@@ -1,5 +1,6 @@
 package br.com.qintess.services;
 
+import br.com.qintess.entities.Perfil;
 import br.com.qintess.entities.Usuario;
 import br.com.qintess.repositories.UsuarioRepository;
 import br.com.qintess.services.interfaces.IUsuarioService;
@@ -23,13 +24,13 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public void salvar(Usuario usuario) {
         try {
             if (usuario.equals(null)) {
                 throw new ConstraintViolationException(
                         "Erro ao tentar salvar o usuario (#Objeto vazio).", null, null);
             }
+
             String encoded = new BCryptPasswordEncoder().encode(usuario.getSenha());
             usuario.setSenha(encoded);
         }
@@ -57,12 +58,27 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public void atualizar(Usuario usuario) {
-        usuarioRepository.atualizar(usuario);
+    public void atualizar(final Usuario usuario, final Perfil perfil) {
+
+         Usuario usuarioCadastrado = this.usuarioRepository.listarPorId(usuario.getUsuarioId());
+
+         usuarioCadastrado.setNome(usuario.getNome());
+         usuarioCadastrado.setSobrenome(usuario.getSobrenome());
+         usuarioCadastrado.setLogin(usuario.getLogin());
+         usuarioCadastrado.setMatricula(usuario.getMatricula());
+         usuarioCadastrado.setEmail(usuario.getEmail());
+
+         if(!usuarioCadastrado.getPerfis().contains(perfil)){
+           usuarioCadastrado.getPerfis().add(perfil);
+         }
+
+         usuarioRepository.atualizar(usuarioCadastrado);
+
     }
 
     @Override
     public void excluir(final long id) {
+
         Usuario usuario = usuarioRepository.listarPorId(id);
         if (usuario.equals(null))
             throw new ConstraintViolationException("Erro ao tentar remover o usuário (#Id não existe).", null, null);
