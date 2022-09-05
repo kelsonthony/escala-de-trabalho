@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/log/**").hasAnyRole("LOG")
                     .antMatchers("/usuario/**").hasAnyRole("USUARIO")
                     .antMatchers("/perfil/**").hasAnyRole("PERFIL")
+                    .antMatchers("/dashboards/**").hasAnyRole("DASHBOARD")
                     .anyRequest()
                     .authenticated()
                     .and()
